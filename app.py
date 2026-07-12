@@ -68,6 +68,26 @@ def validate_data(
             compatibility, COMPATIBILITY_COLUMNS, COMPATIBILITY_FILE.name
         )
     )
+    if not errors:
+        if devices.empty:
+            errors.append("devices.csv: at least one device row is required")
+        if roms.empty:
+            errors.append("roms.csv: at least one ROM row is required")
+
+        unknown_devices = sorted(
+            set(compatibility["device_id"]) - set(devices["device_id"])
+        )
+        unknown_roms = sorted(set(compatibility["rom_id"]) - set(roms["rom_id"]))
+
+        if unknown_devices:
+            errors.append(
+                "compatibility.csv: unknown device_id value(s): "
+                + ", ".join(unknown_devices)
+            )
+        if unknown_roms:
+            errors.append(
+                "compatibility.csv: unknown rom_id value(s): " + ", ".join(unknown_roms)
+            )
     return errors
 
 
@@ -101,7 +121,7 @@ def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
         ["device_type", "brand", "device", "model", "chipset", "android_version"]
     ].agg(" ".join, axis=1)
     return devices[
-        searchable.str.contains(query, case=False, na=False)
+        searchable.str.contains(query, case=False, na=False, regex=False)
     ].sort_values(["device_type", "brand", "device", "model"])
 
 
@@ -183,23 +203,40 @@ def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
     selected_device_id = ""
 
     if lookup_method == "Guided selection":
+        device_types = sorted(devices["device_type"].unique())
+        if not device_types:
+            st.warning("No device types are available.")
+            return
+
         device_type = st.selectbox(
-            "Device type", sorted(devices["device_type"].unique()), key="device_type"
+            "Device type", device_types, key="device_type"
         )
         type_devices = devices[devices["device_type"] == device_type]
+        brands = sorted(type_devices["brand"].unique())
+        if not brands:
+            st.warning("No brands are available for the selected device type.")
+            return
 
-        brand = st.selectbox("Brand", sorted(type_devices["brand"].unique()), key="brand")
+        brand = st.selectbox("Brand", brands, key="brand")
         brand_devices = type_devices[type_devices["brand"] == brand].sort_values(
             ["device", "model"]
         )
+        device_names = sorted(brand_devices["device"].unique())
+        if not device_names:
+            st.warning("No devices are available for the selected brand.")
+            return
 
         device = st.selectbox(
-            "Device", sorted(brand_devices["device"].unique()), key="device"
+            "Device", device_names, key="device"
         )
         model_options = brand_devices[brand_devices["device"] == device].sort_values("model")
+        if model_options.empty:
+            st.warning("No models are available for the selected device.")
+            return
 
         model_label_map = {
-            row["model"]: row["device_id"] for _, row in model_options.iterrows()
+            f"{row['model']} [{row['device_id']}]": row["device_id"]
+            for _, row in model_options.iterrows()
         }
         model = st.selectbox("Model", list(model_label_map.keys()), key="model")
         selected_device_id = model_label_map[model]
@@ -247,6 +284,10 @@ def rom_lookup(roms: pd.DataFrame, catalog: pd.DataFrame) -> None:
     rom_options = {
         rom_label(row): row["rom_id"] for _, row in roms.sort_values("name").iterrows()
     }
+    if not rom_options:
+        st.warning("No ROMs are available.")
+        return
+
     selected_label = st.selectbox(
         "ROM",
         list(rom_options.keys()),
