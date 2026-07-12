@@ -59,6 +59,14 @@ def test_filter_device_options_searches_multiple_fields_case_insensitively():
     assert by_brand["device_id"].tolist() == ["nothing_phone_1"]
 
 
+def test_filter_device_options_treats_search_as_literal_text():
+    devices, _, _ = load_data()
+
+    results = filter_device_options(devices, "[")
+
+    assert results.empty
+
+
 def test_filter_device_options_empty_query_returns_all_devices_sorted():
     devices, _, _ = load_data()
 
@@ -70,12 +78,41 @@ def test_filter_device_options_empty_query_returns_all_devices_sorted():
     assert labels[-1] == "Phone - Xiaomi Redmi Note 10 Pro M2101K6G"
 
 
-def test_validate_data_accepts_minimal_valid_frames():
+def test_validate_data_rejects_empty_device_and_rom_data():
     devices = pd.DataFrame(columns=sorted(DEVICE_COLUMNS))
     roms = pd.DataFrame(columns=sorted(ROM_COLUMNS))
     compatibility = pd.DataFrame(columns=sorted(COMPATIBILITY_COLUMNS))
 
-    assert validate_data(devices, roms, compatibility) == []
+    assert validate_data(devices, roms, compatibility) == [
+        "devices.csv: at least one device row is required",
+        "roms.csv: at least one ROM row is required",
+    ]
+
+
+def test_validate_data_reports_unknown_compatibility_references():
+    devices, roms, compatibility = load_data()
+    invalid_compatibility = pd.concat(
+        [
+            compatibility,
+            pd.DataFrame(
+                [
+                    {
+                        "device_id": "unknown_device",
+                        "rom_id": "unknown_rom",
+                        "support_level": "Testing",
+                        "notes": "",
+                        "last_verified": "2026-07-12",
+                    }
+                ]
+            ),
+        ],
+        ignore_index=True,
+    )
+
+    assert validate_data(devices, roms, invalid_compatibility) == [
+        "compatibility.csv: unknown device_id value(s): unknown_device",
+        "compatibility.csv: unknown rom_id value(s): unknown_rom",
+    ]
 
 
 def test_guided_lookup_includes_device_type_selector():
