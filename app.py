@@ -88,6 +88,18 @@ def rom_label(row: pd.Series) -> str:
     return f"{row['name']} {row['version']} - Android {row['android_version']}"
 
 
+def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
+    if not query:
+        return devices.sort_values(["brand", "device", "model"])
+
+    searchable = devices[
+        ["brand", "device", "model", "codename", "chipset", "android_version"]
+    ].agg(" ".join, axis=1)
+    return devices[searchable.str.contains(query, case=False, na=False)].sort_values(
+        ["brand", "device", "model"]
+    )
+
+
 def show_rom_results(results: pd.DataFrame) -> None:
     if results.empty:
         st.warning("No compatible ROMs were found for the selected device.")
@@ -179,17 +191,24 @@ def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
         model = st.selectbox("Model", list(model_label_map.keys()))
         selected_device_id = model_label_map[model]
     else:
+        search_query = st.text_input(
+            "Search by brand, device, model, codename, chipset, or Android version",
+            placeholder="Example: Pixel 7, panther, OnePlus, Snapdragon",
+        ).strip()
+        matching_devices = filter_device_options(devices, search_query)
+
+        if matching_devices.empty:
+            st.warning("No devices match that search.")
+            return
+
         search_options = {
-            device_label(row): row["device_id"] for _, row in devices.sort_values("brand").iterrows()
+            device_label(row): row["device_id"] for _, row in matching_devices.iterrows()
         }
         selected_label = st.selectbox(
-            "Search by brand, device, model, or codename",
+            "Matching devices",
             list(search_options.keys()),
-            index=None,
-            placeholder="Start typing a device name",
         )
-        if selected_label:
-            selected_device_id = search_options[selected_label]
+        selected_device_id = search_options[selected_label]
 
     if not selected_device_id:
         st.info("Select a device to view compatible ROMs.")
@@ -216,13 +235,7 @@ def rom_lookup(roms: pd.DataFrame, catalog: pd.DataFrame) -> None:
     selected_label = st.selectbox(
         "ROM",
         list(rom_options.keys()),
-        index=None,
-        placeholder="Start typing a ROM name",
     )
-
-    if not selected_label:
-        st.info("Select a ROM to view compatible devices.")
-        return
 
     selected_rom_id = rom_options[selected_label]
     results = catalog[catalog["rom_id"] == selected_rom_id].sort_values(
