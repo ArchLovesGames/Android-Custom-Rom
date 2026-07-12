@@ -60,6 +60,32 @@ Start the Streamlit app:
 streamlit run app.py
 ```
 
+## Testing
+
+Install development dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Run tests:
+
+```bash
+pytest
+```
+
+Run pre-commit checks manually:
+
+```bash
+pre-commit run --all-files
+```
+
+Install the Git hook:
+
+```bash
+pre-commit install
+```
+
 ## Deployment
 
 The app is intended to be hosted on Streamlit. After the app files and dependency list are available, deploy it through Streamlit Community Cloud or another Streamlit-compatible hosting environment.
