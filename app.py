@@ -11,10 +11,10 @@ COMPATIBILITY_FILE = DATA_DIR / "compatibility.csv"
 
 DEVICE_COLUMNS = {
     "device_id",
+    "device_type",
     "brand",
     "device",
     "model",
-    "codename",
     "android_version",
     "chipset",
 }
@@ -80,11 +80,13 @@ def build_catalog(
         how="left",
         suffixes=("_device", "_rom"),
     )
-    return catalog.sort_values(["brand", "device", "model", "name"]).reset_index(drop=True)
+    return catalog.sort_values(
+        ["device_type", "brand", "device", "model", "name"]
+    ).reset_index(drop=True)
 
 
 def device_label(row: pd.Series) -> str:
-    return f"{row['brand']} {row['device']} {row['model']} ({row['codename']})"
+    return f"{row['device_type']} - {row['brand']} {row['device']} {row['model']}"
 
 
 def rom_label(row: pd.Series) -> str:
@@ -93,14 +95,14 @@ def rom_label(row: pd.Series) -> str:
 
 def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
     if not query:
-        return devices.sort_values(["brand", "device", "model"])
+        return devices.sort_values(["device_type", "brand", "device", "model"])
 
     searchable = devices[
-        ["brand", "device", "model", "codename", "chipset", "android_version"]
+        ["device_type", "brand", "device", "model", "chipset", "android_version"]
     ].agg(" ".join, axis=1)
-    return devices[searchable.str.contains(query, case=False, na=False)].sort_values(
-        ["brand", "device", "model"]
-    )
+    return devices[
+        searchable.str.contains(query, case=False, na=False)
+    ].sort_values(["device_type", "brand", "device", "model"])
 
 
 def show_rom_results(results: pd.DataFrame) -> None:
@@ -144,9 +146,9 @@ def show_device_results(results: pd.DataFrame) -> None:
     display = results[
         [
             "brand",
+            "device_type",
             "device",
             "model",
-            "codename",
             "android_version_device",
             "chipset",
             "support_level",
@@ -156,9 +158,9 @@ def show_device_results(results: pd.DataFrame) -> None:
     ].rename(
         columns={
             "brand": "Brand",
+            "device_type": "Type",
             "device": "Device",
             "model": "Model",
-            "codename": "Codename",
             "android_version_device": "Device Android",
             "chipset": "Chipset",
             "support_level": "Support",
@@ -181,8 +183,15 @@ def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
     selected_device_id = ""
 
     if lookup_method == "Guided selection":
-        brand = st.selectbox("Brand", sorted(devices["brand"].unique()), key="brand")
-        brand_devices = devices[devices["brand"] == brand].sort_values(["device", "model"])
+        device_type = st.selectbox(
+            "Device type", sorted(devices["device_type"].unique()), key="device_type"
+        )
+        type_devices = devices[devices["device_type"] == device_type]
+
+        brand = st.selectbox("Brand", sorted(type_devices["brand"].unique()), key="brand")
+        brand_devices = type_devices[type_devices["brand"] == brand].sort_values(
+            ["device", "model"]
+        )
 
         device = st.selectbox(
             "Device", sorted(brand_devices["device"].unique()), key="device"
@@ -190,15 +199,14 @@ def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
         model_options = brand_devices[brand_devices["device"] == device].sort_values("model")
 
         model_label_map = {
-            f"{row['model']} ({row['codename']})": row["device_id"]
-            for _, row in model_options.iterrows()
+            row["model"]: row["device_id"] for _, row in model_options.iterrows()
         }
         model = st.selectbox("Model", list(model_label_map.keys()), key="model")
         selected_device_id = model_label_map[model]
     else:
         search_query = st.text_input(
-            "Search by brand, device, model, codename, chipset, or Android version",
-            placeholder="Example: Pixel 7, panther, OnePlus, Snapdragon",
+            "Search by type, brand, device, model, chipset, or Android version",
+            placeholder="Example: Phone, Pixel 7, OnePlus, Snapdragon",
             key="device_search_query",
         ).strip()
         matching_devices = filter_device_options(devices, search_query)
@@ -223,8 +231,8 @@ def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
 
     selected = devices[devices["device_id"] == selected_device_id].iloc[0]
     st.caption(
-        f"Selected: {selected['brand']} {selected['device']} {selected['model']} "
-        f"({selected['codename']})"
+        f"Selected: {selected['device_type']} - {selected['brand']} "
+        f"{selected['device']} {selected['model']}"
     )
 
     results = catalog[catalog["device_id"] == selected_device_id].sort_values(
@@ -247,7 +255,7 @@ def rom_lookup(roms: pd.DataFrame, catalog: pd.DataFrame) -> None:
 
     selected_rom_id = rom_options[selected_label]
     results = catalog[catalog["rom_id"] == selected_rom_id].sort_values(
-        ["brand", "device", "model"]
+        ["device_type", "brand", "device", "model"]
     )
     show_device_results(results)
 
@@ -274,7 +282,7 @@ def main() -> None:
     catalog = build_catalog(devices, roms, compatibility)
 
     metric_columns = st.columns(3)
-    metric_columns[0].metric("Brands", devices["brand"].nunique())
+    metric_columns[0].metric("Device types", devices["device_type"].nunique())
     metric_columns[1].metric("Devices", devices["device_id"].nunique())
     metric_columns[2].metric("ROMs", roms["rom_id"].nunique())
 

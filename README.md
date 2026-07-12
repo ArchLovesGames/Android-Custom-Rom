@@ -111,7 +111,7 @@ Current sample data lives in:
 
 Expected columns:
 
-- `devices.csv`: `device_id`, `brand`, `device`, `model`, `codename`, `android_version`, `chipset`
+- `devices.csv`: `device_id`, `device_type`, `brand`, `device`, `model`, `android_version`, `chipset`
 - `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
 - `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `notes`, `last_verified`
 
