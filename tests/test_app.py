@@ -74,8 +74,10 @@ def test_filter_device_options_empty_query_returns_all_devices_sorted():
     labels = [device_label(row) for _, row in results.iterrows()]
 
     assert len(results) == len(devices)
-    assert labels[0] == "Phone - Google Pixel 6a G1AZG"
-    assert labels[-1] == "Phone - Xiaomi Redmi Note 10 Pro M2101K6G"
+    assert labels[0] == "Phone - Google Pixel 6a G1AZG [pixel_6a]"
+    assert labels[-1] == (
+        "Phone - Xiaomi Redmi Note 10 Pro M2101K6G [redmi_note_10_pro]"
+    )
 
 
 def test_validate_data_rejects_empty_device_and_rom_data():
@@ -132,3 +134,32 @@ def test_lookup_views_are_mounted_together():
     assert not app.exception
     assert app.selectbox(key="device_type").label == "Device type"
     assert app.selectbox(key="rom").label == "ROM"
+
+
+def test_guided_and_direct_device_lookup_views_are_mounted_together():
+    app = AppTest.from_file("app.py")
+
+    app.run()
+
+    assert not app.exception
+    assert app.selectbox(key="device_type").label == "Device type"
+    assert app.text_input(key="device_search_query").label.startswith("Search by type")
+
+
+def test_direct_lookup_search_does_not_render_all_devices_by_default():
+    app = AppTest.from_file("app.py")
+
+    app.run()
+
+    assert not app.exception
+    assert all(selectbox.label != "Matching devices" for selectbox in app.selectbox)
+
+
+def test_direct_lookup_search_limits_matching_options():
+    app = AppTest.from_file("app.py")
+
+    app.run()
+    app.text_input(key="device_search_query").set_value("Phone").run()
+
+    assert not app.exception
+    assert app.selectbox(key="matching_device_Phone").label == "Matching devices"
