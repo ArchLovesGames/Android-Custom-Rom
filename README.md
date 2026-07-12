@@ -10,8 +10,9 @@ The project is for Android enthusiasts, contributors, and maintainers who need a
 
 ## Features
 
-- Search custom ROMs by Android device
+- Search custom ROMs by Android device using guided selection or direct search
 - Search compatible devices by custom ROM
+- Guided device selection by device type, brand, device, and model
 - Dataset-driven results
 - Streamlit-based web interface
 - Simple filtering workflow for ROM and device compatibility
@@ -115,6 +116,8 @@ Expected columns:
 - `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
 - `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `notes`, `last_verified`
 
+The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
+
 ## Environment Variables
 
 No environment variables are currently required.
@@ -134,8 +137,7 @@ Project documentation should include:
 
 - Replace sample data with the production ROM compatibility dataset
 - Add screenshots of the app
-- Add filtering improvements for device brand, model, Android version, and ROM name
-- Add tests for dataset parsing and filtering logic
+- Add filtering improvements for ROM name and Android version
 
 ## Screenshots
 
