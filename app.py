@@ -34,11 +34,19 @@ COMPATIBILITY_COLUMNS = {
     "notes",
     "last_verified",
 }
+DIRECT_SEARCH_MIN_CHARS = 2
+DIRECT_SEARCH_RESULT_LIMIT = 100
 
 
 @st.cache_data
 def load_csv(path: Path) -> pd.DataFrame:
-    return pd.read_csv(path, dtype=str).fillna("")
+    frame = pd.read_csv(path, dtype=str).fillna("")
+    frame.columns = frame.columns.str.strip()
+
+    for column in frame.columns:
+        frame[column] = frame[column].str.strip()
+
+    return frame
 
 
 def find_missing_columns(
@@ -106,7 +114,10 @@ def build_catalog(
 
 
 def device_label(row: pd.Series) -> str:
-    return f"{row['device_type']} - {row['brand']} {row['device']} {row['model']}"
+    return (
+        f"{row['device_type']} - {row['brand']} {row['device']} "
+        f"{row['model']} [{row['device_id']}]"
+    )
 
 
 def rom_label(row: pd.Series) -> str:
@@ -191,77 +202,9 @@ def show_device_results(results: pd.DataFrame) -> None:
     st.dataframe(display, use_container_width=True, hide_index=True)
 
 
-def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
-    st.subheader("Find compatible ROMs")
-
-    lookup_method = st.radio(
-        "Device lookup method",
-        ["Guided selection", "Direct search"],
-        key="device_lookup_method",
-    )
-
-    selected_device_id = ""
-
-    if lookup_method == "Guided selection":
-        device_types = sorted(devices["device_type"].unique())
-        if not device_types:
-            st.warning("No device types are available.")
-            return
-
-        device_type = st.selectbox(
-            "Device type", device_types, key="device_type"
-        )
-        type_devices = devices[devices["device_type"] == device_type]
-        brands = sorted(type_devices["brand"].unique())
-        if not brands:
-            st.warning("No brands are available for the selected device type.")
-            return
-
-        brand = st.selectbox("Brand", brands, key="brand")
-        brand_devices = type_devices[type_devices["brand"] == brand].sort_values(
-            ["device", "model"]
-        )
-        device_names = sorted(brand_devices["device"].unique())
-        if not device_names:
-            st.warning("No devices are available for the selected brand.")
-            return
-
-        device = st.selectbox(
-            "Device", device_names, key="device"
-        )
-        model_options = brand_devices[brand_devices["device"] == device].sort_values("model")
-        if model_options.empty:
-            st.warning("No models are available for the selected device.")
-            return
-
-        model_label_map = {
-            f"{row['model']} [{row['device_id']}]": row["device_id"]
-            for _, row in model_options.iterrows()
-        }
-        model = st.selectbox("Model", list(model_label_map.keys()), key="model")
-        selected_device_id = model_label_map[model]
-    else:
-        search_query = st.text_input(
-            "Search by type, brand, device, model, chipset, or Android version",
-            placeholder="Example: Phone, Pixel 7, OnePlus, Snapdragon",
-            key="device_search_query",
-        ).strip()
-        matching_devices = filter_device_options(devices, search_query)
-
-        if matching_devices.empty:
-            st.warning("No devices match that search.")
-            return
-
-        search_options = {
-            device_label(row): row["device_id"] for _, row in matching_devices.iterrows()
-        }
-        selected_label = st.selectbox(
-            "Matching devices",
-            list(search_options.keys()),
-            key="matching_device",
-        )
-        selected_device_id = search_options[selected_label]
-
+def show_selected_device_roms(
+    devices: pd.DataFrame, catalog: pd.DataFrame, selected_device_id: str
+) -> None:
     if not selected_device_id:
         st.info("Select a device to view compatible ROMs.")
         return
@@ -276,6 +219,94 @@ def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
         ["support_level", "name"]
     )
     show_rom_results(results)
+
+
+def guided_device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
+    device_types = sorted(devices["device_type"].unique())
+    if not device_types:
+        st.warning("No device types are available.")
+        return
+
+    device_type = st.selectbox("Device type", device_types, key="device_type")
+    type_devices = devices[devices["device_type"] == device_type]
+    brands = sorted(type_devices["brand"].unique())
+    if not brands:
+        st.warning("No brands are available for the selected device type.")
+        return
+
+    brand = st.selectbox("Brand", brands, key=f"brand_{device_type}")
+    brand_devices = type_devices[type_devices["brand"] == brand].sort_values(
+        ["device", "model"]
+    )
+    device_names = sorted(brand_devices["device"].unique())
+    if not device_names:
+        st.warning("No devices are available for the selected brand.")
+        return
+
+    device = st.selectbox("Device", device_names, key=f"device_{device_type}_{brand}")
+    model_options = brand_devices[brand_devices["device"] == device].sort_values("model")
+    if model_options.empty:
+        st.warning("No models are available for the selected device.")
+        return
+
+    model_label_map = {
+        f"{row['model']} [{row['device_id']}]": row["device_id"]
+        for _, row in model_options.iterrows()
+    }
+    model = st.selectbox(
+        "Model",
+        list(model_label_map.keys()),
+        key=f"model_{device_type}_{brand}_{device}",
+    )
+
+    show_selected_device_roms(devices, catalog, model_label_map[model])
+
+
+def direct_device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
+    search_query = st.text_input(
+        "Search by type, brand, device, model, chipset, or Android version",
+        placeholder="Example: Phone, Pixel 7, OnePlus, Snapdragon",
+        key="device_search_query",
+    ).strip()
+
+    if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
+        st.info(f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search devices.")
+        return
+
+    matching_devices = filter_device_options(devices, search_query)
+    if matching_devices.empty:
+        st.warning("No devices match that search.")
+        return
+
+    visible_matches = matching_devices.head(DIRECT_SEARCH_RESULT_LIMIT)
+    if len(matching_devices) > DIRECT_SEARCH_RESULT_LIMIT:
+        st.caption(
+            f"Showing the first {DIRECT_SEARCH_RESULT_LIMIT} of "
+            f"{len(matching_devices)} matches. Refine the search to narrow results."
+        )
+
+    search_options = {
+        device_label(row): row["device_id"] for _, row in visible_matches.iterrows()
+    }
+    selected_label = st.selectbox(
+        "Matching devices",
+        list(search_options.keys()),
+        key=f"matching_device_{search_query}",
+    )
+
+    show_selected_device_roms(devices, catalog, search_options[selected_label])
+
+
+def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
+    st.subheader("Find compatible ROMs")
+
+    guided_tab, direct_tab = st.tabs(["Guided selection", "Direct search"])
+
+    with guided_tab:
+        guided_device_lookup(devices, catalog)
+
+    with direct_tab:
+        direct_device_lookup(devices, catalog)
 
 
 def rom_lookup(roms: pd.DataFrame, catalog: pd.DataFrame) -> None:
