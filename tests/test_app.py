@@ -109,12 +109,12 @@ def sample_frames():
     return devices, roms, compatibility
 
 
-def test_format_files_match_required_schema():
+def test_dataset_and_format_files_match_required_schema():
     devices, roms, compatibility = load_data()
 
     assert not DEVICES_FILE.exists()
-    assert not ROMS_FILE.exists()
     assert not COMPATIBILITY_FILE.exists()
+    assert ROMS_FILE.exists()
     assert DEVICES_FORMAT_FILE.exists()
     assert ROMS_FORMAT_FILE.exists()
     assert COMPATIBILITY_FORMAT_FILE.exists()
@@ -123,6 +123,17 @@ def test_format_files_match_required_schema():
     assert COMPATIBILITY_COLUMNS.issubset(compatibility.columns)
     assert validate_data(devices, roms, compatibility) == []
     assert not has_dataset_rows(devices, roms, compatibility)
+
+
+def test_rom_dataset_is_populated_and_normalized():
+    _, roms, _ = load_data()
+
+    assert len(roms) >= 200
+    assert roms["rom_id"].is_unique
+    assert roms["name"].is_unique
+    assert not (roms == "").any().any()
+    assert "not found" in set(roms["version"])
+    assert {"active", "discontinued", "not found"}.issuperset(set(roms["status"]))
 
 
 def test_validate_data_reports_missing_columns():

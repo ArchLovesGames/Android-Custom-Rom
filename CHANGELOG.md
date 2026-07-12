@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project uses app versions to track user-facing Streamlit application changes. The MVP is versioned as `v0.0.1`; the app should move to `v1.0.0` after the production dataset is ready and the app is deployed.
 
+## [Unreleased]
+
+### Added
+
+- Populated `data/roms.csv` with normalized ROM metadata from requested public sources.
+
 ## [v0.0.1] - 2026-07-12
 
 ### Added

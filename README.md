@@ -118,6 +118,14 @@ Expected columns:
 
 The checked-in `*_format.csv` files contain headers only. Add production rows in `data/devices.csv`, `data/roms.csv`, and `data/compatibility.csv` when the dataset is ready. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
 
+The ROM dataset is populated in `data/roms.csv`. It combines available ROM metadata from:
+
+- `devadigax/awesome-android-custom-rom`
+- Wikipedia's list of custom Android distributions
+- The requested Reddit discussion where ROM names were visible
+
+Fields that were unavailable in the sources are set to `not found`.
+
 ## Environment Variables
 
 No environment variables are currently required.
