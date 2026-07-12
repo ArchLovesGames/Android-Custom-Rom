@@ -122,3 +122,13 @@ def test_guided_lookup_includes_device_type_selector():
 
     assert not app.exception
     assert app.selectbox(key="device_type").label == "Device type"
+
+
+def test_lookup_views_are_mounted_together():
+    app = AppTest.from_file("app.py")
+
+    app.run()
+
+    assert not app.exception
+    assert app.selectbox(key="device_type").label == "Device type"
+    assert app.selectbox(key="rom").label == "ROM"

@@ -327,15 +327,12 @@ def main() -> None:
     metric_columns[1].metric("Devices", devices["device_id"].nunique())
     metric_columns[2].metric("ROMs", roms["rom_id"].nunique())
 
-    mode = st.radio(
-        "Lookup type",
-        ["Device to ROMs", "ROM to devices"],
-        key="lookup_type",
-    )
+    device_tab, rom_tab = st.tabs(["Device to ROMs", "ROM to devices"])
 
-    if mode == "Device to ROMs":
+    with device_tab:
         device_lookup(devices, catalog)
-    else:
+
+    with rom_tab:
         rom_lookup(roms, catalog)
 
 
