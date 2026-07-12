@@ -9,6 +9,7 @@ This project uses app versions to track user-facing Streamlit application change
 ### Added
 
 - Populated `data/roms.csv` with normalized ROM metadata from requested public sources.
+- Enriched ROM metadata by checking available project websites and filling high-confidence maintainer, website, Android version, version, and status fields.
 
 ## [v0.0.1] - 2026-07-12
 
