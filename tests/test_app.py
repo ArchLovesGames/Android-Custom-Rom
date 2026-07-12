@@ -3,8 +3,14 @@ from streamlit.testing.v1 import AppTest
 
 from app import (
     COMPATIBILITY_COLUMNS,
+    COMPATIBILITY_FORMAT_FILE,
+    COMPATIBILITY_FILE,
     DEVICE_COLUMNS,
+    DEVICES_FORMAT_FILE,
+    DEVICES_FILE,
     ROM_COLUMNS,
+    ROMS_FORMAT_FILE,
+    ROMS_FILE,
     build_catalog,
     device_label,
     filter_device_options,
@@ -106,6 +112,12 @@ def sample_frames():
 def test_format_files_match_required_schema():
     devices, roms, compatibility = load_data()
 
+    assert not DEVICES_FILE.exists()
+    assert not ROMS_FILE.exists()
+    assert not COMPATIBILITY_FILE.exists()
+    assert DEVICES_FORMAT_FILE.exists()
+    assert ROMS_FORMAT_FILE.exists()
+    assert COMPATIBILITY_FORMAT_FILE.exists()
     assert DEVICE_COLUMNS.issubset(devices.columns)
     assert ROM_COLUMNS.issubset(roms.columns)
     assert COMPATIBILITY_COLUMNS.issubset(compatibility.columns)
