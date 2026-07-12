@@ -77,6 +77,18 @@ The app uses a dataset containing Android devices, custom ROMs, and compatibilit
 - Device to compatible ROMs
 - ROM to compatible devices
 
+Current sample data lives in:
+
+- `data/devices.csv`
+- `data/roms.csv`
+- `data/compatibility.csv`
+
+Expected columns:
+
+- `devices.csv`: `device_id`, `brand`, `device`, `model`, `codename`, `android_version`, `chipset`
+- `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
+- `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `notes`, `last_verified`
+
 ## Environment Variables
 
 No environment variables are currently required.
@@ -94,9 +106,7 @@ Project documentation should include:
 
 ## Roadmap
 
-- Add the Streamlit application source code
-- Add the ROM compatibility dataset
-- Document the dataset schema
+- Replace sample data with the production ROM compatibility dataset
 - Add screenshots of the app
 - Add filtering improvements for device brand, model, Android version, and ROM name
 - Add tests for dataset parsing and filtering logic
