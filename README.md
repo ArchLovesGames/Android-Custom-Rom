@@ -191,4 +191,4 @@ https://code.swecha.org/mobile-freedom/custom-rom/-/issues
 
 ## License
 
-No license file is currently present in this repository. Add a license before publishing or distributing the project as open source.
+This project is licensed under the GNU Affero General Public License v3.0. See `LICENSE` for details.
