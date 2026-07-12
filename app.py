@@ -76,12 +76,7 @@ def validate_data(
             compatibility, COMPATIBILITY_COLUMNS, COMPATIBILITY_FILE.name
         )
     )
-    if not errors:
-        if devices.empty:
-            errors.append("devices.csv: at least one device row is required")
-        if roms.empty:
-            errors.append("roms.csv: at least one ROM row is required")
-
+    if not errors and not devices.empty and not roms.empty:
         unknown_devices = sorted(
             set(compatibility["device_id"]) - set(devices["device_id"])
         )
@@ -97,6 +92,12 @@ def validate_data(
                 "compatibility.csv: unknown rom_id value(s): " + ", ".join(unknown_roms)
             )
     return errors
+
+
+def has_dataset_rows(
+    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
+) -> bool:
+    return not devices.empty and not roms.empty and not compatibility.empty
 
 
 def build_catalog(
@@ -349,6 +350,14 @@ def main() -> None:
         st.error("Dataset schema validation failed.")
         for error in data_errors:
             st.write(f"- {error}")
+        return
+
+    if not has_dataset_rows(devices, roms, compatibility):
+        st.info(
+            "Dataset files currently define the required CSV format. Add production "
+            "rows to `data/devices.csv`, `data/roms.csv`, and "
+            "`data/compatibility.csv` to use the lookup app."
+        )
         return
 
     catalog = build_catalog(devices, roms, compatibility)

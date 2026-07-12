@@ -1,11 +1,1 @@
 device_id,device_type,brand,device,model,android_version,chipset
-pixel_7,Phone,Google,Pixel 7,GVU6C,14,Google Tensor G2
-pixel_7_pro,Phone,Google,Pixel 7 Pro,GE2AE,14,Google Tensor G2
-pixel_6a,Phone,Google,Pixel 6a,G1AZG,14,Google Tensor
-oneplus_9,Phone,OnePlus,OnePlus 9,LE2111,13,Qualcomm Snapdragon 888
-oneplus_9_pro,Phone,OnePlus,OnePlus 9 Pro,LE2121,13,Qualcomm Snapdragon 888
-redmi_note_10_pro,Phone,Xiaomi,Redmi Note 10 Pro,M2101K6G,13,Qualcomm Snapdragon 732G
-poco_f3,Phone,Xiaomi,POCO F3,M2012K11AG,13,Qualcomm Snapdragon 870
-galaxy_s10,Phone,Samsung,Galaxy S10,SM-G973F,12,Samsung Exynos 9820
-galaxy_s20_fe,Phone,Samsung,Galaxy S20 FE,SM-G780G,13,Qualcomm Snapdragon 865
-nothing_phone_1,Phone,Nothing,Phone 1,A063,14,Qualcomm Snapdragon 778G+
