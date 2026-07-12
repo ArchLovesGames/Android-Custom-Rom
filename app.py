@@ -8,6 +8,9 @@ DATA_DIR = Path(__file__).parent / "data"
 DEVICES_FILE = DATA_DIR / "devices.csv"
 ROMS_FILE = DATA_DIR / "roms.csv"
 COMPATIBILITY_FILE = DATA_DIR / "compatibility.csv"
+DEVICES_FORMAT_FILE = DATA_DIR / "devices_format.csv"
+ROMS_FORMAT_FILE = DATA_DIR / "roms_format.csv"
+COMPATIBILITY_FORMAT_FILE = DATA_DIR / "compatibility_format.csv"
 
 DEVICE_COLUMNS = {
     "device_id",
@@ -58,9 +61,11 @@ def find_missing_columns(
 
 @st.cache_data
 def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    devices = load_csv(DEVICES_FILE)
-    roms = load_csv(ROMS_FILE)
-    compatibility = load_csv(COMPATIBILITY_FILE)
+    devices = load_csv(DEVICES_FILE if DEVICES_FILE.exists() else DEVICES_FORMAT_FILE)
+    roms = load_csv(ROMS_FILE if ROMS_FILE.exists() else ROMS_FORMAT_FILE)
+    compatibility = load_csv(
+        COMPATIBILITY_FILE if COMPATIBILITY_FILE.exists() else COMPATIBILITY_FORMAT_FILE
+    )
 
     return devices, roms, compatibility
 
@@ -354,9 +359,9 @@ def main() -> None:
 
     if not has_dataset_rows(devices, roms, compatibility):
         st.info(
-            "Dataset files currently define the required CSV format. Add production "
-            "rows to `data/devices.csv`, `data/roms.csv`, and "
-            "`data/compatibility.csv` to use the lookup app."
+            "Only CSV format files are present. Add production rows to "
+            "`data/devices.csv`, `data/roms.csv`, and `data/compatibility.csv` "
+            "to use the lookup app."
         )
         return
 

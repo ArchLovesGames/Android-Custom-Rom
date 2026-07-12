@@ -106,9 +106,9 @@ The app uses a dataset containing Android devices, custom ROMs, and compatibilit
 
 CSV format templates live in:
 
-- `data/devices.csv`
-- `data/roms.csv`
-- `data/compatibility.csv`
+- `data/devices_format.csv`
+- `data/roms_format.csv`
+- `data/compatibility_format.csv`
 
 Expected columns:
 
@@ -116,7 +116,7 @@ Expected columns:
 - `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
 - `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `notes`, `last_verified`
 
-The checked-in CSV files contain headers only. Replace them with production rows when the dataset is ready. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
+The checked-in `*_format.csv` files contain headers only. Add production rows in `data/devices.csv`, `data/roms.csv`, and `data/compatibility.csv` when the dataset is ready. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
 
 ## Environment Variables
 
