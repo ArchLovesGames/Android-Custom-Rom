@@ -71,20 +71,25 @@ def sample_frames():
     compatibility = pd.DataFrame(
         [
             {
+                "device_id": "pixel_7",
                 "rom_id": "lineageos_21",
-                "rom_name": "LineageOS",
-                "coverage_level": "Exact device evidence",
-                "exact_rows": "2",
-                "generic_rows": "0",
-                "project_website": "https://lineageos.org/",
+                "support_level": "Official",
+                "notes": "Core hardware supported",
+                "last_verified": "2026-07-14",
             },
             {
+                "device_id": "pixel_7",
                 "rom_id": "grapheneos_2024",
-                "rom_name": "GrapheneOS",
-                "coverage_level": "Compatibility class only",
-                "exact_rows": "0",
-                "generic_rows": "1",
-                "project_website": "https://grapheneos.org/",
+                "support_level": "Official",
+                "notes": "Officially supported device family",
+                "last_verified": "2026-07-14",
+            },
+            {
+                "device_id": "poco_f3",
+                "rom_id": "lineageos_21",
+                "support_level": "Community",
+                "notes": "Community build",
+                "last_verified": "2026-07-14",
             },
         ]
     )
@@ -125,8 +130,9 @@ def test_refined_datasets_drop_sparse_and_unverified_fields():
     devices, _, compatibility = load_data()
 
     assert {"android_version", "chipset"}.isdisjoint(devices.columns)
-    assert "unverified_rows" not in compatibility.columns
-    assert "unverified_placeholder" not in set(compatibility["coverage_level"])
+    assert "unverified_device_scope" not in set(compatibility["device_id"])
+    assert "Unverified" not in set(compatibility["support_level"])
+    assert "Discontinued" not in set(compatibility["support_level"])
     assert not (compatibility == "not found").any().any()
 
 
@@ -143,11 +149,16 @@ def test_build_catalog_joins_devices_roms_and_compatibility():
     devices, roms, compatibility = sample_frames()
 
     catalog = build_catalog(devices, roms, compatibility)
-    pixel_graphene = catalog[catalog["rom_id"] == "grapheneos_2024"].iloc[0]
+    pixel_graphene = catalog[
+        (catalog["device_id"] == "pixel_7")
+        & (catalog["rom_id"] == "grapheneos_2024")
+    ].iloc[0]
 
     assert len(catalog) == len(compatibility)
+    assert pixel_graphene["brand"] == "Google"
+    assert pixel_graphene["device"] == "Pixel 7"
     assert pixel_graphene["name"] == "GrapheneOS"
-    assert pixel_graphene["coverage_level"] == "Compatibility class only"
+    assert pixel_graphene["support_level"] == "Official"
 
 
 def test_filter_device_options_searches_multiple_fields_case_insensitively():
@@ -198,12 +209,11 @@ def test_validate_data_reports_unknown_compatibility_references():
             pd.DataFrame(
                 [
                     {
+                        "device_id": "unknown_device",
                         "rom_id": "unknown_rom",
-                        "rom_name": "Unknown ROM",
-                        "coverage_level": "Exact device evidence",
-                        "exact_rows": "1",
-                        "generic_rows": "0",
-                        "project_website": "https://example.com/",
+                        "support_level": "Official",
+                        "notes": "Unknown row",
+                        "last_verified": "2026-07-14",
                     }
                 ]
             ),
@@ -212,6 +222,7 @@ def test_validate_data_reports_unknown_compatibility_references():
     )
 
     assert validate_data(devices, roms, invalid_compatibility) == [
+        "compatibility.csv: unknown device_id value(s): unknown_device",
         "compatibility.csv: unknown rom_id value(s): unknown_rom",
     ]
 
