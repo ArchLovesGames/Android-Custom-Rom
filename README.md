@@ -101,8 +101,8 @@ Typical Streamlit deployment settings:
 
 The app uses a dataset containing Android devices, custom ROMs, and compatibility relationships. Keep the dataset structured and versioned with the project so the filters can reliably map:
 
-- Device directory lookup
-- ROM compatibility coverage
+- Device to compatible ROMs
+- ROM to compatible devices
 
 CSV format templates live in:
 
@@ -114,7 +114,7 @@ Expected columns:
 
 - `devices.csv`: `device_id`, `device_type`, `brand`, `device`, `model`
 - `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
-- `compatibility.csv`: `rom_id`, `rom_name`, `coverage_level`, `exact_rows`, `generic_rows`, `project_website`
+- `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `notes`, `last_verified`
 
 The checked-in `*_format.csv` files mirror the production CSV headers. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
 
