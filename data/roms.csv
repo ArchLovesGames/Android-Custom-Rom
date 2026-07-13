@@ -31,220 +31,224 @@ baikalos,BaikalOS,not found,not found,Baikalos,active,https://github.com/baikalo
 bananadroid,BananaDroid,not found,not found,Bananadroid,active,https://github.com/bananadroid
 beastroms,BeastROMs,not found,not found,BeastRoms,active,https://github.com/BeastRoms
 benzo_rom,Benzo ROM,not found,not found,BenzoRom,active,https://github.com/BenzoRom
-bharos,BharOS,not found,13 (?),"JandK, IIT Madras",active,not found
-bianca_project,Bianca Project,not found,not found,BiancaProject,active,https://github.com/BiancaProject
-black_iron_project,Black Iron Project,not found,not found,Black Iron Project,active,https://github.com/Black-Iron-Project
-bliss_roms,Bliss ROMs,not found,not found,not found,not found,https://blissroms.com/
-blissrom,BlissROM,not found,not found,not found,not found,https://blissroms.com/
-bootleggers_rom,Bootleggers ROM,not found,not found,not found,active,https://bootleggersrom.github.io/
-bsdkos,BsdkOS,not found,not found,BsdkOS,active,https://github.com/bsdkOS
-caf_extended,CAF Extended,not found,not found,CAF Extended,active,https://github.com/CAF-Extended
-calyxos,CalyxOS,6,15,Calyx Institute,discontinued,https://calyxos.org/
-candyroms,CandyRoms,not found,not found,not found,not found,https://candyroms.org/
-caos_a11,CAOS A11 (TrebleGSI Files),not found,not found,Treblerom,active,https://sourceforge.net/projects/treblerom/files/CAOS11/
-carbon_rom,Carbon ROM,not found,not found,not found,active,https://carbonrom.org/
-catalystos,CatalystOS,not found,not found,not found,not found,https://catalystos.org/
-cesium_os,Cesium OS,not found,not found,not found,not found,http://thecesiumos.me/
-charlieos,CharlieOS,not found,not found,CharlieOS Cloud,active,https://t.me/s/CharlieOS_Cloud
-cherish_os,Cherish OS,not found,not found,not found,active,https://cherishos.com/
-cipheros,CipherOS,not found,not found,not found,not found,https://cipheros.github.io/
-citrus_caf,Citrus CAF,not found,not found,Citrus CAF,active,https://github.com/Citrus-CAF
-clownui,ClownUI,not found,not found,ClownUI,active,https://github.com/ClownUI
+bharos,BharOS,1,13,JandK Operations Pvt. Ltd. / IIT Madras Pravartak,active,https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-incubated-firm-develops-indigenous-atmanirbhar
+bianca_project,Bianca Project,13,13,BiancaProject,inactive,https://github.com/BiancaProject
+black_iron_project,Black Iron Project,16,16,Black Iron Project,active,https://github.com/Black-Iron-Project
+bliss_roms,Bliss ROMs,19.6,16,BlissRoms Team,active,https://blissroms.org/
+blissrom,BlissROM,19.6,16,BlissRoms Team,active,https://blissroms.org/
+bootleggers_rom,Bootleggers ROM,7.1,13,BootleggersROM Team,inactive,https://bootleggersrom.github.io/
+bsdkos,BsdkOS,12,12,BsdkOS,inactive,https://github.com/bsdkOS
+caf_extended,CAF Extended,12.0,12,CAF Extended,inactive,https://github.com/CAF-Extended
+calyxos,CalyxOS,7.2.2.0,16,Calyx Institute,active,https://calyxos.org/
+candyroms,CandyRoms,UDC,14,CandyRoms Team,inactive,https://candyroms.org/
+caos_a11,CAOS A11 (TrebleGSI Files),2022.03.21,11,eremitein / TrebleGSI,inactive,https://sourceforge.net/projects/treblerom/files/CAOS11/
+carbon_rom,Carbon ROM,CR-9.0,11,CarbonROM Team,inactive,https://carbonrom.org/
+catalystos,CatalystOS,13,13,catalyst-android,inactive,https://github.com/catalyst-android/android
+cesium_os,Cesium OS,3.9,11,CesiumOS Team,inactive,https://cesiumos.github.io/
+charlieos,CharlieOS,OS1.0.12.0,14,@dulquersalmaan22,inactive,https://t.me/s/CharlieOS_Cloud
+cherish_os,Cherish OS,6.0,16,CherishOS Team,active,https://cherishos.com/
+cipheros,CipherOS,16 QPR2,16,CipherOS Team,active,https://cipheros.github.io/
+citrus_caf,Citrus CAF,3.6,7.1.2,Citrus-CAF / SourLand,inactive,https://github.com/Citrus-CAF
+clownui,ClownOS,Tiramisu,13,ClownUI,inactive,https://github.com/ClownUI
 coloros,ColorOS,16.0,16,OPPO,active,https://www.oppo.com/en/coloros/
-colt_os,Colt OS,not found,not found,Colt Enigma,active,https://github.com/Colt-Enigma
-conqueros,ConquerOS,not found,not found,ConquerOS,discontinued,https://github.com/ConquerOS
+colt_os,Colt OS,13.4,13,ColtOS (Enigma) team / Rakesh,inactive,https://github.com/Colt-Enigma
+conqueros,ConquerOS,4.7,11,ConquerOS,discontinued,https://github.com/ConquerOS
 copperheados,CopperheadOS,13.09.28,13,Copperhead Security,discontinued,https://github.com/CopperheadOS
-corvus_os,Corvus OS (Tipz Team Builds Files),not found,not found,Tipzbuilds,active,https://sourceforge.net/projects/tipzbuilds/files/GSIs/CorvusROM/
-corvus_rom,Corvus ROM,not found,not found,Corvus AOSP,active,https://github.com/Corvus-AOSP
-cosmic_os,Cosmic OS,not found,not found,not found,active,https://cosmic-os.github.io/
+corvus_os,Corvus OS (Tipz Team Builds Files),vS4.1,12.1,Tipzbuilds,inactive,https://sourceforge.net/projects/tipzbuilds/files/GSIs/CorvusROM/
+corvus_rom,Corvus ROM,13,13,Corvus-AOSP,inactive,https://github.com/Corvus-AOSP
+cosmic_os,Cosmic OS,Quasar,10,Cosmic-OS team,inactive,https://cosmic-os.github.io/
 crdroid,CrDroid,12.10,16,crDroid team,active,https://crdroid.net/
-crdroid_r_mod,CrDroid R Mod (TrebleGSI Files),not found,not found,Treblerom,active,https://sourceforge.net/projects/treblerom/files/crDRom11/
+crdroid_r_mod,CrDroid R Mod (TrebleGSI Files),2022.03.30,11,Treblerom,inactive,https://sourceforge.net/projects/treblerom/files/crDRom11/
 cyanogenmod,CyanogenMod,14.1 Nightly,7.1.1,"CyanogenMod Open-Source Community, Cyanogen Inc",discontinued,https://cyanogenmodroms.com/
-cygnus_os,Cygnus OS,not found,not found,not found,active,https://cygnusos.com/
-cypher_os,Cypher OS,not found,not found,CypherOS,active,https://github.com/CypherOS
-derpfest,Derpfest,not found,not found,not found,not found,https://derpfest.org/
-descendant_x,Descendant X,not found,not found,not found,not found,https://descendant.me/
-devineui,DevineUI,not found,not found,not found,not found,not found
-dirty_unicorns,Dirty Unicorns,not found,not found,not found,not found,https://dirtyunicorns.com/
+cygnus_os,Cygnus OS,3.4,11,CygnusOS team,inactive,https://cygnusos.com/
+cypher_os,Cypher OS,9.0,9,CypherOS / Android Open Source Cypher Project,inactive,https://github.com/CypherOS
+derpfest,Derpfest,16.0 QPR2,16,DerpFest AOSP team,active,https://derpfest.org/
+descendant_x,Descendant X,12.1,12.1,Descendant team,inactive,https://descendant.me/
+devineui,DevineUI,not found,not found,DevineUI project,unverified,not found
+dirty_unicorns,Dirty Unicorns,14.7,10,Dirty Unicorns team,discontinued,https://dirtyunicorns.com/
 divestos,DivestOS,20,13,Tavi (SkewedZeppelin),discontinued,https://divestos.org
-dotos,DotOS (Droid On Time),not found,not found,not found,active,https://www.droidontime.com/
-droidx_ui,DroidX-UI,not found,not found,not found,not found,https://droid-x-ui-github-io.vercel.app/
-efoundation,eFoundation,not found,not found,not found,active,https://e.foundation/
-eliteroms,EliteRoms,not found,not found,not found,active,https://www.elitedevelopment.com.pk/
-elytraos,elytraOS,not found,not found,ElytraOS,active,https://github.com/elytraOS
+dotos,DotOS (Droid On Time),5.2,11,Droid On Time team,inactive,https://www.droidontime.com/
+droidx_ui,DroidX-UI,2.3,14,DroidX-UI team,inactive,https://github.com/DroidX-UI
+efoundation,/e/OS,4.0,15-16 (device-dependent),e Foundation / Murena,active,https://e.foundation/
+eliteroms,EliteRoms,EliteROM NextGen 5.0,15,Hassan Mirza / Elite Development,active,https://www.elitedevelopment.com.pk/
+elytraos,elytraOS,14,14,ElytraOS,inactive,https://github.com/elytraOS
 emteria_os,emteria.OS,16.2,16,emteria GmbH,active,https://emteria.com/
-emui,EMUI,15,12,"Huawei Technologies Co., Ltd.",active,not found
-eternity_os,Eternity OS,not found,not found,EternityOS Plus Tiramisu,not found,https://github.com/EternityOS-Plus-Tiramisu
-ethereal_os,Ethereal OS,not found,15,Ethereal OS,active,https://github.com/Ethereal-OS
-euclidos,euclidOS,not found,not found,EuclidTeam,discontinued,https://github.com/euclidTeam
-eunoiaos,EunoiaOS,not found,not found,EunoiaOS,active,https://github.com/EunoiaOS
-evervolv,Evervolv,not found,not found,Evervolv,active,https://github.com/Evervolv
-evolution_x,Evolution X,not found,16,not found,active,https://evolution-x.org/
-exthmui,exTHmUI,not found,14,Exthmui,active,https://github.com/exthmui
-fire_os,Fire OS,14,14,"Amazon.com, Inc.",active,not found
-firehound,FireHound,not found,not found,FireHound,active,https://github.com/FireHound
-firmware_collection,Firmware Collection (Diust),not found,not found,Braiagsi,active,https://sourceforge.net/projects/braiagsi/files/
-firmware_collection_oneui,Firmware Collection (Nippon) - OneUI,not found,not found,Nippongsi,not found,https://sourceforge.net/projects/nippongsi/files/
-flamingo_os,Flamingo-OS,not found,not found,Flamingo OS,active,https://github.com/Flamingo-OS
-flokorom,FlokoROM,not found,13,not found,active,https://floko.maud.io/
-fluidos,FluidOS,not found,not found,not found,not found,https://projectfluid.org/
-fork_lineageos,Fork LineageOS,not found,15,ForkLineageOS,active,https://github.com/ForkLineageOS
-fortuneos,fortuneOS,not found,not found,FortuneOS AOSP,active,https://github.com/fortuneOS-AOSP
-freaky_os,Freaky OS,not found,not found,not found,not found,https://freakyos.me
-funtouch_os,Funtouch OS,15,15,vivo,discontinued,not found
-fusionos,FusionOS,not found,not found,Fusion OS,active,https://github.com/Fusion-OS
-genesisos,GenesisOS,not found,not found,GenesisOS,active,https://github.com/GenesisOS
-ghostos,GhostOS,not found,not found,Ghost OS AOSP,active,https://github.com/Ghost-OS-AOSP
-google_gsi_a10,Google GSI A10,not found,not found,not found,not found,https://ci.android.com/builds/branches/aosp-android10-gsi/grid?
-google_gsi_a11,Google GSI A11,not found,not found,not found,not found,https://ci.android.com/builds/branches/aosp-android11-gsi/grid?
-google_gsi_a12,Google GSI A12,not found,17,not found,active,https://developer.android.com/about/versions/12/gsi-release-notes#downloads
-google_gsi_a13,Google GSI A13,not found,17,not found,active,https://developer.android.com/about/versions/13/gsi-release-notes#downloads
-grapheneos,GrapheneOS,2026050900,17,GrapheneOS Foundation,active,https://grapheneos.org/
-halcyon,Halcyon,not found,not found,not found,not found,https://hlcyn.co/
-halogen_os,Halogen OS,not found,not found,not found,not found,https://halogenos.org/
-harmonyos,HarmonyOS,4.3 (last version embodying AOSP),12,"Huawei Technologies Co., Ltd.",discontinued,not found
-havoc_os,Havoc OS,not found,not found,not found,active,https://havoc-os.com/
-hentai_os,Hentai OS,not found,not found,not found,not found,https://hentaios.com/
-hyconos,HyconOS,not found,not found,HyconOS,active,https://github.com/HyconOS
-hyper_mint,Hyper Mint,not found,not found,Project Mint,active,https://t.me/project_mint
-hyperart,HyperArt,not found,not found,HyperArtRom,active,https://t.me/HyperArtRom
-hyperin,HyperIN,not found,not found,not found,not found,https://hyperin.vercel.app/
-hyperos_goplus,HyperOS GoPlus,not found,not found,not found,not found,not found
-hyperos_reborn,HyperOS Reborn,not found,not found,Reborn Dll,active,https://t.me/reborn_dll
-hyperos_tn,HyperOS TN,not found,not found,not found,not found,https://miuitn.vercel.app/HyperTN/
-hypervn,HyperVN,not found,not found,Miuivn,active,https://sourceforge.net/projects/miuivn/files/fuxi/HyperVN/
-hypervoltron,HyperVoltron,not found,not found,HyperVoltronUpdates,active,https://t.me/s/HyperVoltronUpdates
-indus_os,Indus OS,3.0,7,Team Indus OS,discontinued,not found
+emui,EMUI,15,12,"Huawei Technologies Co., Ltd.",active,https://consumer.huawei.com/en/emui/
+eternity_os,Eternity OS,Tiramisu,13,EternityOS Plus Tiramisu,inactive,https://github.com/EternityOS-Plus-Tiramisu
+ethereal_os,Ethereal OS,15,15,Ethereal OS,active,https://github.com/Ethereal-OS
+euclidos,euclidOS,1.0,13,EuclidTeam,discontinued,https://github.com/euclidTeam
+eunoiaos,EunoiaOS,Tiramisu,13,EunoiaOS,inactive,https://github.com/EunoiaOS
+evervolv,Evervolv,15,15,Evervolv team,active,https://github.com/Evervolv
+evolution_x,Evolution X,11,17,Evolution X team,active,https://evolution-x.org/
+exthmui,exTHmUI,14,14,exTHmUI team,inactive,https://github.com/exthmui
+fire_os,Fire OS,16,15-16 (device-dependent),"Amazon.com, Inc.",active,https://developer.amazon.com/docs/device-specs/fire-os-versions.html
+firehound,FireHound,4.9,8.1,FireHound team,inactive,https://github.com/FireHound
+firmware_collection,Firmware Collection (Diust),rolling,multiple,Braiagsi,active,https://sourceforge.net/projects/braiagsi/files/
+firmware_collection_oneui,Firmware Collection (Nippon) - OneUI,rolling,multiple,Nippongsi,active,https://sourceforge.net/projects/nippongsi/files/
+flamingo_os,Flamingo-OS,2.2,13,Flamingo OS team,inactive,https://github.com/Flamingo-OS
+flokorom,FlokoROM,v8,13,FlokoROM team / Maud,inactive,https://floko.maud.io/
+fluidos,FluidOS,2.7,12,Project Fluid team,inactive,https://projectfluid.org/
+fork_lineageos,Fork LineageOS,22.2,15,ForkLineageOS,active,https://github.com/ForkLineageOS
+fortuneos,fortuneOS,15,15,fortuneOS-AOSP,active,https://github.com/fortuneOS-AOSP
+freaky_os,Freaky OS,R (2020),11,FreakyOS team,inactive,https://github.com/FreakyOS
+funtouch_os,Funtouch OS,16,16,vivo,active,https://www.vivo.com/en/funtouch
+fusionos,FusionOS,15,15,Fusion OS team,active,https://github.com/Fusion-OS
+genesisos,GenesisOS,3.0,14,GenesisOS team,inactive,https://github.com/GenesisOS
+ghostos,GhostOS,14,14,Ghost OS AOSP,inactive,https://github.com/Ghost-OS-AOSP
+google_gsi_a10,Google GSI A10,10,10,Google / Android Open Source Project,inactive,https://ci.android.com/builds/branches/aosp-android10-gsi/grid?
+google_gsi_a11,Google GSI A11,11,11,Google / Android Open Source Project,inactive,https://ci.android.com/builds/branches/aosp-android11-gsi/grid?
+google_gsi_a12,Google GSI A12,12,12,Google / Android Open Source Project,inactive,https://developer.android.com/about/versions/12/gsi-release-notes#downloads
+google_gsi_a13,Google GSI A13,13,13,Google / Android Open Source Project,inactive,https://developer.android.com/about/versions/13/gsi-release-notes#downloads
+grapheneos,GrapheneOS,2026070500,17,GrapheneOS Foundation,active,https://grapheneos.org/
+halcyon,Halcyon,16,16,Halcyon team,active,https://hlcyn.co/
+halogen_os,Halogen OS,XOS 8.0,8.1,HalogenOS team,inactive,https://halogenos.org/
+harmonyos,HarmonyOS,4.3 (last version embodying AOSP),12,"Huawei Technologies Co., Ltd.",discontinued,https://consumer.huawei.com/en/harmonyos/
+havoc_os,Havoc OS,6.0,13,Havoc-OS team,inactive,https://havoc-os.com/
+hentai_os,Hentai OS,13,13,HentaiOS team,inactive,https://hentaios.com/
+hyconos,HyconOS,4.5,11,HyconOS,inactive,https://github.com/HyconOS
+hyper_mint,Hyper Mint,HyperOS 2,15,Project Mint,active,https://t.me/project_mint
+hyperart,HyperArt,HyperOS 2,15,HyperArtRom,active,https://t.me/HyperArtRom
+hyperin,HyperIN,HyperOS 2,15,HyperIN team,active,https://hyperin.vercel.app/
+hyperos_goplus,HyperOS GoPlus,HyperOS 2,15,HyperOS GoPlus team,active,not found
+hyperos_reborn,HyperOS Reborn,HyperOS 2,15,Reborn DLL,active,https://t.me/reborn_dll
+hyperos_tn,HyperOS TN,HyperOS 2,15,HyperTN / MIUI TN team,active,https://miuitn.vercel.app/HyperTN/
+hypervn,HyperVN,HyperOS 2,15,MIUIVN,active,https://sourceforge.net/projects/miuivn/files/fuxi/HyperVN/
+hypervoltron,HyperVoltron,HyperOS 2,15,HyperVoltron team,active,https://t.me/s/HyperVoltronUpdates
+indus_os,Indus OS,3.0,7,Team Indus OS,discontinued,https://web.archive.org/web/20170801000000/http://www.indusos.com/
 iod_os,iodéOS,6.0,15,iodé technologies,active,https://iode.tech/iodeos-en
-ion_os,Ion OS,not found,not found,I O N,active,https://github.com/i-o-n
-ironos_project,IronOS Project,not found,not found,IronOSProject,active,https://github.com/IronOSProject
-kali_nethunter,Kali NetHunter,2024.3,5.1.1 - 14,"Kali community member ""BinkyBear"" & Offensive Security",active,https://www.kali.org/docs/nethunter/
-kang_os,Kang OS,not found,not found,Kang OS R,active,https://github.com/Kang-OS-R
-kernelsu_kernel_based_root_solution_for_android,KernelSU : Kernel Based Root Solution for Android,not found,not found,not found,active,https://kernelsu.org
-komodo_os,Komodo OS,not found,not found,not found,active,https://komodo-os.my.id/
-krypton_open_source_project,Krypton Open Source Project,not found,not found,AOSP Krypton,discontinued,https://github.com/AOSP-Krypton
-legion_os,Legion OS,not found,not found,not found,not found,http://legionos.tk/
-leos,LeOS,not found,not found,not found,not found,https://leos-gsi.de/
-lessaosp,LessAOSP,not found,not found,LessAOSP,active,https://github.com/LessAOSP
+ion_os,Ion OS,2.9.a,10,ION OS team,inactive,https://github.com/i-o-n
+ironos_project,IronOS Project,14,14,IronOSProject,inactive,https://github.com/IronOSProject
+kali_nethunter,Kali NetHunter,2026.2,device-dependent,Offensive Security / Kali community,active,https://www.kali.org/docs/nethunter/
+kang_os,Kang OS,2.1,11,Kang OS R,inactive,https://github.com/Kang-OS-R
+kernelsu_kernel_based_root_solution_for_android,KernelSU : Kernel Based Root Solution for Android,v3.0.0,not applicable,tiann / KernelSU team,active,https://kernelsu.org
+komodo_os,Komodo OS,6.0,16,Komodo OS team,active,https://komodo-os.my.id/
+krypton_open_source_project,Krypton Open Source Project,2.7,12.1,AOSP Krypton,discontinued,https://github.com/AOSP-Krypton
+legion_os,Legion OS,3.14,11,LegionOS team,inactive,http://legionos.tk/
+leos,LeOS,2026-06,16,LeOS GSI project,active,https://leos-gsi.de/
+lessaosp,LessAOSP,15,15,LessAOSP,active,https://github.com/LessAOSP
 lewa_os,LeWa OS,OS 7 beta,5.1.1,Lewa Technology,discontinued,not found
 lg_ux,LG UX,10.0,13,LG Electronics,discontinued,not found
-lightningfastrom,LightningFastRom,not found,not found,Lightningfastrom,active,https://github.com/lightningfastrom
-lineage_os_r_mod,Lineage OS R Mod,not found,not found,Treblerom,active,https://sourceforge.net/projects/treblerom/files/LiR/
+lightningfastrom,LightningFastRom,13,13,LightningFastROM,inactive,https://github.com/lightningfastrom
+lineage_os_r_mod,Lineage OS R Mod,2022.03.30,11,Treblerom,inactive,https://sourceforge.net/projects/treblerom/files/LiR/
 lineageos,LineageOS,23.2,16,LineageOS community,active,https://lineageos.org/
-liquid_remix,Liquid Remix,not found,not found,LiquidRemix,active,https://github.com/LiquidRemix
-lluvia_os,LLuvia OS,not found,not found,LLuviaOS,active,https://github.com/LLuviaOS
-lmodroid,LMODroid,not found,not found,not found,not found,https://git.libremobileos.com/LMODroid/
-lunarui,LunarUI,not found,14,Lunar UI,active,https://github.com/Lunar-UI
-magicos,MagicOS,10,16,Honor,active,not found
-magisk_the_magic_mask_for_android,Magisk : The Magic Mask for Android,not found,not found,Topjohnwu,active,https://github.com/topjohnwu/Magisk
-magnus_os,Magnus OS,not found,not found,Magnus OS,active,https://github.com/Magnus-OS
-mallu_os,Mallu OS,not found,10,not found,active,https://malluos.github.io/
-miku_ui,Miku UI,not found,not found,Miku UI,active,https://github.com/Miku-UI
-mist_os,Mist-OS,not found,not found,Project Mist OS,active,https://github.com/Project-Mist-OS
-miui,MIUI,14.1,13,Xiaomi Corporation,discontinued,not found
-miui_oneos,MIUI OneOS,not found,not found,One OS,active,https://sourceforge.net/projects/one-os/
-miui_pro,MIUI Pro,not found,not found,Miuipro,active,https://sourceforge.net/projects/miuipro/
-miui_tr,MIUI TR,not found,not found,not found,not found,https://forum.miuitr.info/bolum/miuitr.5/
-mokee_rom,MoKee ROM,not found,not found,not found,active,https://www.mokeedev.com/en/
-my_ux,My UX,not found,not found,not found,active,https://www.motorola.com/us/my-ux/
-nethunter_os,Nethunter OS,not found,6.0,not found,active,https://www.kali.org/docs/nethunter/
-nitrogen_os,Nitrogen OS,not found,14,Nitrogen Project,discontinued,https://github.com/nitrogen-project
-nusantara_project,Nusantara Project,not found,not found,not found,not found,https://nusantararom.org/
-octavi_os,Octavi OS,not found,not found,not found,not found,https://octavi-os.com/
-omnirom,OmniROM,16.0,16,OmniROM community,discontinued,https://omnirom.org/
+liquid_remix,Liquid Remix,10.0.11,10,LiquidRemix team,inactive,https://github.com/LiquidRemix
+lluvia_os,LLuvia OS,2.4,8.1,LLuviaOS,inactive,https://github.com/LLuviaOS
+lmodroid,LMODroid,6.0,15,LibreMobileOS project,active,https://git.libremobileos.com/LMODroid/
+lunarui,LunarUI,1.0,14,Lunar UI,inactive,https://github.com/Lunar-UI
+magicos,MagicOS,10,16,Honor,active,https://www.honor.com/global/magicos/
+magisk_the_magic_mask_for_android,Magisk : The Magic Mask for Android,30.2,not applicable,topjohnwu,active,https://github.com/topjohnwu/Magisk
+magnus_os,Magnus OS,1.0,11,Magnus OS,inactive,https://github.com/Magnus-OS
+mallu_os,Mallu OS,2.0,10,MalluOS team,inactive,https://malluos.github.io/
+miku_ui,Miku UI,13,13,Miku UI,inactive,https://github.com/Miku-UI
+mist_os,Mist-OS,4.0,14,Project Mist OS,inactive,https://github.com/Project-Mist-OS
+miui,MIUI,14.1,13,Xiaomi Corporation,discontinued,https://www.mi.com/global/miui/
+miui_oneos,MIUI OneOS,21.11.3,11,OneOS team,inactive,https://sourceforge.net/projects/one-os/
+miui_pro,MIUI Pro,12.5,11,MIUIPro team,inactive,https://sourceforge.net/projects/miuipro/
+miui_tr,MIUI TR,14,13,MIUI TR team,inactive,https://forum.miuitr.info/bolum/miuitr.5/
+mokee_rom,MoKee ROM,MK110,11,MoKee Open Source community,discontinued,https://www.mokeedev.com/en/
+my_ux,My UX,Android 16,16,Motorola Mobility / Lenovo,active,https://www.motorola.com/us/my-ux/
+nethunter_os,Nethunter OS,2026.2,device-dependent,Offensive Security / Kali community,active,https://www.kali.org/docs/nethunter/
+nitrogen_os,Nitrogen OS,14,14,Nitrogen Project,discontinued,https://github.com/nitrogen-project
+nusantara_project,Nusantara Project,5.8,13,Nusantara Project team,inactive,https://nusantararom.org/
+octavi_os,Octavi OS,4.5,13,OctaviOS team,inactive,https://octavi-os.com/
+omnirom,OmniROM,16.0,16,OmniROM community,active,https://omnirom.org/
 one_ui,One UI,8.0,16,Samsung Electronics,active,https://www.samsung.com/us/apps/one-ui/
-orangefox_recovery,OrangeFox Recovery,not found,not found,not found,active,https://orangefox.download
-origin_os,Origin OS,6.0,16,vivo,active,not found
-orionos,OrionOS,not found,not found,OrionOS Prjkt,active,https://github.com/OrionOS-prjkt
-oxygenos,OxygenOS,16.0,16,OnePlus,discontinued,https://www.oneplus.in/oxygenos15
-palladiumos,PalladiumOS,not found,not found,not found,not found,https://palladiumos.com/
-paperos,PaperOS,not found,not found,not found,not found,not found
+orangefox_recovery,OrangeFox Recovery,R12.1,not applicable,OrangeFox Recovery Project,active,https://orangefox.download
+origin_os,Origin OS,6.0,16,vivo,active,https://www.vivo.com/en/originos
+orionos,OrionOS,2.9,16,OrionOS Project,active,https://github.com/OrionOS-prjkt
+oxygenos,OxygenOS,16.0,16,OnePlus,active,https://www.oneplus.com/us/oxygenos16
+palladiumos,PalladiumOS,1.6,12,PalladiumOS team,inactive,https://palladiumos.com/
+paperos,PaperOS,4.0,14,RotersTeam,active,https://sourceforge.net/projects/rotersos-rom/
 paranoid_android,Paranoid Android,Uvite,14,Paranoid Android Team,active,https://paranoidandroid.co/
-phoenixaosp,PhoenixAOSP,not found,13,PhoenixAOSP,active,https://github.com/PhoenixAOSP
-pitch_black_recovery_project,Pitch Black Recovery Project,not found,not found,not found,active,https://pitchblackrecovery.com/
-pixel_blaster_os,Pixel Blaster OS,not found,not found,not found,not found,https://pixelblaster-os.github.io/
-pixel_dust,Pixel Dust,not found,not found,PixelDust Project X,active,https://github.com/PixelDust-Project-X
-pixel_extended,Pixel Extended,not found,13,Pixelextended,active,https://sourceforge.net/projects/pixelextended/
-pixel_project,Pixel Project,not found,not found,The Pixel Project,discontinued,https://github.com/The-Pixel-Project
+phoenixaosp,PhoenixAOSP,13,13,PhoenixAOSP,inactive,https://github.com/PhoenixAOSP
+pitch_black_recovery_project,Pitch Black Recovery Project,4.0,not applicable,PitchBlack Recovery Project team,active,https://pitchblackrecovery.com/
+pixel_blaster_os,Pixel Blaster OS,5.0,12.1,PixelBlaster-OS team,inactive,https://pixelblaster-os.github.io/
+pixel_dust,Pixel Dust,15,15,PixelDust Project X,active,https://github.com/PixelDust-Project-X
+pixel_extended,Pixel Extended,5.10,13,PixelExtended team,inactive,https://sourceforge.net/projects/pixelextended/
+pixel_project,Pixel Project,1.0,12,The Pixel Project,discontinued,https://github.com/The-Pixel-Project
 pixelexperience,PixelExperience,14,14,PixelExperience Team,discontinued,https://download.pixelexperience.org/
-pixelos,PixelOS,not found,not found,not found,active,https://pixelos.net/
-pixelplusui,PixelPlusUI,not found,not found,not found,not found,https://ppui.site/home
-pixelstar,PixelStar,not found,14,Project PixelStar,active,https://github.com/Project-PixelStar
-pixys_os,Pixys OS,not found,not found,not found,not found,https://downloads.pixysos.com/
-posp,POSP (Potato Open Sauce Project),not found,not found,not found,not found,https://potatoproject.co/
-project_404,Project 404,not found,not found,not found,not found,https://project404.xyz/
-project_arcana,Project Arcana,not found,not found,not found,active,https://projectarcana-aosp.github.io/
-project_awaken,Project Awaken,not found,not found,not found,active,https://awakenos.vercel.app/
-project_blaze,Project Blaze,Chicken,not found,not found,active,https://www.projectblaze.in/
-project_elixir,Project Elixir,not found,not found,not found,not found,https://projectelixiros.com/home
-project_everest,Project Everest,not found,not found,ProjectEverest,active,https://github.com/ProjectEverest
-project_infinity_x,Project Infinity X,not found,not found,not found,active,https://projectinfinity-x.com/
-project_kaleidoscope,Project Kaleidoscope,not found,not found,not found,not found,https://kaleidoscope.ink/
-project_kasumi,Project Kasumi,not found,not found,ProjectKasumi,discontinued,https://github.com/ProjectKasumi
-project_lighthouse,Project Lighthouse,not found,not found,not found,not found,https://lighthouse-os.tech/
-project_matrixx,Project Matrixx,not found,not found,not found,not found,https://projectmatrixx.github.io/
-project_mushroom,Project Mushroom,not found,not found,Project Mushroom,active,https://github.com/Project-Mushroom
-project_pixelage,Project Pixelage,not found,not found,ProjectPixelage,active,https://github.com/ProjectPixelage
-project_radiant,Project Radiant,Overview,not found,ProjectRadiant,active,https://github.com/ProjectRadiant
-project_sakura,Project Sakura,not found,not found,not found,not found,https://projectsakura.xyz/
-project_streak,Project Streak,not found,not found,not found,not found,https://projectstreak.pl/
-project_titanium,Project Titanium,not found,not found,Project Titanium,active,https://github.com/Project-Titanium
-project_zephyrus,Project Zephyrus,not found,not found,not found,not found,https://zephyrus-website.vercel.app/
-proton_aosp,Proton AOSP,not found,not found,not found,discontinued,https://protonaosp.org/
-pterodon_recovery,Pterodon Recovery,not found,not found,PterodonRecovery,active,https://github.com/PterodonRecovery
-raveos,RaveOS,not found,not found,not found,active,https://raveos.com/
-realme_ui,realme UI,7.0,16,Realme,discontinued,https://www.realme.com/in/realme-ui
-reavenui,ReavenUI,not found,not found,not found,not found,not found
-redwolf_recovery_project,RedWolf Recovery Project,not found,not found,not found,active,https://redwolfrecovery.github.io/
-reloadedos,ReloadedOS,not found,not found,not found,not found,https://reloadedos.org/
-remodedui,RemodedUI,not found,not found,not found,not found,https://xdaforums.com/t/rom-miuimod-13-0-xaga-official-remodedui-lynx-09-07-2023.4608545/
+pixelos,PixelOS,16 QPR2,16,PixelOS team,active,https://pixelos.net/
+pixelplusui,PixelPlusUI,5.3,13,PixelPlusUI team,inactive,https://ppui.site/home
+pixelstar,PixelStar,5.0,14,Project PixelStar,inactive,https://github.com/Project-PixelStar
+pixys_os,Pixys OS,7.0,14,PixysOS team,inactive,https://downloads.pixysos.com/
+posp,POSP (Potato Open Sauce Project),5.2.3,12.1,Potato Open Sauce Project team,inactive,https://potatoproject.co/
+project_404,Project 404,4.5,12.1,Project 404 team,inactive,https://project404.xyz/
+project_arcana,Project Arcana,7.0,13,Project Arcana team,inactive,https://projectarcana-aosp.github.io/
+project_awaken,Project Awaken,4.5,14,AwakenOS team,inactive,https://awakenos.vercel.app/
+project_blaze,Project Blaze,Chicken,14,Project Blaze team,inactive,https://www.projectblaze.in/
+project_elixir,Project Elixir,4.2,14,Project Elixir team,discontinued,https://projectelixiros.com/home
+project_everest,Project Everest,3.6,16,Project Everest team,active,https://github.com/ProjectEverest
+project_infinity_x,Project Infinity X,3.12,16,Project Infinity X team,active,https://projectinfinity-x.com/
+project_kaleidoscope,Project Kaleidoscope,4.0,13,Project Kaleidoscope team,inactive,https://kaleidoscope.ink/
+project_kasumi,Project Kasumi,1.3,14,Project Kasumi,discontinued,https://github.com/ProjectKasumi
+project_lighthouse,Project Lighthouse,1.5,13,Project Lighthouse team,inactive,https://lighthouse-os.tech/
+project_matrixx,Project Matrixx,12.2,16,Project Matrixx team,active,https://www.projectmatrixx.com/
+project_mushroom,Project Mushroom,15,15,Project Mushroom,inactive,https://github.com/Project-Mushroom
+project_pixelage,Project Pixelage,3.0,14,Project Pixelage,inactive,https://github.com/ProjectPixelage
+project_radiant,Project Radiant,2.0,13,Project Radiant,inactive,https://github.com/ProjectRadiant
+project_sakura,Project Sakura,5.R,12.1,Project Sakura team,inactive,https://projectsakura.xyz/
+project_streak,Project Streak,2.0,12,Project Streak team,inactive,https://projectstreak.pl/
+project_titanium,Project Titanium,1.2,13,Project Titanium,inactive,https://github.com/Project-Titanium
+project_zephyrus,Project Zephyrus,12.6,12.1,Project Zephyrus team,inactive,https://zephyrus-website.vercel.app/
+proton_aosp,Proton AOSP,12.4.0,12.1,kdrag0n / ProtonAOSP team,discontinued,https://protonaosp.org/
+pterodon_recovery,Pterodon Recovery,3.0,not applicable,PterodonRecovery,inactive,https://github.com/PterodonRecovery
+raveos,RaveOS,1.0.25,not applicable,RaveOS / Raveon,active,https://raveos.com/
+realme_ui,realme UI,7.0,16,Realme,active,https://www.realme.com/in/realme-ui
+reavenui,ReavenUI,not found,not found,ReavenUI project,unverified,not found
+redwolf_recovery_project,RedWolf Recovery Project,3.2,not applicable,RedWolf Recovery Project team,inactive,https://redwolfrecovery.github.io/
+reloadedos,ReloadedOS,2.1,11,ReloadedOS team,inactive,https://reloadedos.org/
+remodedui,RemodedUI,Lynx,13,RemodedUI team,inactive,https://xdaforums.com/t/rom-miuimod-13-0-xaga-official-remodedui-lynx-09-07-2023.4608545/
 replicant,Replicant,6.0 0003,6,"Denis Carikli, Paul Kocialkowski",active,https://www.replicant.us/
 resurrection_remix_os,Resurrection Remix OS,8.7.3,10,Resurrection Remix Team,discontinued,https://resurrectionremix.com/
-resurrectionremix_revived,ResurrectionRemix-Revived,not found,not found,not found,active,https://resurrectionremix.com/
-revenge_os,Revenge OS,not found,not found,not found,not found,https://revengeos.com/
-revos,RevOS,not found,not found,Revolutionos MIUI,active,https://sourceforge.net/projects/revolutionos-miui/
-ricedroid,RiceDroid,not found,not found,RiceDroid Devices,active,https://github.com/RiceDroid-devices
-risingos,RisingOS,not found,14,RisingTechOSS,active,https://github.com/RisingTechOSS
-rohieos,RohieOS,not found,not found,RohieOS,active,https://github.com/RohieOS
-scorpion_rom,Scorpion ROM,not found,not found,not found,not found,https://scorpionrom.com/
-serasaos,SerasaOS,not found,not found,SerasaOS,active,https://github.com/SerasaOS
-shapeshift_os,ShapeShift OS,not found,not found,not found,not found,https://shapeshiftos.com/
-shift_os,Shift OS,not found,not found,not found,not found,not found
-shift_os_g,Shift OS G,not found,"14 (phone 8); 13 (6mq); 8.0 (5me, 6m)",SHIFT GmbH,active,not found
-shift_os_l,Shift OS l,not found,"15 (phone 8); 13 (6mq); 8.1 (5me, 6m)",SHIFT GmbH,active,not found
-shrp_sky_hawk_recovery_project,SHRP – Sky Hawk Recovery Project,not found,not found,not found,active,https://skyhawkrecovery.github.io/
-sigmadroid_os,SigmaDroid OS,not found,not found,not found,not found,https://sigmadroid.xyz/
-skylineui,SkyLineUI,not found,not found,SkylineUI,discontinued,https://github.com/SkylineUI
+resurrectionremix_revived,ResurrectionRemix-Revived,9.0,11,ResurrectionRemix-Revived team,inactive,https://resurrectionremix.com/
+revenge_os,Revenge OS,4.0,11,RevengeOS team,discontinued,https://revengeos.com/
+revos,RevOS,21.11.3,11,Revolution OS / RevOS team,inactive,https://sourceforge.net/projects/revolutionos-miui/
+ricedroid,RiceDroid,10.2,13,RiceDroid team,inactive,https://github.com/RiceDroid-devices
+risingos,RisingOS,8.1.1 Arete,16,RisingOS-Revived team,active,https://risingosrevived.tech/
+rohieos,RohieOS,1.0,12,RohieOS,inactive,https://github.com/RohieOS
+scorpion_rom,Scorpion ROM,4.0,10,ScorpionROM team,inactive,https://scorpionrom.com/
+serasaos,SerasaOS,2.0,13,SerasaOS,inactive,https://github.com/SerasaOS
+shapeshift_os,ShapeShift OS,2.8,11,ShapeShiftOS team,inactive,https://shapeshiftos.com/
+shift_os,Shift OS,not applicable,not applicable,SHIFT GmbH,discontinued,https://www.shift.eco/shiftos/
+shift_os_g,Shift OS G,G,"14 (phone 8); 13 (6mq); 8.0 (5me, 6m)",SHIFT GmbH,active,https://www.shift.eco/shiftos/
+shift_os_l,Shift OS l,L,"15 (phone 8); 13 (6mq); 8.1 (5me, 6m)",SHIFT GmbH,active,https://www.shift.eco/shiftos/
+shrp_sky_hawk_recovery_project,SHRP – Sky Hawk Recovery Project,3.2,not applicable,Sky Hawk Recovery Project team,inactive,https://skyhawkrecovery.github.io/
+sigmadroid_os,SigmaDroid OS,1.0,13,SigmaDroid team,inactive,https://sigmadroid.xyz/
+skylineui,SkyLineUI,2.0,13,SkylineUI,discontinued,https://github.com/SkylineUI
 slimroms,SlimRoms,7,7.1,SlimRoms Team,discontinued,https://slimroms.org/
-smartisan_os,Smartisan OS,8.0,10,Smartisan,discontinued,not found
-somethingos,SomethingOS,not found,not found,not found,not found,https://somethingos.com
-soniui,SoniUI,not found,not found,XOSP Reborn,active,https://github.com/XOSP-Reborn
-sparkos,SparkOS,not found,not found,not found,not found,https://www.spark-os.live/
-spice_os,Spice OS,not found,not found,SpiceOS,active,https://github.com/SpiceOS
-stag_os,Stag OS,not found,not found,not found,active,https://stag-os.org/
-statix_os,StatiX OS,not found,not found,StatiXOS,active,https://github.com/StatiXOS
-superior_os,Superior OS,not found,not found,not found,active,https://superioros.github.io/
-syberia_os,Syberia OS,not found,not found,not found,active,https://syberiaos.com/
-tenxos,TenXOS (10X OS),not found,not found,TenX OS,active,https://github.com/TenX-OS
-tequila_os,Tequila OS,not found,not found,not found,not found,https://tequilaos.org
-the_styx_project,The Styx Project,not found,not found,not found,not found,https://styxproject.ml/
-thepixelproject,ThePixelProject,not found,not found,not found,not found,not found
-tipsy_os,Tipsy OS,not found,not found,TipsyOs,active,https://github.com/TipsyOs
-toxyc_os,Toxyc OS,not found,not found,ToxycOS,active,https://github.com/ToxycOS
-twrp_team_win_recovery_project,TWRP – Team Win Recovery Project,not found,10,not found,active,https://twrp.me/
-ultimateos,UltimateOS,not found,not found,UltimateOS,active,https://github.com/UltimateOS
-validus_os,Validus OS,not found,not found,ValidusOs,active,https://github.com/ValidusOs
-viper_os,Viper OS,not found,not found,not found,active,https://viperos.gitlab.io/
-voidui,VoidUI,not found,13,VoidUI,discontinued,https://github.com/VoidUI
-voltageos,VoltageOS,not found,not found,not found,not found,https://www.voltageos.com/
-waveos,WaveOS,not found,not found,Wave Project,active,https://github.com/Wave-Project
-weeb_projekt,Weeb Projekt,not found,not found,Weebproject,active,https://github.com/weebproject
-witaqua,WitAqua,not found,not found,WitAqua,active,https://github.com/WitAqua
-xdroid_caf,Xdroid CAF,not found,not found,Xdroid CAF,active,https://github.com/xdroid-CAF
-xdroidoss,xdroidOSS,not found,not found,not found,not found,http://xd.xyzscape.xyz/
-xenon_hd,Xenon HD,not found,not found,not found,not found,https://www.xenonhd.com/
+smartisan_os,Smartisan OS,8.0,10,Smartisan,discontinued,https://www.smartisan.com/
+somethingos,SomethingOS,1.0,13,SomethingOS team,inactive,https://somethingos.com
+soniui,SoniUI,1.0,13,XOSP Reborn / SoniUI team,inactive,https://github.com/XOSP-Reborn
+sparkos,SparkOS,16.2,16,SparkOS team,active,https://www.spark-os.live/
+spice_os,Spice OS,4.5,11,SpiceOS,inactive,https://github.com/SpiceOS
+stag_os,Stag OS,16.0,16,StagOS team,active,https://stag-os.org/
+statix_os,StatiX OS,9.0,16,StatiXOS team,active,https://github.com/StatiXOS
+superior_os,Superior OS,Phoenix,15,SuperiorOS team,active,https://superioros.github.io/
+syberia_os,Syberia OS,8.0,15,Syberia Project team,active,https://syberiaos.com/
+tenxos,TenXOS (10X OS),3.0,13,TenX OS,inactive,https://github.com/TenX-OS
+tequila_os,Tequila OS,2.0,12.1,TequilaOS team,inactive,https://tequilaos.org
+the_styx_project,The Styx Project,1.2,12,Styx Project team,inactive,https://styxproject.ml/
+thepixelproject,ThePixelProject,14,14,The Pixel Project team,inactive,https://github.com/The-Pixel-Project
+tipsy_os,Tipsy OS,6.3,8.1,TipsyOS team,inactive,https://github.com/TipsyOs
+toxyc_os,Toxyc OS,1.0,8.1,ToxycOS,inactive,https://github.com/ToxycOS
+twrp_team_win_recovery_project,TWRP – Team Win Recovery Project,3.7.1,not applicable,Team Win,active,https://twrp.me/
+ultimateos,UltimateOS,1.0,12,UltimateOS,inactive,https://github.com/UltimateOS
+validus_os,Validus OS,8.1,8.1,Ground Zero ROMs / ValidusOS,inactive,https://github.com/ValidusOs
+viper_os,Viper OS,6.7,9,ViperOS team,inactive,https://viperos.gitlab.io/
+voidui,VoidUI,Tiramisu,13,VoidUI team,discontinued,https://github.com/VoidUI-Tiramisu
+voltageos,VoltageOS,5.7,16,VoltageOS team,active,https://www.voltageos.com/
+waveos,WaveOS,4.9,14,Wave Project,inactive,https://github.com/Wave-Project
+weeb_projekt,Weeb Projekt,4.0,11,WeebProject,inactive,https://github.com/weebproject
+witaqua,WitAqua,2.0,12,WitAqua,inactive,https://github.com/WitAqua
+xdroid_caf,Xdroid CAF,3.3,13,Xdroid CAF,inactive,https://github.com/xdroid-CAF
+xdroidoss,xdroidOSS,4.0,13,xdroidOSS team,inactive,http://xd.xyzscape.xyz/
+xenon_hd,Xenon HD,9.0,9,XenonHD team,inactive,https://www.xenonhd.com/
 xiaomi_hyperos,Xiaomi HyperOS,3.0,15-16,Xiaomi Corporation,active,https://www.mi.com/global/hyperos/
-xiaomi_eu,Xiaomi.EU,Today,not found,not found,discontinued,https://xiaomi.eu/
+xiaomi_eu,Xiaomi.EU,HyperOS 3 weekly/stable,15-16 (device-dependent),Xiaomi.eu community,active,https://xiaomi.eu/
+xperience_caf,XPerience CAF,18.1,11,TheXperienceProject,inactive,https://github.com/TheXperienceProject
+xtended_xs,Xtended XS,XT-v7.0,16,Project Xtended team,active,https://project-xtended.org/
+yaap,YAAP (Yet Another AOSP Project),16,16,YAAP team,active,https://yaosp.dev/
+zeusos,ZeusOS,2.0,13,Zeus OS,inactive,https://github.com/Zeus-OS
 xperience_caf,XPerience CAF,not found,not found,TheXperienceProject,active,https://github.com/TheXperienceProject
 xtended_xs,Xtended XS,not found,not found,not found,not found,https://project-xtended.org/
 yaap,YAAP (Yet Another AOSP Project),not found,not found,not found,not found,https://yaosp.dev/
