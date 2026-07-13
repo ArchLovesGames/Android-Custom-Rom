@@ -1,0 +1,72 @@
+rom_id,rom_name,coverage_level,exact_rows,generic_rows,project_website
+e_os,/e/OS,Exact device evidence,3,0,https://e.foundation/e-os/
+abhix_miui,AbhiX ROG Edition,Compatibility class only,0,1,https://t.me/ROGEditionUPDATES
+alphadroid,AlphaDroid,Exact device evidence,5,0,https://alphadroid.org/
+android_s_gsi,Android S GSI,Compatibility class only,0,4,https://t.me/androidsgsi
+apatch_the_patching_of_android_kernel_system,APatch,Compatibility class only,0,1,https://github.com/bmax121/APatch
+arrowos,ArrowOS,Exact device evidence,6,0,https://arrowos.net/
+auroradroid,AuroraDroid,Compatibility class only,0,1,https://gitlab.com/AuroraOSS/auroradroid
+bliss_roms,Bliss ROMs,Exact device evidence,4,0,https://blissroms.org/
+blissrom,BlissROM,Exact device evidence,4,0,https://blissroms.org/
+caos_a11,CAOS A11 (TrebleGSI Files),Compatibility class only,0,4,https://sourceforge.net/projects/treblerom/files/CAOS11/
+cherish_os,Cherish OS,Exact device evidence,2,0,https://cherishos.com/
+coloros,ColorOS,Compatibility class only,0,1,https://www.oppo.com/en/coloros/
+corvus_os,Corvus OS (Tipz Team Builds Files),Compatibility class only,0,4,https://sourceforge.net/projects/tipzbuilds/files/GSIs/CorvusROM/
+crdroid,CrDroid,Exact device evidence,10,0,https://crdroid.net/
+crdroid_r_mod,CrDroid R Mod (TrebleGSI Files),Compatibility class only,0,4,https://sourceforge.net/projects/treblerom/files/crDRom11/
+derpfest,Derpfest,Exact device evidence,5,0,https://derpfest.org/
+droidx_ui,DroidX-UI,Exact device evidence,2,0,https://github.com/DroidX-UI
+emui,EMUI,Compatibility class only,0,1,https://consumer.huawei.com/en/emui/
+evolution_x,Evolution X,Exact device evidence,5,0,https://evolution-x.org/
+fire_os,Fire OS,Compatibility class only,0,1,https://developer.amazon.com/docs/device-specs/fire-os-versions.html
+firmware_collection,Firmware Collection (Diust),Compatibility class only,0,4,https://sourceforge.net/projects/braiagsi/files/
+firmware_collection_oneui,Firmware Collection (Nippon) - OneUI,Compatibility class only,0,4,https://sourceforge.net/projects/nippongsi/files/
+funtouch_os,Funtouch OS,Compatibility class only,0,1,https://www.vivo.com/en/funtouch
+google_gsi_a10,Google GSI A10,Compatibility class only,0,4,https://ci.android.com/builds/branches/aosp-android10-gsi/grid?
+google_gsi_a11,Google GSI A11,Compatibility class only,0,4,https://ci.android.com/builds/branches/aosp-android11-gsi/grid?
+google_gsi_a12,Google GSI A12,Compatibility class only,0,4,https://developer.android.com/about/versions/12/gsi-release-notes#downloads
+google_gsi_a13,Google GSI A13,Compatibility class only,0,4,https://developer.android.com/about/versions/13/gsi-release-notes#downloads
+havoc_os,Havoc OS,Exact device evidence,2,0,https://havoc-os.com/
+hyper_mint,Hyper Mint,Compatibility class only,0,1,https://t.me/project_mint
+hyperart,HyperArt,Compatibility class only,0,1,https://t.me/HyperArtRom
+hyperin,HyperIN,Compatibility class only,0,1,https://hyperin.vercel.app/
+hyperos_reborn,HyperOS Reborn,Compatibility class only,0,1,https://t.me/reborn_dll
+hyperos_tn,HyperOS TN,Compatibility class only,0,1,https://miuitn.vercel.app/HyperTN/
+hypervn,HyperVN,Compatibility class only,0,1,https://sourceforge.net/projects/miuivn/files/fuxi/HyperVN/
+hypervoltron,HyperVoltron,Compatibility class only,0,1,https://t.me/s/HyperVoltronUpdates
+kali_nethunter,Kali NetHunter,Compatibility class only,0,1,https://www.kali.org/docs/nethunter/
+kernelsu_kernel_based_root_solution_for_android,KernelSU : Kernel Based Root Solution for Android,Compatibility class only,0,1,https://kernelsu.org
+leos,LeOS,Compatibility class only,0,4,https://leos-gsi.de/
+lineage_os_r_mod,Lineage OS R Mod,Compatibility class only,0,4,https://sourceforge.net/projects/treblerom/files/LiR/
+lineageos,LineageOS,Exact device evidence,6,0,https://lineageos.org/
+lmodroid,LMODroid,Exact device evidence,6,0,https://git.libremobileos.com/LMODroid/
+magicos,MagicOS,Compatibility class only,0,1,https://www.honor.com/global/magicos/
+magisk_the_magic_mask_for_android,Magisk : The Magic Mask for Android,Compatibility class only,0,1,https://github.com/topjohnwu/Magisk
+miui_oneos,MIUI OneOS,Compatibility class only,0,1,https://sourceforge.net/projects/one-os/
+miui_pro,MIUI Pro,Compatibility class only,0,1,https://sourceforge.net/projects/miuipro/
+miui_tr,MIUI TR,Compatibility class only,0,1,https://forum.miuitr.info/bolum/miuitr.5/
+my_ux,My UX,Compatibility class only,0,1,https://www.motorola.com/us/my-ux/
+nethunter_os,Nethunter OS,Compatibility class only,0,1,https://www.kali.org/docs/nethunter/
+one_ui,One UI,Compatibility class only,0,1,https://www.samsung.com/us/apps/one-ui/
+orangefox_recovery,OrangeFox Recovery,Exact device evidence,3,1,https://orangefox.download
+origin_os,Origin OS,Compatibility class only,0,1,https://www.vivo.com/en/originos
+oxygenos,OxygenOS,Compatibility class only,0,1,https://www.oneplus.com/us/oxygenos16
+paranoid_android,Paranoid Android,Exact device evidence,2,0,https://paranoidandroid.co/
+pitch_black_recovery_project,Pitch Black Recovery Project,Compatibility class only,0,1,https://pitchblackrecovery.com/
+pixelos,PixelOS,Exact device evidence,3,0,https://pixelos.net/
+pixys_os,Pixys OS,Exact device evidence,2,0,https://downloads.pixysos.com/
+project_matrixx,Project Matrixx,Exact device evidence,4,0,https://www.projectmatrixx.com/
+pterodon_recovery,Pterodon Recovery,Compatibility class only,0,1,https://github.com/PterodonRecovery
+raveos,RaveOS,Compatibility class only,0,1,https://raveos.com/
+realme_ui,realme UI,Compatibility class only,0,1,https://www.realme.com/in/realme-ui
+redwolf_recovery_project,RedWolf Recovery Project,Compatibility class only,0,1,https://redwolfrecovery.github.io/
+remodedui,RemodedUI,Compatibility class only,0,1,https://xdaforums.com/t/rom-miuimod-13-0-xaga-official-remodedui-lynx-09-07-2023.4608545/
+revos,RevOS,Compatibility class only,0,1,https://sourceforge.net/projects/revolutionos-miui/
+risingos,RisingOS,Exact device evidence,2,0,https://risingosrevived.tech/
+shift_os_g,Shift OS G,Exact device evidence,1,1,https://www.shift.eco/shiftos/
+shift_os_l,Shift OS l,Exact device evidence,1,1,https://www.shift.eco/shiftos/
+shrp_sky_hawk_recovery_project,SHRP – Sky Hawk Recovery Project,Compatibility class only,0,1,https://skyhawkrecovery.github.io/
+superior_os,Superior OS,Exact device evidence,6,0,https://superioros.github.io/
+twrp_team_win_recovery_project,TWRP – Team Win Recovery Project,Exact device evidence,3,1,https://twrp.me/
+xiaomi_hyperos,Xiaomi HyperOS,Compatibility class only,0,1,https://www.mi.com/global/hyperos/
+xiaomi_eu,Xiaomi.EU,Exact device evidence,2,1,https://xiaomi.eu/

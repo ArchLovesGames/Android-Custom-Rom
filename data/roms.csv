@@ -57,7 +57,6 @@ descendant_x,Descendant X,12.1,12.1,Descendant team,inactive,https://descendant.
 devineui,DevineUI,not found,not found,DevineUI project,unverified,not found
 dotos,DotOS (Droid On Time),5.2,11,Droid On Time team,inactive,https://www.droidontime.com/
 droidx_ui,DroidX-UI,2.3,14,DroidX-UI team,inactive,https://github.com/DroidX-UI
-efoundation,/e/OS,4.0,15-16 (device-dependent),e Foundation / Murena,active,https://e.foundation/
 eliteroms,EliteRoms,EliteROM NextGen 5.0,15,Hassan Mirza / Elite Development,active,https://www.elitedevelopment.com.pk/
 elytraos,elytraOS,14,14,ElytraOS,inactive,https://github.com/elytraOS
 emteria_os,emteria.OS,16.2,16,emteria GmbH,active,https://emteria.com/
@@ -216,7 +215,3 @@ xperience_caf,XPerience CAF,18.1,11,TheXperienceProject,inactive,https://github.
 xtended_xs,Xtended XS,XT-v7.0,16,Project Xtended team,active,https://project-xtended.org/
 yaap,YAAP (Yet Another AOSP Project),16,16,YAAP team,active,https://yaosp.dev/
 zeusos,ZeusOS,2.0,13,Zeus OS,inactive,https://github.com/Zeus-OS
-xperience_caf,XPerience CAF,not found,not found,TheXperienceProject,active,https://github.com/TheXperienceProject
-xtended_xs,Xtended XS,not found,not found,not found,not found,https://project-xtended.org/
-yaap,YAAP (Yet Another AOSP Project),not found,not found,not found,not found,https://yaosp.dev/
-zeusos,ZeusOS,not found,not found,Zeus OS,active,https://github.com/Zeus-OS
