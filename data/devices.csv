@@ -1,6 +1,5 @@
 device_id,device_type,brand,device,model
 10_or_g,phone,10.or,G,G
-generic_amazon_fire_family,vendor_family,Amazon,Amazon Fire device family,vendor-supported models
 ark_peach,phone,ARK,Benefit A3,peach
 asus_i001d,phone,ASUS,ROG Phone 2 (ZS660KL),I001D
 asus_obiwan,phone,ASUS,ROG Phone 3,obiwan
@@ -37,16 +36,7 @@ f_x_tec_pro1x,phone,F(x)tec,Pro¹ X,pro1x
 fairphone_fp2,phone,Fairphone,2,FP2
 fairphone_fp3,phone,Fairphone,3,FP3
 fairphone_fp4,phone,Fairphone,4,FP4
-generic_android_app,compatibility_class,Generic,Android device able to install the application,app-compatible
-generic_android_recovery,compatibility_class,Generic,Android device with a project-specific recovery build,recovery-build-required
-generic_android_kernel_patch,compatibility_class,Generic,Android device with a supported kernel/boot configuration,kernel-patch-compatible
-generic_android_root_tool,compatibility_class,Generic,Android device with supported boot image/root workflow,root-tool-compatible
 generic_raveos_mining_rig,computer,Generic,GPU mining rig supported by RaveOS,x86_64-mining-rig
-generic_nethunter_supported,compatibility_class,Generic,Kali NetHunter-supported Android device,official-or-community-kernel-required
-generic_treble_a64_ab,compatibility_class,Generic,Project Treble A64/Binder64 A/B device,a64-ab
-generic_treble_arm_aonly,compatibility_class,Generic,Project Treble ARM A-only device,arm-aonly
-generic_treble_arm64_aonly,compatibility_class,Generic,Project Treble ARM64 A-only device,arm64-aonly
-generic_treble_arm64_ab,compatibility_class,Generic,Project Treble ARM64 A/B device,arm64-ab
 gm_gm8_sprout,phone,GM,8,GM8_sprout
 google_deadpool,tv,Google,ADT-3,deadpool
 google_seed,phone,Google,Android One 2nd Gen,seed
@@ -90,7 +80,6 @@ google_dragon,tablet,Google,Pixel C,dragon
 google_tangorpro,tablet,Google,Pixel Tablet,tangorpro
 google_marlin,phone,Google,Pixel XL,marlin
 hardkernel_odroidc4,sbc,HardKernel,ODROID-C4,odroidc4
-generic_honor_family,vendor_family,Honor,Honor device family,vendor-supported models
 htc_pme,phone,HTC,10,pme
 htc_m7,phone,HTC,One (GSM),m7
 htc_m8,phone,HTC,One (M8),m8
@@ -107,7 +96,6 @@ huawei_cherry,phone,Huawei,Honor 4 / 4X,cherry
 huawei_che10,phone,Huawei,Honor 4x (China Telecom),che10
 huawei_kiwi,phone,Huawei,Honor 5X,kiwi
 huawei_berkeley,phone,Huawei,Honor View 10,berkeley
-generic_huawei_family,vendor_family,Huawei,Huawei device family,vendor-supported models
 huawei_figo,phone,Huawei,P Smart,figo
 huawei_anne,phone,Huawei,P20 Lite,anne
 huawei_charlotte,phone,Huawei,P20 Pro,charlotte
@@ -243,7 +231,6 @@ motorola_nash,phone,Motorola,moto z2 force,nash
 motorola_albus,phone,Motorola,moto z2 play,albus
 motorola_messi,phone,Motorola,moto z3,messi
 motorola_beckham,phone,Motorola,moto z3 play,beckham
-generic_motorola_family,vendor_family,Motorola,Motorola device family,vendor-supported models
 motorola_deen,phone,Motorola,One,deen
 motorola_troika,phone,Motorola,one action,troika
 motorola_chef,phone,Motorola,one power,chef
@@ -297,12 +284,10 @@ oneplus_avicii,phone,OnePlus,Nord,avicii
 oneplus_denniz,phone,OnePlus,Nord 2 5G,denniz
 oneplus_dre,phone,OnePlus,Nord N200,dre
 oneplus_bacon,phone,OnePlus,One,bacon
-generic_oneplus_family,vendor_family,OnePlus,OnePlus device family,vendor-supported models
 oneplus_onyx,phone,OnePlus,X,onyx
 oppo_f1f,phone,OPPO,F1 (International),f1f
 oppo_find7,phone,OPPO,Find 7a/s,find7
 oppo_n3,phone,OPPO,N3,n3
-generic_oppo_family,vendor_family,OPPO,OPPO device family,vendor-supported models
 oppo_r5,phone,OPPO,R5/R5s (International),r5
 oppo_r7plus,phone,OPPO,R7 Plus (International),r7plus
 oppo_r7sf,phone,OPPO,R7s (International),r7sf
@@ -343,7 +328,6 @@ realme_lunaa,phone,Realme,GT Master Editon,lunaa
 realme_bitra,phone,Realme,GT NEO 2,bitra
 realme_rmx3371,phone,Realme,GT NEO 3T,RMX3371
 realme_rmp6768,tablet,Realme,Pad,RMP6768
-generic_realme_family,vendor_family,Realme,realme device family,vendor-supported models
 realme_rmx1831,phone,Realme,U1,RMX1831
 realme_rmx1901,phone,Realme,X,RMX1901
 realme_x2,phone,Realme,X2,x2
@@ -501,9 +485,7 @@ samsung_gts4lv,tablet,Samsung,Galaxy Tab S5e (LTE),gts4lv
 samsung_gts4lvwifi,tablet,Samsung,Galaxy Tab S5e (Wi-Fi),gts4lvwifi
 samsung_gta4xl,tablet,Samsung,Galaxy Tab S6 Lite (LTE),gta4xl
 samsung_gta4xlwifi,tablet,Samsung,Galaxy Tab S6 Lite (Wi-Fi),gta4xlwifi
-generic_samsung_family,vendor_family,Samsung,Samsung Galaxy device family,vendor-supported models
 samsung_gtaxlwifi,tablet,Samsung,Tab A6 (SM-T580),gtaxlwifi
-generic_shift_family,vendor_family,SHIFT,SHIFT device family,vendor-supported models
 shift_axolotl,phone,SHIFT,SHIFT6mq,axolotl
 smartron_rimo02a,phone,Smartron,SRT.phone,rimo02a
 sony_pdx203,phone,Sony,Xperia 1 II,pdx203
@@ -546,7 +528,6 @@ sony_suzuran,phone,Sony,Xperia Z5 Compact,suzuran
 sony_odin,phone,Sony,Xperia ZL,odin
 sony_dogo,phone,Sony,Xperia ZR,dogo
 teracube_v7101o,phone,Teracube,One,v7101o
-generic_vivo_family,vendor_family,vivo,vivo device family,vendor-supported models
 wileyfox_kipper,phone,Wileyfox,Storm,kipper
 wileyfox_crackling,phone,Wileyfox,Swift,crackling
 wileyfox_marmite,phone,Wileyfox,Swift 2/2+/2X,marmite
@@ -714,7 +695,6 @@ xiaomi_joyeuse,phone,Xiaomi,Redmi Note 9 Pro,joyeuse
 xiaomi_yunluo,tablet,Xiaomi,Redmi Pad,yunluo
 xiaomi_xun,tablet,Xiaomi,Redmi Pad SE,xun
 xiaomi_ysl,phone,Xiaomi,Redmi S2,ysl
-generic_xiaomi_family,vendor_family,Xiaomi,Xiaomi / Redmi / POCO device family,project-specific models
 yandex_amber,phone,Yandex,Phone,Amber
 yu_jalebi,phone,YU,Yunique,jalebi
 yu_lettuce,phone,YU,Yuphoria,lettuce

@@ -37,6 +37,7 @@ COMPATIBILITY_COLUMNS = {
 }
 DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
+ROM_SEARCH_RESULT_LIMIT = 100
 
 
 @st.cache_data
@@ -123,6 +124,34 @@ def build_catalog(
     ).reset_index(drop=True)
 
 
+def build_device_rom_results(
+    roms: pd.DataFrame, compatibility: pd.DataFrame, selected_device_id: str
+) -> pd.DataFrame:
+    device_rows = compatibility[compatibility["device_id"] == selected_device_id]
+    if device_rows.empty:
+        return pd.DataFrame()
+
+    return (
+        device_rows.merge(roms, on="rom_id", how="left")
+        .sort_values(["support_level", "name"])
+        .reset_index(drop=True)
+    )
+
+
+def build_rom_device_results(
+    devices: pd.DataFrame, compatibility: pd.DataFrame, selected_rom_id: str
+) -> pd.DataFrame:
+    rom_rows = compatibility[compatibility["rom_id"] == selected_rom_id]
+    if rom_rows.empty:
+        return pd.DataFrame()
+
+    return (
+        rom_rows.merge(devices, on="device_id", how="left")
+        .sort_values(["device_type", "brand", "device", "model"])
+        .reset_index(drop=True)
+    )
+
+
 def device_label(row: pd.Series) -> str:
     return (
         f"{row['device_type']} - {row['brand']} {row['device']} "
@@ -136,7 +165,7 @@ def rom_label(row: pd.Series) -> str:
 
 def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
     if not query:
-        return devices.sort_values(["device_type", "brand", "device", "model"])
+        return devices.iloc[0:0]
 
     searchable = devices[["device_type", "brand", "device", "model"]].agg(" ".join, axis=1)
     return devices[
@@ -144,17 +173,16 @@ def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
     ].sort_values(["device_type", "brand", "device", "model"])
 
 
-def show_devices(devices: pd.DataFrame) -> None:
-    display = devices[["device_type", "brand", "device", "model", "device_id"]].rename(
-        columns={
-            "device_type": "Type",
-            "brand": "Brand",
-            "device": "Device",
-            "model": "Model",
-            "device_id": "Device ID",
-        }
-    )
-    st.dataframe(display, width="stretch", hide_index=True)
+def filter_rom_options(roms: pd.DataFrame, query: str) -> pd.DataFrame:
+    if not query:
+        return roms.iloc[0:0]
+
+    searchable = roms[
+        ["name", "version", "android_version", "maintainer", "status"]
+    ].agg(" ".join, axis=1)
+    return roms[
+        searchable.str.contains(query, case=False, na=False, regex=False)
+    ].sort_values(["name", "version"])
 
 
 def show_rom_results(results: pd.DataFrame) -> None:
@@ -220,7 +248,10 @@ def show_device_results(results: pd.DataFrame) -> None:
 
 
 def show_selected_device_roms(
-    devices: pd.DataFrame, catalog: pd.DataFrame, selected_device_id: str
+    devices: pd.DataFrame,
+    roms: pd.DataFrame,
+    compatibility: pd.DataFrame,
+    selected_device_id: str,
 ) -> None:
     if not selected_device_id:
         st.info("Select a device to view compatible ROMs.")
@@ -232,54 +263,13 @@ def show_selected_device_roms(
         f"{selected['device']} {selected['model']}"
     )
 
-    results = catalog[catalog["device_id"] == selected_device_id].sort_values(
-        ["support_level", "name"]
-    )
+    results = build_device_rom_results(roms, compatibility, selected_device_id)
     show_rom_results(results)
 
 
-def guided_device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
-    device_types = sorted(devices["device_type"].unique())
-    if not device_types:
-        st.warning("No device types are available.")
-        return
-
-    device_type = st.selectbox("Device type", device_types, key="device_type")
-    type_devices = devices[devices["device_type"] == device_type]
-    brands = sorted(type_devices["brand"].unique())
-    if not brands:
-        st.warning("No brands are available for the selected device type.")
-        return
-
-    brand = st.selectbox("Brand", brands, key=f"brand_{device_type}")
-    brand_devices = type_devices[type_devices["brand"] == brand].sort_values(
-        ["device", "model"]
-    )
-    device_names = sorted(brand_devices["device"].unique())
-    if not device_names:
-        st.warning("No devices are available for the selected brand.")
-        return
-
-    device = st.selectbox("Device", device_names, key=f"device_{device_type}_{brand}")
-    model_options = brand_devices[brand_devices["device"] == device].sort_values("model")
-    if model_options.empty:
-        st.warning("No models are available for the selected device.")
-        return
-
-    model_label_map = {
-        f"{row['model']} [{row['device_id']}]": row["device_id"]
-        for _, row in model_options.iterrows()
-    }
-    model = st.selectbox(
-        "Model",
-        list(model_label_map.keys()),
-        key=f"model_{device_type}_{brand}_{device}",
-    )
-
-    show_selected_device_roms(devices, catalog, model_label_map[model])
-
-
-def direct_device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
+def direct_device_lookup(
+    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
+) -> None:
     search_query = st.text_input(
         "Search by type, brand, device, or model",
         placeholder="Example: Phone, Pixel 7, OnePlus",
@@ -311,41 +301,54 @@ def direct_device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
         key=f"matching_device_{search_query}",
     )
 
-    show_selected_device_roms(devices, catalog, search_options[selected_label])
+    show_selected_device_roms(devices, roms, compatibility, search_options[selected_label])
 
 
-def device_lookup(devices: pd.DataFrame, catalog: pd.DataFrame) -> None:
+def device_lookup(
+    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
+) -> None:
     st.subheader("Find compatible ROMs")
-
-    guided_tab, direct_tab = st.tabs(["Guided selection", "Direct search"])
-
-    with guided_tab:
-        guided_device_lookup(devices, catalog)
-
-    with direct_tab:
-        direct_device_lookup(devices, catalog)
+    direct_device_lookup(devices, roms, compatibility)
 
 
-def rom_lookup(roms: pd.DataFrame, catalog: pd.DataFrame) -> None:
+def rom_lookup(
+    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
+) -> None:
     st.subheader("Find compatible devices")
 
-    rom_options = {
-        rom_label(row): row["rom_id"] for _, row in roms.sort_values("name").iterrows()
-    }
-    if not rom_options:
-        st.warning("No ROMs are available.")
+    search_query = st.text_input(
+        "Search ROMs",
+        placeholder="Example: LineageOS, Android 16, recovery",
+        key="rom_search_query",
+    ).strip()
+
+    if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
+        st.info(f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search ROMs.")
         return
 
+    matching_roms = filter_rom_options(roms, search_query)
+    if matching_roms.empty:
+        st.warning("No ROMs match that search.")
+        return
+
+    visible_roms = matching_roms.head(ROM_SEARCH_RESULT_LIMIT)
+    if len(matching_roms) > ROM_SEARCH_RESULT_LIMIT:
+        st.caption(
+            f"Showing the first {ROM_SEARCH_RESULT_LIMIT} of "
+            f"{len(matching_roms)} matches. Refine the search to narrow results."
+        )
+
+    rom_options = {
+        rom_label(row): row["rom_id"] for _, row in visible_roms.iterrows()
+    }
     selected_label = st.selectbox(
         "ROM",
         list(rom_options.keys()),
-        key="rom",
+        key=f"rom_{search_query}",
     )
 
     selected_rom_id = rom_options[selected_label]
-    results = catalog[catalog["rom_id"] == selected_rom_id].sort_values(
-        ["device_type", "brand", "device", "model"]
-    )
+    results = build_rom_device_results(devices, compatibility, selected_rom_id)
     show_device_results(results)
 
 
@@ -375,8 +378,6 @@ def main() -> None:
         )
         return
 
-    catalog = build_catalog(devices, roms, compatibility)
-
     metric_columns = st.columns(3)
     metric_columns[0].metric("Device types", devices["device_type"].nunique())
     metric_columns[1].metric("Devices", devices["device_id"].nunique())
@@ -385,10 +386,10 @@ def main() -> None:
     device_tab, rom_tab = st.tabs(["Device to ROMs", "ROM to devices"])
 
     with device_tab:
-        device_lookup(devices, catalog)
+        device_lookup(devices, roms, compatibility)
 
     with rom_tab:
-        rom_lookup(roms, catalog)
+        rom_lookup(devices, roms, compatibility)
 
 
 if __name__ == "__main__":
