@@ -1,36 +1,36 @@
 rom_id,name,version,android_version,maintainer,status,website
-e_os,/e/,4.0,16,e Foundation,active,https://e.foundation/e-os/
-2by2_project,2by2 Project,not found,not found,not found,not found,https://project2by2.jp/
-abhix_miui,Abhix MIUI,not found,not found,ROGEditionUPDATES,active,https://t.me/ROGEditionUPDATES
-advanced_xperience_os,Advanced XPerience OS,not found,not found,not found,not found,https://axp.binbash.rocks/
-afterlife_project,Afterlife Project,not found,not found,AfterLifePrjktAOSP,active,https://github.com/AfterLifePrjktAOSP
-afterlifeos,AfterlifeOS,not found,not found,not found,active,https://afterlifeos.com/
-aicp,AICP,not found,not found,not found,active,https://www.aicp-rom.com/
-aim_rom,AIM ROM,not found,not found,not found,active,https://aimrom.github.io/
-alios,AliOS,2.0,4.4 (?),Alibaba Cloud,discontinued,not found
-alphadroid,AlphaDroid,not found,not found,AlphaDroid Project,active,https://github.com/AlphaDroid-Project
-alrightos,AlrightOS,not found,not found,not found,not found,https://alrightos.xyz/
-amogos_rom,AmogOS Rom,not found,not found,AmogOS ROM,active,https://github.com/AmogOS-Rom
-amyrom,AmyROM,not found,not found,AmyROM,active,https://github.com/amyROM
-ancient_os,Ancient OS,not found,not found,not found,not found,https://www.ancientrom.xyz/
-android_s_gsi,Android S GSI,not found,not found,Androidsgsi,active,https://t.me/androidsgsi
+e_os,/e/OS,4.0,device-dependent,e Foundation / Murena,active,https://e.foundation/e-os/
+2by2_project,2by2 ROM,16,16,kailua (nattolecats),discontinued,https://project2by2.jp/aosp/
+abhix_miui,AbhiX ROG Edition,V13.2.4.0,13,@IM_RISHI2001,inactive,https://t.me/ROGEditionUPDATES
+advanced_xperience_os,AXP.OS,2026.005,"11, 13 and 15 (device-dependent)",@steadfasterX,active,https://axpos.org/
+afterlife_project,AfterLife Project,V3,12L,Mr_ZerO (RdW-afk),inactive,https://github.com/AfterLifePrjktAOSP
+afterlifeos,AfterlifeOS,V8.4 Ophelia,16 QPR2,Romeo Delta Whiskey,active,https://afterlifeos.com/
+aicp,AICP,21.2,16,AICP Team,active,https://www.aicp-rom.com/
+aim_rom,AIM ROM,V4.1,10,AIMROM Team,inactive,https://aimrom.github.io/
+alios,AliOS,2.0,4.4 (?),Alibaba Cloud,discontinued,https://www.alios.cn/
+alphadroid,AlphaDroid,16.2,16,AlphaDroid Project,active,https://alphadroid.org/
+alrightos,AlrightOS,not found,16,AlrightOS Team,inactive,https://github.com/AlrightOS-BrokenLab
+amogos_rom,AmogOS Rom,not found,14,AmogOS ROM,inactive,https://github.com/AmogOS-Rom
+amyrom,AmyROM,4.0,14,amyROM,inactive,https://github.com/amyROM
+ancient_os,Ancient OS,7.4.1,13,AncientOS Team,discontinued,https://www.ancientrom.xyz/
+android_s_gsi,Android S GSI,S,12,AndroidS GSI community,active,https://t.me/androidsgsi
 aokp,AOKP,Pie,9,Team Kang,discontinued,http://aokp.co/
-aosdp,AOSDP,not found,not found,AOSDP,active,https://github.com/AOSDP
-aosip,AOSiP (Android Open Source Illusion Project),not found,not found,not found,not found,https://aosip.dev/
-aosp_12_1_v416,AOSP 12.1 v416 (treble_experimentations),not found,not found,Phhusson,active,https://github.com/phhusson/treble_experimentations/releases
-aosp_extended,AOSP Extended,not found,not found,not found,not found,https://www.aospextended.com/
-aospk_the_kraken_project,AOSPK - The Kraken Project,not found,not found,AOSPK,active,https://github.com/AOSPK
-apatch_the_patching_of_android_kernel_system,APatch : The Patching of Android Kernel & System,not found,not found,Bmax121,active,https://github.com/bmax121/APatch
-aquari_os,Aquari OS,not found,not found,AquariOS,active,https://github.com/AquariOS
-arrowos,ArrowOS,not found,not found,not found,not found,https://arrowos.net/
-atomic_os,Atomic OS,not found,not found,Atomic OS,active,https://github.com/Atomic-OS
-auroradroid,AuroraDroid,not found,not found,AuroraDroid,active,https://github.com/AuroraDroid
-axionaosp,AxionAOSP,not found,not found,not found,not found,not found
-baidu_yi,Baidu Yi,not found,4 (?),"Baidu, Inc.",discontinued,not found
-baikalos,BaikalOS,not found,not found,Baikalos,active,https://github.com/baikalos
-bananadroid,BananaDroid,not found,not found,Bananadroid,active,https://github.com/bananadroid
-beastroms,BeastROMs,not found,not found,BeastRoms,active,https://github.com/BeastRoms
-benzo_rom,Benzo ROM,not found,not found,BenzoRom,active,https://github.com/BenzoRom
+aosdp,AOSDP,not found,9,AOSDP,inactive,https://github.com/AOSDP
+aosip,AOSiP (Android Open Source Illusion Project),11,11,AOSiP Team,inactive,https://aosip.dev/
+aosp_12_1_v416,AOSP 12.1 v416 (treble_experimentations),v416,12.1,phhusson,discontinued,https://github.com/phhusson/treble_experimentations/releases
+aosp_extended,AOSP Extended,9.0,12,AospExtended Team,discontinued,https://www.aospextended.com/
+aospk_the_kraken_project,AOSPK - The Kraken Project,not found,12,AOSPK,inactive,https://github.com/AOSPK
+apatch_the_patching_of_android_kernel_system,APatch : The Patching of Android Kernel & System,11142,not applicable,bmax121 / APatch Team,active,https://github.com/bmax121/APatch
+aquari_os,AquariOS,X,10,AquariOS Team,inactive,https://github.com/AquariOS
+arrowos,ArrowOS,12.1,12.1,ArrowOS Team,inactive,https://arrowos.net/
+atomic_os,Atomic OS,not found,8.1,Atomic OS,inactive,https://github.com/Atomic-OS
+auroradroid,AuroraDroid,1.0.8,not applicable,Rahul Kumar Patel / Aurora OSS,inactive,https://gitlab.com/AuroraOSS/auroradroid
+axionaosp,AxionOS,2.7 PROXIMA,16,AxionOS Team,active,https://www.axionos.org/
+baidu_yi,Baidu Yi,not found,4 (?),"Baidu, Inc.",discontinued,https://web.archive.org/web/20110924040853/http://yi.baidu.com/
+baikalos,BaikalOS,13.0,13,BaikalOS Team,active,https://baikalos.ru/
+bananadroid,BananaDroid,not found,14,BananaDroid,inactive,https://www.bananadroid.com/
+beastroms,BeastROMs,not found,10,BeastRoms,inactive,https://github.com/BeastRoms
+benzo_rom,Benzo ROM,not found,13,BenzoRom,inactive,https://github.com/BenzoRom
 bharos,BharOS,1,13,JandK Operations Pvt. Ltd. / IIT Madras Pravartak,active,https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-incubated-firm-develops-indigenous-atmanirbhar
 bianca_project,Bianca Project,13,13,BiancaProject,inactive,https://github.com/BiancaProject
 black_iron_project,Black Iron Project,16,16,Black Iron Project,active,https://github.com/Black-Iron-Project
