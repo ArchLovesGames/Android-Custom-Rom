@@ -12,8 +12,11 @@ from app import (
     ROMS_FORMAT_FILE,
     ROMS_FILE,
     build_catalog,
+    build_device_rom_results,
+    build_rom_device_results,
     device_label,
     filter_device_options,
+    filter_rom_options,
     has_dataset_rows,
     load_data,
     validate_data,
@@ -161,6 +164,19 @@ def test_build_catalog_joins_devices_roms_and_compatibility():
     assert pixel_graphene["support_level"] == "Official"
 
 
+def test_lazy_lookup_helpers_join_only_selected_rows():
+    devices, roms, compatibility = sample_frames()
+
+    device_results = build_device_rom_results(roms, compatibility, "pixel_7")
+    rom_results = build_rom_device_results(devices, compatibility, "lineageos_21")
+
+    assert device_results["rom_id"].tolist() == [
+        "grapheneos_2024",
+        "lineageos_21",
+    ]
+    assert rom_results["device_id"].tolist() == ["pixel_7", "poco_f3"]
+
+
 def test_filter_device_options_searches_multiple_fields_case_insensitively():
     devices, _, _ = sample_frames()
 
@@ -173,6 +189,18 @@ def test_filter_device_options_searches_multiple_fields_case_insensitively():
     assert by_brand["device_id"].tolist() == ["nothing_phone_1"]
 
 
+def test_filter_rom_options_searches_multiple_fields_case_insensitively():
+    _, roms, _ = sample_frames()
+
+    by_name = filter_rom_options(roms, "graphene")
+    by_version = filter_rom_options(roms, "21")
+    by_status = filter_rom_options(roms, "official")
+
+    assert by_name["rom_id"].tolist() == ["grapheneos_2024"]
+    assert by_version["rom_id"].tolist() == ["lineageos_21"]
+    assert len(by_status) == len(roms)
+
+
 def test_filter_device_options_treats_search_as_literal_text():
     devices, _, _ = sample_frames()
 
@@ -181,15 +209,12 @@ def test_filter_device_options_treats_search_as_literal_text():
     assert results.empty
 
 
-def test_filter_device_options_empty_query_returns_all_devices_sorted():
+def test_filter_device_options_empty_query_returns_no_rows():
     devices, _, _ = sample_frames()
 
     results = filter_device_options(devices, "")
-    labels = [device_label(row) for _, row in results.iterrows()]
 
-    assert len(results) == len(devices)
-    assert labels[0] == "Phone - Google Pixel 7 GVU6C [pixel_7]"
-    assert labels[-1] == "Phone - Xiaomi POCO F3 M2012K11AG [poco_f3]"
+    assert results.empty
 
 
 def test_validate_data_accepts_header_only_format_frames():
@@ -243,3 +268,4 @@ def test_direct_lookup_search_does_not_render_all_devices_by_default():
 
     assert not app.exception
     assert all(selectbox.label != "Matching devices" for selectbox in app.selectbox)
+    assert all(selectbox.label != "ROM" for selectbox in app.selectbox)
