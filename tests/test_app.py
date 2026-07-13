@@ -29,8 +29,6 @@ def sample_frames():
                 "brand": "Google",
                 "device": "Pixel 7",
                 "model": "GVU6C",
-                "android_version": "14",
-                "chipset": "Google Tensor G2",
             },
             {
                 "device_id": "poco_f3",
@@ -38,8 +36,6 @@ def sample_frames():
                 "brand": "Xiaomi",
                 "device": "POCO F3",
                 "model": "M2012K11AG",
-                "android_version": "13",
-                "chipset": "Qualcomm Snapdragon 870",
             },
             {
                 "device_id": "nothing_phone_1",
@@ -47,8 +43,6 @@ def sample_frames():
                 "brand": "Nothing",
                 "device": "Phone 1",
                 "model": "A063",
-                "android_version": "14",
-                "chipset": "Qualcomm Snapdragon 778G+",
             },
         ]
     )
@@ -77,32 +71,20 @@ def sample_frames():
     compatibility = pd.DataFrame(
         [
             {
-                "device_id": "pixel_7",
                 "rom_id": "lineageos_21",
-                "support_level": "Stable",
-                "notes": "Core hardware supported",
-                "last_verified": "2026-07-12",
+                "rom_name": "LineageOS",
+                "coverage_level": "Exact device evidence",
+                "exact_rows": "2",
+                "generic_rows": "0",
+                "project_website": "https://lineageos.org/",
             },
             {
-                "device_id": "pixel_7",
                 "rom_id": "grapheneos_2024",
-                "support_level": "Stable",
-                "notes": "Officially supported device family",
-                "last_verified": "2026-07-12",
-            },
-            {
-                "device_id": "poco_f3",
-                "rom_id": "lineageos_21",
-                "support_level": "Testing",
-                "notes": "Community build",
-                "last_verified": "2026-07-12",
-            },
-            {
-                "device_id": "nothing_phone_1",
-                "rom_id": "lineageos_21",
-                "support_level": "Stable",
-                "notes": "Core hardware supported",
-                "last_verified": "2026-07-12",
+                "rom_name": "GrapheneOS",
+                "coverage_level": "Compatibility class only",
+                "exact_rows": "0",
+                "generic_rows": "1",
+                "project_website": "https://grapheneos.org/",
             },
         ]
     )
@@ -112,8 +94,8 @@ def sample_frames():
 def test_dataset_and_format_files_match_required_schema():
     devices, roms, compatibility = load_data()
 
-    assert not DEVICES_FILE.exists()
-    assert not COMPATIBILITY_FILE.exists()
+    assert DEVICES_FILE.exists()
+    assert COMPATIBILITY_FILE.exists()
     assert ROMS_FILE.exists()
     assert DEVICES_FORMAT_FILE.exists()
     assert ROMS_FORMAT_FILE.exists()
@@ -122,7 +104,7 @@ def test_dataset_and_format_files_match_required_schema():
     assert ROM_COLUMNS.issubset(roms.columns)
     assert COMPATIBILITY_COLUMNS.issubset(compatibility.columns)
     assert validate_data(devices, roms, compatibility) == []
-    assert not has_dataset_rows(devices, roms, compatibility)
+    assert has_dataset_rows(devices, roms, compatibility)
 
 
 def test_rom_dataset_is_populated_and_normalized():
@@ -133,43 +115,50 @@ def test_rom_dataset_is_populated_and_normalized():
     assert roms["name"].is_unique
     assert not (roms == "").any().any()
     assert "not found" in set(roms["version"])
-    assert {"active", "discontinued", "not found"}.issuperset(set(roms["status"]))
+    assert "discontinued" not in set(roms["status"])
+    assert {"active", "inactive", "not found", "unverified"}.issuperset(
+        set(roms["status"])
+    )
+
+
+def test_refined_datasets_drop_sparse_and_unverified_fields():
+    devices, _, compatibility = load_data()
+
+    assert {"android_version", "chipset"}.isdisjoint(devices.columns)
+    assert "unverified_rows" not in compatibility.columns
+    assert "unverified_placeholder" not in set(compatibility["coverage_level"])
+    assert not (compatibility == "not found").any().any()
 
 
 def test_validate_data_reports_missing_columns():
     devices, roms, compatibility = sample_frames()
-    invalid_devices = devices.drop(columns=["device_type", "chipset"])
+    invalid_devices = devices.drop(columns=["device_type", "model"])
 
     errors = validate_data(invalid_devices, roms, compatibility)
 
-    assert errors == ["devices.csv: chipset, device_type"]
+    assert errors == ["devices.csv: device_type, model"]
 
 
 def test_build_catalog_joins_devices_roms_and_compatibility():
     devices, roms, compatibility = sample_frames()
 
     catalog = build_catalog(devices, roms, compatibility)
-    pixel_graphene = catalog[
-        (catalog["device_id"] == "pixel_7")
-        & (catalog["rom_id"] == "grapheneos_2024")
-    ].iloc[0]
+    pixel_graphene = catalog[catalog["rom_id"] == "grapheneos_2024"].iloc[0]
 
     assert len(catalog) == len(compatibility)
-    assert pixel_graphene["brand"] == "Google"
-    assert pixel_graphene["device"] == "Pixel 7"
     assert pixel_graphene["name"] == "GrapheneOS"
-    assert pixel_graphene["support_level"] == "Stable"
+    assert pixel_graphene["coverage_level"] == "Compatibility class only"
 
 
 def test_filter_device_options_searches_multiple_fields_case_insensitively():
     devices, _, _ = sample_frames()
 
     by_type = filter_device_options(devices, "PHONE")
-    by_chipset = filter_device_options(devices, "snapdragon 870")
+    by_model = filter_device_options(devices, "M2012")
     by_brand = filter_device_options(devices, "nothing")
 
     assert len(by_type) == len(devices)
-    assert by_chipset["device_id"].tolist() == ["poco_f3"]
+    assert by_model["device_id"].tolist() == ["poco_f3"]
     assert by_brand["device_id"].tolist() == ["nothing_phone_1"]
 
 
@@ -209,11 +198,12 @@ def test_validate_data_reports_unknown_compatibility_references():
             pd.DataFrame(
                 [
                     {
-                        "device_id": "unknown_device",
                         "rom_id": "unknown_rom",
-                        "support_level": "Testing",
-                        "notes": "",
-                        "last_verified": "2026-07-12",
+                        "rom_name": "Unknown ROM",
+                        "coverage_level": "Exact device evidence",
+                        "exact_rows": "1",
+                        "generic_rows": "0",
+                        "project_website": "https://example.com/",
                     }
                 ]
             ),
@@ -222,7 +212,6 @@ def test_validate_data_reports_unknown_compatibility_references():
     )
 
     assert validate_data(devices, roms, invalid_compatibility) == [
-        "compatibility.csv: unknown device_id value(s): unknown_device",
         "compatibility.csv: unknown rom_id value(s): unknown_rom",
     ]
 
