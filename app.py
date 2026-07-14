@@ -43,6 +43,7 @@ ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
 ROM_STATUS_FILTER_OPTIONS = ["All", "Active", "Inactive"]
 ISSUES_URL = "https://code.swecha.org/mobile-freedom/custom-rom/-/issues"
+LIVE_APP_URL = "https://custom-rom-android-finder.streamlit.app/"
 DATA_ADDITION_MANUAL_URL = (
     "https://code.swecha.org/mobile-freedom/custom-rom/-/blob/compliance/"
     "DATA_ADDITION_MANUAL.md"
@@ -251,6 +252,7 @@ def show_data_contribution_wiki() -> None:
         st.markdown("- Add verified support in `data/compatibility.csv`.")
         st.markdown(f"- Read the [data addition manual]({DATA_ADDITION_MANUAL_URL})")
         st.markdown(f"- Open a [data issue]({ISSUES_URL})")
+        st.markdown(f"- Open the [live app]({LIVE_APP_URL})")
         st.caption("Include public sources for every dataset change.")
 
 

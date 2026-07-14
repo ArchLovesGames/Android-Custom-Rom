@@ -6,6 +6,10 @@ This project uses app versions to track user-facing Streamlit application change
 
 ## [Unreleased]
 
+### Changed
+
+- Documented the live Streamlit deployment URL and GitHub `main` deployment source.
+
 ## [v1.0.0] - 2026-07-14
 
 ### Added

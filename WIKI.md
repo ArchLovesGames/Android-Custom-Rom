@@ -4,6 +4,8 @@
 
 The Streamlit page helps users explore a curated compatibility database for Android custom ROMs.
 
+Live app: https://custom-rom-android-finder.streamlit.app/
+
 The page has three main areas:
 
 - Header and dataset metrics
@@ -65,5 +67,6 @@ The sidebar includes a `Contribute data` section with:
 - Quick database contribution steps
 - Link to `DATA_ADDITION_MANUAL.md`
 - Link to the issue tracker
+- Link to the live Streamlit deployment
 
 Use this section before editing the CSV database.

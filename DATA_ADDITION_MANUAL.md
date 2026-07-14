@@ -2,6 +2,8 @@
 
 This guide explains how to contribute device, ROM, and compatibility data to Android Custom ROM Finder.
 
+Live app: https://custom-rom-android-finder.streamlit.app/
+
 ## Dataset Files
 
 The app reads three production CSV files from `data/`:

@@ -8,6 +8,8 @@ Android Custom ROM is a Streamlit web app that helps users discover custom Andro
 
 The project is for Android enthusiasts, contributors, and maintainers who need a simple way to explore ROM compatibility from a structured dataset.
 
+Live app: https://custom-rom-android-finder.streamlit.app/
+
 ## Features
 
 - Search custom ROMs by Android device using direct device search
@@ -91,11 +93,13 @@ pre-commit install
 
 ## Deployment
 
-The app is intended to be hosted on Streamlit. After the app files and dependency list are available, deploy it through Streamlit Community Cloud or another Streamlit-compatible hosting environment.
+The app is deployed on Streamlit Community Cloud:
 
-Typical Streamlit deployment settings:
+https://custom-rom-android-finder.streamlit.app/
 
-- Repository: `https://code.swecha.org/mobile-freedom/custom-rom`
+Current Streamlit deployment settings:
+
+- Repository: `https://github.com/ArchLovesGames/Android-Custom-Rom`
 - Branch: `main`
 - Main file path: `app.py`
 

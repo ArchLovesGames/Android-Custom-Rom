@@ -4,9 +4,11 @@
 
 Android Custom ROM Finder helps users search a curated compatibility dataset by device or by ROM. It is intended for Android enthusiasts, maintainers, and contributors who need a quick way to inspect ROM support.
 
+Live app: https://custom-rom-android-finder.streamlit.app/
+
 ## Start the App
 
-Install dependencies and run:
+Use the live app or run it locally. To run locally, install dependencies and run:
 
 ```bash
 streamlit run app.py

@@ -4,6 +4,12 @@
 
 `app.py` renders the Android Custom ROM Finder Streamlit page. It loads CSV data, validates schemas, and lets users search compatibility data by device or ROM.
 
+Live deployment: https://custom-rom-android-finder.streamlit.app/
+
+The deployed Streamlit app tracks GitHub `main` from:
+
+https://github.com/ArchLovesGames/Android-Custom-Rom
+
 ## Assets
 
 - `assets/swecha-logo.png`: sidebar branding image
@@ -26,6 +32,8 @@ Unknown device types use the fallback icon `◆`.
 ## Sidebar Wiki
 
 `show_data_contribution_wiki()` renders the sidebar contribution area. It includes the Swecha logo, a short database contribution checklist, a link to `DATA_ADDITION_MANUAL.md`, and the issue tracker link.
+
+The sidebar also links back to the live Streamlit deployment.
 
 ## Lookup Modes
 

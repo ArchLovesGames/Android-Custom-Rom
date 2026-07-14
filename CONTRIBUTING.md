@@ -2,6 +2,8 @@
 
 Thank you for helping improve Android Custom ROM. This project is a Streamlit app backed by CSV datasets for devices, ROMs, and compatibility relationships.
 
+Live app: https://custom-rom-android-finder.streamlit.app/
+
 ## Getting Started
 
 1. Fork the repository.
