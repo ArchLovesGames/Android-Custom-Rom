@@ -14,6 +14,7 @@ The project is for Android enthusiasts, contributors, and maintainers who need a
 - Search compatible devices by custom ROM
 - Filter ROM results by activity status
 - Color-coded ROM activity badges: green for active, red for inactive
+- In-app data contribution wiki for database updates
 - Dataset-driven compatibility results
 - Streamlit-based web interface
 - Guardrails for large datasets, including minimum search length and result limits
@@ -131,6 +132,8 @@ Fields that were unavailable in the sources are set to `not found`.
 
 Compatibility rows should only reference `device_id` values from `data/devices.csv` and `rom_id` values from `data/roms.csv`. The app validates these relationships at startup and reports unknown references before rendering lookup results.
 
+For detailed data contribution steps, see `DATA_ADDITION_MANUAL.md`. The app also links this guide from the sidebar under **Contribute data**.
+
 ## Environment Variables
 
 No environment variables are currently required.
@@ -145,6 +148,13 @@ Project documentation should include:
 - Steps to update ROM/device compatibility data
 - Streamlit deployment notes
 - Contribution workflow
+
+Available project guides:
+
+- `CONTRIBUTING.md`: contributor workflow
+- `DATA_ADDITION_MANUAL.md`: database update workflow
+- `USER_MANUAL.md`: app usage guide
+- `SECURITY.md`: vulnerability reporting
 
 ## Roadmap
 
@@ -169,6 +179,10 @@ Select or search for a ROM in the app. The app will display devices marked as co
 ### Can I add a new device or ROM?
 
 Yes. Contributions should update the compatibility dataset and include enough detail for maintainers to verify the entry.
+
+### How do I contribute compatibility data?
+
+Use the **Contribute data** section in the app sidebar or read `DATA_ADDITION_MANUAL.md`.
 
 ### Why does activity filtering only show active and inactive?
 
@@ -195,6 +209,7 @@ Please keep dataset updates accurate and verifiable. Follow `CONTRIBUTING.md` an
 ## Acknowledgements
 
 - [Streamlit](https://streamlit.io/)
+- [Swecha](https://swecha.org/) for the project ecosystem and logo source reference
 - [Shields.io](https://shields.io/)
 - [Awesome README](https://github.com/matiassingers/awesome-readme)
 - [Awesome README Templates](https://github.com/Louis3797/awesome-readme-template)

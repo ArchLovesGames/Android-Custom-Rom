@@ -50,6 +50,8 @@ pre-commit run --all-files
 
 Dataset changes should be accurate, verifiable, and consistent with the CSV format templates in `data/`.
 
+For the detailed database contribution workflow, read `DATA_ADDITION_MANUAL.md`.
+
 Required columns:
 
 - `data/devices.csv`: `device_id`, `device_type`, `brand`, `device`, `model`
@@ -83,6 +85,7 @@ Open a merge request with:
 - The issue number, if applicable.
 - The validation commands you ran.
 - Notes about dataset sources for any data changes.
+- Confirmation that `DATA_ADDITION_MANUAL.md` was followed for database updates.
 
 ## Reporting Bugs
 
