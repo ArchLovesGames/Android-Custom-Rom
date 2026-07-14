@@ -30,6 +30,7 @@ from app import (
     query_rom_by_name,
     query_rom_device_results,
     query_rom_names,
+    status_badge_html,
     validate_data,
 )
 
@@ -221,12 +222,17 @@ def test_filter_roms_by_status_returns_selected_activity_status():
     _, roms, _ = sample_frames()
 
     active_roms = filter_roms_by_status(roms, "Active")
-    inactive_roms = filter_roms_by_status(roms, "Inactive")
+    inactive_roms = filter_roms_by_status(roms, "Stale")
     all_roms = filter_roms_by_status(roms, "All")
 
     assert [row["rom_id"] for row in active_roms] == ["lineageos_21"]
     assert [row["rom_id"] for row in inactive_roms] == ["grapheneos_2024"]
     assert all_roms == roms
+
+
+def test_status_badge_shows_inactive_roms_as_stale_in_the_app():
+    assert "Stale" in status_badge_html("inactive")
+    assert "Inactive" not in status_badge_html("inactive")
 
 
 def test_sqlite_device_selector_queries_are_cascading():

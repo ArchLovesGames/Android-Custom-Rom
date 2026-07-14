@@ -43,7 +43,12 @@ DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
-ROM_STATUS_FILTER_OPTIONS = ["All", "Active", "Inactive"]
+ROM_STATUS_FILTER_OPTIONS = ["All", "Active", "Stale"]
+ROM_STATUS_FILTER_VALUES = {
+    "All": "All",
+    "Active": "Active",
+    "Stale": "Inactive",
+}
 ALL_SELECTOR_OPTION = "All"
 ISSUES_URL = "https://code.swecha.org/mobile-freedom/custom-rom/-/issues"
 LIVE_APP_URL = "https://custom-rom-android-finder.streamlit.app/"
@@ -61,6 +66,9 @@ DEVICE_TYPE_ICONS = {
 STATUS_BADGE_STYLES = {
     "active": ("#166534", "#dcfce7", "#86efac"),
     "inactive": ("#991b1b", "#fee2e2", "#fca5a5"),
+}
+STATUS_DISPLAY_LABELS = {
+    "inactive": "Stale",
 }
 
 Row = dict[str, str]
@@ -314,9 +322,10 @@ def device_type_label(device_type: str) -> str:
 
 
 def filter_roms_by_status(roms: Rows, selected_status: str) -> Rows:
-    if selected_status == "All":
+    status_value = ROM_STATUS_FILTER_VALUES.get(selected_status, selected_status)
+    if status_value == "All":
         return roms
-    status = selected_status.casefold()
+    status = status_value.casefold()
     return [row for row in roms if row["status"].casefold() == status]
 
 
@@ -525,6 +534,7 @@ def status_badge_html(status: str) -> str:
     color, background, border = STATUS_BADGE_STYLES.get(
         normalized_status, ("#374151", "#f3f4f6", "#d1d5db")
     )
+    display_status = STATUS_DISPLAY_LABELS.get(normalized_status, status.title())
     return (
         '<span style="'
         "display:inline-block;"
@@ -537,9 +547,13 @@ def status_badge_html(status: str) -> str:
         "font-weight:600;"
         "line-height:1.25rem;"
         '">'
-        f"{html.escape(status.title())}"
+        f"{html.escape(display_status)}"
         "</span>"
     )
+
+
+def selected_status_value(selected_status: str) -> str:
+    return ROM_STATUS_FILTER_VALUES.get(selected_status, selected_status)
 
 
 def show_data_contribution_wiki() -> None:
@@ -685,7 +699,12 @@ def show_selected_device_roms(
         default="All",
         key=f"device_rom_status_{selected_device_id}",
     )
-    results = query_device_rom_results(conn, selected_device_id, status_filter or "All")
+    st.caption("*Stale means no recent updates or announcements.")
+    results = query_device_rom_results(
+        conn,
+        selected_device_id,
+        selected_status_value(status_filter or "All"),
+    )
     show_rom_results(results)
 
 
@@ -771,8 +790,10 @@ def rom_lookup(conn: Database) -> None:
         key="rom_selector_status",
     )
     selected_status = status_filter or "All"
+    st.caption("*Stale means no recent updates or announcements.")
     rom_names = query_rom_names(
-        conn, "" if selected_status == "All" else selected_status
+        conn,
+        "" if selected_status == "All" else selected_status_value(selected_status),
     )
     if not rom_names:
         st.warning("No ROMs match that activity status.")
