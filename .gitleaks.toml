@@ -1,0 +1,7 @@
+title = "custom-rom gitleaks config"
+
+[allowlist]
+description = "Allow documentation placeholders"
+regexes = [
+  '''STREAMLIT_SERVER_HEADLESS=true''',
+]

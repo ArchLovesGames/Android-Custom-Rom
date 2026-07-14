@@ -1,10 +1,9 @@
 import csv
 import html
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 import streamlit as st
-
 
 DATA_DIR = Path(__file__).parent / "data"
 DEVICES_FILE = DATA_DIR / "devices.csv"
@@ -51,7 +50,9 @@ Rows = list[Row]
 
 
 def sort_rows(rows: Iterable[Row], columns: list[str]) -> Rows:
-    return sorted(rows, key=lambda row: tuple(row.get(column, "") for column in columns))
+    return sorted(
+        rows, key=lambda row: tuple(row.get(column, "") for column in columns)
+    )
 
 
 @st.cache_data
@@ -96,7 +97,11 @@ def load_data() -> tuple[Rows, Rows, Rows]:
     compatibility_path = (
         COMPATIBILITY_FILE if COMPATIBILITY_FILE.exists() else COMPATIBILITY_FORMAT_FILE
     )
-    return load_table(devices_path), load_table(roms_path), load_table(compatibility_path)
+    return (
+        load_table(devices_path),
+        load_table(roms_path),
+        load_table(compatibility_path),
+    )
 
 
 def validate_data(devices: Rows, roms: Rows, compatibility: Rows) -> list[str]:
@@ -104,12 +109,16 @@ def validate_data(devices: Rows, roms: Rows, compatibility: Rows) -> list[str]:
     errors.extend(find_missing_columns(devices, DEVICE_COLUMNS, DEVICES_FILE.name))
     errors.extend(find_missing_columns(roms, ROM_COLUMNS, ROMS_FILE.name))
     errors.extend(
-        find_missing_columns(compatibility, COMPATIBILITY_COLUMNS, COMPATIBILITY_FILE.name)
+        find_missing_columns(
+            compatibility, COMPATIBILITY_COLUMNS, COMPATIBILITY_FILE.name
+        )
     )
     if not errors and devices and roms and compatibility:
         device_ids = {row["device_id"] for row in devices}
         rom_ids = {row["rom_id"] for row in roms}
-        unknown_devices = sorted({row["device_id"] for row in compatibility} - device_ids)
+        unknown_devices = sorted(
+            {row["device_id"] for row in compatibility} - device_ids
+        )
         unknown_roms = sorted({row["rom_id"] for row in compatibility} - rom_ids)
 
         if unknown_devices:
@@ -136,11 +145,19 @@ def build_catalog(devices: Rows, roms: Rows, compatibility: Rows) -> Rows:
     rom_by_id = {row["rom_id"]: row for row in roms}
     catalog = []
     for row in compatibility:
-        catalog.append({**row, **device_by_id.get(row["device_id"], {}), **rom_by_id.get(row["rom_id"], {})})
+        catalog.append(
+            {
+                **row,
+                **device_by_id.get(row["device_id"], {}),
+                **rom_by_id.get(row["rom_id"], {}),
+            }
+        )
     return sort_rows(catalog, ["device_type", "brand", "device", "model", "name"])
 
 
-def build_device_rom_results(roms: Rows, compatibility: Rows, selected_device_id: str) -> Rows:
+def build_device_rom_results(
+    roms: Rows, compatibility: Rows, selected_device_id: str
+) -> Rows:
     rom_by_id = {row["rom_id"]: row for row in roms}
     results = []
     for row in compatibility:
@@ -149,7 +166,9 @@ def build_device_rom_results(roms: Rows, compatibility: Rows, selected_device_id
     return sort_rows(results, ["support_level", "name"])
 
 
-def build_rom_device_results(devices: Rows, compatibility: Rows, selected_rom_id: str) -> Rows:
+def build_rom_device_results(
+    devices: Rows, compatibility: Rows, selected_rom_id: str
+) -> Rows:
     device_by_id = {row["device_id"]: row for row in devices}
     results = []
     for row in compatibility:
@@ -182,7 +201,7 @@ def status_badge_html(status: str) -> str:
         normalized_status, ("#374151", "#f3f4f6", "#d1d5db")
     )
     return (
-        "<span style=\""
+        '<span style="'
         "display:inline-block;"
         "padding:0.125rem 0.5rem;"
         "border-radius:0.25rem;"
@@ -192,7 +211,7 @@ def status_badge_html(status: str) -> str:
         "font-size:0.875rem;"
         "font-weight:600;"
         "line-height:1.25rem;"
-        "\">"
+        '">'
         f"{html.escape(status.title())}"
         "</span>"
     )
@@ -324,7 +343,7 @@ def show_selected_device_roms(
         default="All",
         key=f"device_rom_status_{selected_device_id}",
     )
-    results = filter_roms_by_status(results, status_filter)
+    results = filter_roms_by_status(results, status_filter or "All")
     show_rom_results(results)
 
 
@@ -343,7 +362,9 @@ def direct_device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None
     search_query = st.session_state.get("device_search_query", "").strip()
 
     if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
-        st.info(f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search devices.")
+        st.info(
+            f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search devices."
+        )
         return
 
     matching_devices = filter_device_options(devices, search_query)
@@ -365,7 +386,9 @@ def direct_device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None
         key=f"matching_device_{search_query}",
     )
 
-    show_selected_device_roms(devices, roms, compatibility, search_options[selected_label])
+    show_selected_device_roms(
+        devices, roms, compatibility, search_options[selected_label]
+    )
 
 
 def device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
@@ -404,7 +427,7 @@ def rom_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
         default="All",
         key=f"rom_search_status_{search_query}",
     )
-    matching_roms = filter_roms_by_status(matching_roms, status_filter)
+    matching_roms = filter_roms_by_status(matching_roms, status_filter or "All")
     if not matching_roms:
         st.warning("No ROMs match that activity status.")
         return
@@ -434,7 +457,9 @@ def main() -> None:
         layout="wide",
     )
     st.title("Android Custom ROM Finder")
-    st.write("Search compatibility data by device or ROM from the curated CSV datasets.")
+    st.write(
+        "Search compatibility data by device or ROM from the curated CSV datasets."
+    )
 
     devices, roms, compatibility = load_data()
     data_errors = validate_data(devices, roms, compatibility)
@@ -453,7 +478,9 @@ def main() -> None:
         return
 
     metric_columns = st.columns(3)
-    metric_columns[0].metric("Device types", len({row["device_type"] for row in devices}))
+    metric_columns[0].metric(
+        "Device types", len({row["device_type"] for row in devices})
+    )
     metric_columns[1].metric("Devices", len({row["device_id"] for row in devices}))
     metric_columns[2].metric("ROMs", len({row["rom_id"] for row in roms}))
 

@@ -1,0 +1,58 @@
+stages:
+  - quality
+  - test
+  - security
+
+default:
+  image: python:3.13-slim
+  before_script:
+    - python -m pip install --upgrade pip
+    - pip install -r requirements-dev.txt
+
+lint:
+  stage: quality
+  script:
+    - ruff check .
+    - ruff format --check .
+    - mypy app.py tests
+    - pylint app.py tests
+    - flake8 app.py tests
+    - vulture app.py tests --min-confidence 90
+
+test:
+  stage: test
+  script:
+    - pytest --cov=app --cov-report=term-missing --cov-fail-under=60
+
+security:
+  stage: security
+  script:
+    - bandit -q -r app.py
+    - pip-audit -r requirements.txt
+
+semgrep:
+  stage: security
+  image:
+    name: semgrep/semgrep:latest
+    entrypoint: [""]
+  before_script: []
+  script:
+    - semgrep --config .semgrep.yml --error --metrics off
+
+gitleaks:
+  stage: security
+  image:
+    name: zricethezav/gitleaks:latest
+    entrypoint: [""]
+  before_script: []
+  script:
+    - gitleaks detect --source . --no-git --redact --config .gitleaks.toml
+
+changelog:
+  stage: quality
+  image:
+    name: orhunp/git-cliff:latest
+    entrypoint: [""]
+  before_script: []
+  script:
+    - git-cliff --config cliff.toml --unreleased --strip header

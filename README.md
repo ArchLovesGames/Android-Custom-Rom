@@ -186,7 +186,7 @@ To get started:
 4. Test the Streamlit app locally.
 5. Open a merge request with a clear description of the change.
 
-Please keep dataset updates accurate and verifiable. If a `CONTRIBUTING.md` or code of conduct is added later, follow the process documented there.
+Please keep dataset updates accurate and verifiable. Follow `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` for the full contribution process and community expectations.
 
 ## Authors
 
