@@ -71,21 +71,18 @@ def sample_frames():
             "device_id": "pixel_7",
             "rom_id": "lineageos_21",
             "support_level": "Official",
-            "notes": "Core hardware supported",
             "last_verified": "2026-07-14",
         },
         {
             "device_id": "pixel_7",
             "rom_id": "grapheneos_2024",
             "support_level": "Official",
-            "notes": "Officially supported device family",
             "last_verified": "2026-07-14",
         },
         {
             "device_id": "poco_f3",
             "rom_id": "lineageos_21",
             "support_level": "Community",
-            "notes": "Community build",
             "last_verified": "2026-07-14",
         },
     ]
@@ -231,7 +228,6 @@ def test_validate_data_reports_unknown_compatibility_references():
             "device_id": "unknown_device",
             "rom_id": "unknown_rom",
             "support_level": "Official",
-            "notes": "Unknown row",
             "last_verified": "2026-07-14",
         }
     ]

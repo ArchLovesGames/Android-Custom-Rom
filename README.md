@@ -114,7 +114,7 @@ Expected columns:
 
 - `devices.csv`: `device_id`, `device_type`, `brand`, `device`, `model`
 - `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
-- `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `notes`, `last_verified`
+- `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `last_verified`
 
 The checked-in `*_format.csv` files mirror the production CSV headers. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
 
