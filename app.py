@@ -6,6 +6,8 @@ from pathlib import Path
 import streamlit as st
 
 DATA_DIR = Path(__file__).parent / "data"
+ASSETS_DIR = Path(__file__).parent / "assets"
+SWECHA_LOGO_FILE = ASSETS_DIR / "swecha-logo.svg"
 DEVICES_FILE = DATA_DIR / "devices.csv"
 ROMS_FILE = DATA_DIR / "roms.csv"
 COMPATIBILITY_FILE = DATA_DIR / "compatibility.csv"
@@ -40,6 +42,11 @@ DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
 ROM_STATUS_FILTER_OPTIONS = ["All", "Active", "Inactive"]
+ISSUES_URL = "https://code.swecha.org/mobile-freedom/custom-rom/-/issues"
+DATA_ADDITION_MANUAL_URL = (
+    "https://code.swecha.org/mobile-freedom/custom-rom/-/blob/compliance/"
+    "DATA_ADDITION_MANUAL.md"
+)
 STATUS_BADGE_STYLES = {
     "active": ("#166534", "#dcfce7", "#86efac"),
     "inactive": ("#991b1b", "#fee2e2", "#fca5a5"),
@@ -215,6 +222,24 @@ def status_badge_html(status: str) -> str:
         f"{html.escape(status.title())}"
         "</span>"
     )
+
+
+def show_data_contribution_wiki() -> None:
+    if SWECHA_LOGO_FILE.exists():
+        st.sidebar.image(str(SWECHA_LOGO_FILE), width=150)
+
+    with st.sidebar.expander("Contribute data", expanded=False):
+        st.markdown(
+            "Help improve the compatibility database by adding verified devices, "
+            "ROMs, and compatibility rows."
+        )
+        st.markdown("**Database wiki**")
+        st.markdown("- Add devices in `data/devices.csv`.")
+        st.markdown("- Add ROM projects in `data/roms.csv`.")
+        st.markdown("- Add verified support in `data/compatibility.csv`.")
+        st.markdown(f"- Read the [data addition manual]({DATA_ADDITION_MANUAL_URL})")
+        st.markdown(f"- Open a [data issue]({ISSUES_URL})")
+        st.caption("Include public sources for every dataset change.")
 
 
 def filter_device_options(devices: Rows, query: str) -> Rows:
@@ -460,6 +485,7 @@ def main() -> None:
     st.write(
         "Search compatibility data by device or ROM from the curated CSV datasets."
     )
+    show_data_contribution_wiki()
 
     devices, roms, compatibility = load_data()
     data_errors = validate_data(devices, roms, compatibility)

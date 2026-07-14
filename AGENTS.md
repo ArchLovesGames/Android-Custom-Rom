@@ -31,6 +31,7 @@ pip install -r requirements-dev.txt
 - Keep changes scoped to the requested issue.
 - Do not rewrite CSV data unless the issue requires it.
 - Preserve required CSV headers documented in `README.md` and `CONTRIBUTING.md`.
+- Follow `DATA_ADDITION_MANUAL.md` for database updates.
 - Do not commit `.streamlit/secrets.toml`, `.env`, credentials, tokens, or private maintainer data.
 - Prefer small, reviewable commits with clear messages.
 

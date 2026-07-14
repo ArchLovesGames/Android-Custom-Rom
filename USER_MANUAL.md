@@ -14,6 +14,8 @@ streamlit run app.py
 
 The app opens in a browser and displays dataset counts for device types, devices, and ROMs.
 
+The sidebar includes a **Contribute data** section with a link to the database contribution guide and issue tracker.
+
 ## Find ROMs for a Device
 
 1. Select `Device to ROMs` in the lookup mode control.
@@ -45,6 +47,10 @@ The app limits very large result sets. Refine the search text when only the firs
 ## Dataset Validation
 
 At startup, the app validates required CSV columns and checks that compatibility rows reference known devices and ROMs. If validation fails, the app displays the schema or reference errors before rendering lookup results.
+
+## Contribute Data
+
+Open the **Contribute data** sidebar section in the app and read `DATA_ADDITION_MANUAL.md` before editing CSV files. Every data update should include public verification sources.
 
 ## Troubleshooting
 
