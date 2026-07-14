@@ -810,6 +810,10 @@ def main() -> None:
         layout="wide",
     )
     st.title("Android Custom ROM Finder")
+    st.warning(
+        "Temporary notice: data entry and verification are still in progress. "
+        "Displayed compatibility data may be incomplete or inaccurate."
+    )
     st.write(
         "Search compatibility data by device or ROM from the curated CSV datasets."
     )
