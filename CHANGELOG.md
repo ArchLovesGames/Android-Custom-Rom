@@ -17,11 +17,14 @@ This project uses app versions to track user-facing Streamlit application change
 - Added compliance documentation, repository health files, CI configuration, and spec-kit scaffolding.
 - Added `DATA_ADDITION_MANUAL.md` and in-app contribution wiki access for database updates.
 - Added the Swecha logo asset under `assets/`.
+- Added device-type icons to the app.
+- Added `WIKI.md` and `docs/APP_PAGE.md` for page-level documentation.
 
 ### Changed
 
 - Removed compatibility notes from the dataset schema.
 - Removed duplicate `CONTRIBUTION.md` in favor of standard `CONTRIBUTING.md`.
+- Removed README roadmap and screenshots placeholders.
 
 ## [v0.0.1] - 2026-07-12
 

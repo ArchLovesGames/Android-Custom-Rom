@@ -13,6 +13,7 @@ from app import (
     build_catalog,
     build_device_rom_results,
     build_rom_device_results,
+    device_type_label,
     filter_device_options,
     filter_rom_options,
     filter_roms_by_status,
@@ -186,6 +187,11 @@ def test_filter_device_options_searches_multiple_fields_case_insensitively():
     assert len(by_type) == len(devices)
     assert [row["device_id"] for row in by_model] == ["poco_f3"]
     assert [row["device_id"] for row in by_brand] == ["nothing_phone_1"]
+
+
+def test_device_type_label_adds_known_icon_and_fallback():
+    assert device_type_label("phone") == "📱: Phone"
+    assert device_type_label("wearable") == "◆: Wearable"
 
 
 def test_filter_rom_options_searches_multiple_fields_case_insensitively():

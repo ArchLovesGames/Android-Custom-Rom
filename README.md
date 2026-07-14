@@ -153,18 +153,10 @@ Available project guides:
 
 - `CONTRIBUTING.md`: contributor workflow
 - `DATA_ADDITION_MANUAL.md`: database update workflow
+- `WIKI.md`: user-facing app page wiki
+- `docs/APP_PAGE.md`: maintainer documentation for the Streamlit page
 - `USER_MANUAL.md`: app usage guide
 - `SECURITY.md`: vulnerability reporting
-
-## Roadmap
-
-- Add screenshots of the app
-- Add documented data-refresh workflow for ROM and compatibility sources
-- Add more validation for dataset normalization and source attribution
-
-## Screenshots
-
-Screenshots will be added after the current Streamlit lookup flow is finalized.
 
 ## FAQ
 

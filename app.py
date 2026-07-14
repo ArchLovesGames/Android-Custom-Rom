@@ -7,7 +7,7 @@ import streamlit as st
 
 DATA_DIR = Path(__file__).parent / "data"
 ASSETS_DIR = Path(__file__).parent / "assets"
-SWECHA_LOGO_FILE = ASSETS_DIR / "swecha-logo.svg"
+SWECHA_LOGO_FILE = ASSETS_DIR / "swecha-logo.png"
 DEVICES_FILE = DATA_DIR / "devices.csv"
 ROMS_FILE = DATA_DIR / "roms.csv"
 COMPATIBILITY_FILE = DATA_DIR / "compatibility.csv"
@@ -47,6 +47,13 @@ DATA_ADDITION_MANUAL_URL = (
     "https://code.swecha.org/mobile-freedom/custom-rom/-/blob/compliance/"
     "DATA_ADDITION_MANUAL.md"
 )
+DEVICE_TYPE_ICONS = {
+    "computer": "🖥️",
+    "phone": "📱",
+    "sbc": "🔌",
+    "tablet": "▣",
+    "tv": "📺",
+}
 STATUS_BADGE_STYLES = {
     "active": ("#166534", "#dcfce7", "#86efac"),
     "inactive": ("#991b1b", "#fee2e2", "#fca5a5"),
@@ -186,13 +193,18 @@ def build_rom_device_results(
 
 def device_label(row: Row) -> str:
     return (
-        f"{row['device_type']} - {row['brand']} {row['device']} "
+        f"{device_type_label(row['device_type'])} - {row['brand']} {row['device']} "
         f"{row['model']} [{row['device_id']}]"
     )
 
 
 def rom_label(row: Row) -> str:
     return f"{row['name']} {row['version']} - Android {row['android_version']}"
+
+
+def device_type_label(device_type: str) -> str:
+    icon = DEVICE_TYPE_ICONS.get(device_type.casefold(), "◆")
+    return f"{icon}: {device_type.title()}"
 
 
 def filter_roms_by_status(roms: Rows, selected_status: str) -> Rows:
@@ -335,7 +347,7 @@ def show_device_results(results: Rows) -> None:
         display.append(
             {
                 "Brand": row["brand"],
-                "Type": row["device_type"],
+                "Type": device_type_label(row["device_type"]),
                 "Device": row["device"],
                 "Model": row["model"],
                 "Support": row["support_level"],
@@ -357,7 +369,7 @@ def show_selected_device_roms(
 
     selected = next(row for row in devices if row["device_id"] == selected_device_id)
     st.caption(
-        f"Selected: {selected['device_type']} - {selected['brand']} "
+        f"Selected: {device_type_label(selected['device_type'])} - {selected['brand']} "
         f"{selected['device']} {selected['model']}"
     )
 
@@ -509,6 +521,14 @@ def main() -> None:
     )
     metric_columns[1].metric("Devices", len({row["device_id"] for row in devices}))
     metric_columns[2].metric("ROMs", len({row["rom_id"] for row in roms}))
+
+    st.caption(
+        "Device type icons: "
+        + " | ".join(
+            device_type_label(device_type)
+            for device_type in sorted({row["device_type"] for row in devices})
+        )
+    )
 
     lookup_mode = st.segmented_control(
         "Lookup mode",
