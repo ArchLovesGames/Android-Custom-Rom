@@ -1,7 +1,9 @@
 import csv
 import html
+import sqlite3
 from collections.abc import Iterable
 from pathlib import Path
+from typing import NamedTuple
 
 import streamlit as st
 
@@ -42,6 +44,7 @@ DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
 ROM_STATUS_FILTER_OPTIONS = ["All", "Active", "Inactive"]
+ALL_SELECTOR_OPTION = "All"
 ISSUES_URL = "https://code.swecha.org/mobile-freedom/custom-rom/-/issues"
 LIVE_APP_URL = "https://custom-rom-android-finder.streamlit.app/"
 DATA_ADDITION_MANUAL_URL = (
@@ -62,6 +65,17 @@ STATUS_BADGE_STYLES = {
 
 Row = dict[str, str]
 Rows = list[Row]
+Database = sqlite3.Connection
+DataFileSignature = tuple[str, int]
+
+
+class DeviceFilters(NamedTuple):
+    """Selected device selector values for SQLite lookup queries."""
+
+    device_type: str = ""
+    brand: str = ""
+    device: str = ""
+    model: str = ""
 
 
 def sort_rows(rows: Iterable[Row], columns: list[str]) -> Rows:
@@ -94,6 +108,15 @@ def load_table(path: Path) -> Rows:
     return parse_csv_lines(load_csv(path, path.stat().st_mtime_ns))
 
 
+def active_data_paths() -> tuple[Path, Path, Path]:
+    devices_path = DEVICES_FILE if DEVICES_FILE.exists() else DEVICES_FORMAT_FILE
+    roms_path = ROMS_FILE if ROMS_FILE.exists() else ROMS_FORMAT_FILE
+    compatibility_path = (
+        COMPATIBILITY_FILE if COMPATIBILITY_FILE.exists() else COMPATIBILITY_FORMAT_FILE
+    )
+    return devices_path, roms_path, compatibility_path
+
+
 def columns_for(rows: Rows) -> set[str]:
     return set(rows[0]) if rows else set()
 
@@ -107,16 +130,98 @@ def find_missing_columns(
 
 @st.cache_data
 def load_data() -> tuple[Rows, Rows, Rows]:
-    devices_path = DEVICES_FILE if DEVICES_FILE.exists() else DEVICES_FORMAT_FILE
-    roms_path = ROMS_FILE if ROMS_FILE.exists() else ROMS_FORMAT_FILE
-    compatibility_path = (
-        COMPATIBILITY_FILE if COMPATIBILITY_FILE.exists() else COMPATIBILITY_FORMAT_FILE
-    )
+    devices_path, roms_path, compatibility_path = active_data_paths()
     return (
         load_table(devices_path),
         load_table(roms_path),
         load_table(compatibility_path),
     )
+
+
+def create_lookup_database(devices: Rows, roms: Rows, compatibility: Rows) -> Database:
+    conn = sqlite3.connect(":memory:", check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+    conn.executescript(
+        """
+        CREATE TABLE devices (
+            device_id TEXT PRIMARY KEY,
+            device_type TEXT NOT NULL,
+            brand TEXT NOT NULL,
+            device TEXT NOT NULL,
+            model TEXT NOT NULL
+        );
+        CREATE TABLE roms (
+            rom_id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            version TEXT NOT NULL,
+            android_version TEXT NOT NULL,
+            maintainer TEXT NOT NULL,
+            status TEXT NOT NULL,
+            website TEXT NOT NULL
+        );
+        CREATE TABLE compatibility (
+            device_id TEXT NOT NULL,
+            rom_id TEXT NOT NULL,
+            support_level TEXT NOT NULL,
+            last_verified TEXT NOT NULL
+        );
+        CREATE INDEX idx_devices_type_brand_device_model
+            ON devices (device_type, brand, device, model);
+        CREATE INDEX idx_roms_name_status ON roms (name, status);
+        CREATE INDEX idx_compatibility_device_id ON compatibility (device_id);
+        CREATE INDEX idx_compatibility_rom_id ON compatibility (rom_id);
+        """
+    )
+    conn.executemany(
+        """
+        INSERT INTO devices (device_id, device_type, brand, device, model)
+        VALUES (:device_id, :device_type, :brand, :device, :model)
+        """,
+        devices,
+    )
+    conn.executemany(
+        """
+        INSERT INTO roms
+            (rom_id, name, version, android_version, maintainer, status, website)
+        VALUES
+            (:rom_id, :name, :version, :android_version, :maintainer, :status, :website)
+        """,
+        roms,
+    )
+    conn.executemany(
+        """
+        INSERT INTO compatibility (device_id, rom_id, support_level, last_verified)
+        VALUES (:device_id, :rom_id, :support_level, :last_verified)
+        """,
+        compatibility,
+    )
+    return conn
+
+
+@st.cache_resource(max_entries=2)
+def load_lookup_database(
+    devices_signature: DataFileSignature,
+    roms_signature: DataFileSignature,
+    compatibility_signature: DataFileSignature,
+) -> Database:
+    return create_lookup_database(
+        load_table(Path(devices_signature[0])),
+        load_table(Path(roms_signature[0])),
+        load_table(Path(compatibility_signature[0])),
+    )
+
+
+def get_lookup_database() -> Database:
+    devices_path, roms_path, compatibility_path = active_data_paths()
+    return load_lookup_database(
+        (str(devices_path), devices_path.stat().st_mtime_ns),
+        (str(roms_path), roms_path.stat().st_mtime_ns),
+        (str(compatibility_path), compatibility_path.stat().st_mtime_ns),
+    )
+
+
+def rows_from_cursor(cursor: sqlite3.Cursor) -> Rows:
+    return [dict(row) for row in cursor.fetchall()]
 
 
 def validate_data(devices: Rows, roms: Rows, compatibility: Rows) -> list[str]:
@@ -213,6 +318,206 @@ def filter_roms_by_status(roms: Rows, selected_status: str) -> Rows:
         return roms
     status = selected_status.casefold()
     return [row for row in roms if row["status"].casefold() == status]
+
+
+def selector_options(values: list[str]) -> list[str]:
+    return [ALL_SELECTOR_OPTION, *values]
+
+
+def selected_filter(value: str) -> str:
+    return "" if value == ALL_SELECTOR_OPTION else value
+
+
+def query_device_types(conn: Database) -> list[str]:
+    cursor = conn.execute(
+        "SELECT DISTINCT device_type FROM devices ORDER BY device_type"
+    )
+    return [row["device_type"] for row in cursor.fetchall()]
+
+
+def query_device_brands(conn: Database, device_type: str = "") -> list[str]:
+    cursor = conn.execute(
+        """
+        SELECT DISTINCT brand
+        FROM devices
+        WHERE (? = '' OR device_type = ?)
+        ORDER BY brand
+        """,
+        (device_type, device_type),
+    )
+    return [row["brand"] for row in cursor.fetchall()]
+
+
+def query_device_names(
+    conn: Database, device_type: str = "", brand: str = ""
+) -> list[str]:
+    cursor = conn.execute(
+        """
+        SELECT DISTINCT device
+        FROM devices
+        WHERE (? = '' OR device_type = ?)
+            AND (? = '' OR brand = ?)
+        ORDER BY device
+        """,
+        (device_type, device_type, brand, brand),
+    )
+    return [row["device"] for row in cursor.fetchall()]
+
+
+def query_device_models(
+    conn: Database, device_type: str = "", brand: str = "", device: str = ""
+) -> list[str]:
+    cursor = conn.execute(
+        """
+        SELECT DISTINCT model
+        FROM devices
+        WHERE (? = '' OR device_type = ?)
+            AND (? = '' OR brand = ?)
+            AND (? = '' OR device = ?)
+        ORDER BY model
+        """,
+        (device_type, device_type, brand, brand, device, device),
+    )
+    return [row["model"] for row in cursor.fetchall()]
+
+
+def query_devices(
+    conn: Database,
+    filters: DeviceFilters,
+    limit: int = DIRECT_SEARCH_RESULT_LIMIT,
+) -> Rows:
+    return rows_from_cursor(
+        conn.execute(
+            """
+            SELECT device_id, device_type, brand, device, model
+            FROM devices
+            WHERE (? = '' OR device_type = ?)
+                AND (? = '' OR brand = ?)
+                AND (? = '' OR device = ?)
+                AND (? = '' OR model = ?)
+            ORDER BY device_type, brand, device, model
+            LIMIT ?
+            """,
+            (
+                filters.device_type,
+                filters.device_type,
+                filters.brand,
+                filters.brand,
+                filters.device,
+                filters.device,
+                filters.model,
+                filters.model,
+                limit,
+            ),
+        )
+    )
+
+
+def count_devices(conn: Database, filters: DeviceFilters) -> int:
+    cursor = conn.execute(
+        """
+        SELECT COUNT(*) AS total
+        FROM devices
+        WHERE (? = '' OR device_type = ?)
+            AND (? = '' OR brand = ?)
+            AND (? = '' OR device = ?)
+            AND (? = '' OR model = ?)
+        """,
+        (
+            filters.device_type,
+            filters.device_type,
+            filters.brand,
+            filters.brand,
+            filters.device,
+            filters.device,
+            filters.model,
+            filters.model,
+        ),
+    )
+    return int(cursor.fetchone()["total"])
+
+
+def query_rom_names(conn: Database, status: str = "") -> list[str]:
+    status_normalized = status.casefold()
+    cursor = conn.execute(
+        """
+        SELECT name
+        FROM roms
+        WHERE (? = '' OR lower(status) = ?)
+        ORDER BY name
+        """,
+        (status_normalized, status_normalized),
+    )
+    return [row["name"] for row in cursor.fetchall()]
+
+
+def query_rom_by_name(conn: Database, name: str) -> Row | None:
+    cursor = conn.execute(
+        """
+        SELECT rom_id, name, version, android_version, maintainer, status, website
+        FROM roms
+        WHERE name = ?
+        """,
+        (name,),
+    )
+    row = cursor.fetchone()
+    return dict(row) if row else None
+
+
+def query_device_rom_results(
+    conn: Database, selected_device_id: str, selected_status: str = "All"
+) -> Rows:
+    selected_status_normalized = selected_status.casefold()
+    return rows_from_cursor(
+        conn.execute(
+            """
+            SELECT
+                compatibility.device_id,
+                compatibility.rom_id,
+                compatibility.support_level,
+                compatibility.last_verified,
+                roms.name,
+                roms.version,
+                roms.android_version,
+                roms.maintainer,
+                roms.status,
+                roms.website
+            FROM compatibility
+            JOIN roms ON roms.rom_id = compatibility.rom_id
+            WHERE compatibility.device_id = ?
+                AND (? = 'all' OR lower(roms.status) = ?)
+            ORDER BY compatibility.support_level, roms.name
+            """,
+            (
+                selected_device_id,
+                selected_status_normalized,
+                selected_status_normalized,
+            ),
+        )
+    )
+
+
+def query_rom_device_results(conn: Database, selected_rom_id: str) -> Rows:
+    return rows_from_cursor(
+        conn.execute(
+            """
+            SELECT
+                compatibility.device_id,
+                compatibility.rom_id,
+                compatibility.support_level,
+                compatibility.last_verified,
+                devices.device_type,
+                devices.brand,
+                devices.device,
+                devices.model
+            FROM compatibility
+            JOIN devices ON devices.device_id = compatibility.device_id
+            WHERE compatibility.rom_id = ?
+            ORDER BY devices.device_type, devices.brand, devices.device, devices.model
+            """,
+            (selected_rom_id,),
+        )
+    )
 
 
 def status_badge_html(status: str) -> str:
@@ -360,133 +665,128 @@ def show_device_results(results: Rows) -> None:
 
 
 def show_selected_device_roms(
-    devices: Rows,
-    roms: Rows,
-    compatibility: Rows,
+    conn: Database,
     selected_device_id: str,
+    selected_device: Row,
 ) -> None:
     if not selected_device_id:
         st.info("Select a device to view compatible ROMs.")
         return
 
-    selected = next(row for row in devices if row["device_id"] == selected_device_id)
     st.caption(
-        f"Selected: {device_type_label(selected['device_type'])} - {selected['brand']} "
-        f"{selected['device']} {selected['model']}"
+        f"Selected: {device_type_label(selected_device['device_type'])} - "
+        f"{selected_device['brand']} {selected_device['device']} "
+        f"{selected_device['model']}"
     )
 
-    results = build_device_rom_results(roms, compatibility, selected_device_id)
     status_filter = st.segmented_control(
         "ROM activity status",
         ROM_STATUS_FILTER_OPTIONS,
         default="All",
         key=f"device_rom_status_{selected_device_id}",
     )
-    results = filter_roms_by_status(results, status_filter or "All")
+    results = query_device_rom_results(conn, selected_device_id, status_filter or "All")
     show_rom_results(results)
 
 
-def direct_device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
-    with st.form("device_search_form", border=False):
-        search_value = st.text_input(
-            "Search by type, brand, device, or model",
-            placeholder="Example: Phone, Pixel 7, OnePlus",
-            key="device_search_input",
-        ).strip()
-        submitted = st.form_submit_button("Search devices")
+def direct_device_lookup(conn: Database) -> None:
+    selector_columns = st.columns(4)
+    selected_type_label = selector_columns[0].selectbox(
+        "Type",
+        selector_options(query_device_types(conn)),
+        key="device_type_selector",
+    )
+    selected_type = selected_filter(selected_type_label)
+    selected_brand_label = selector_columns[1].selectbox(
+        "Brand",
+        selector_options(query_device_brands(conn, selected_type)),
+        key=f"device_brand_selector_{selected_type_label}",
+    )
+    selected_brand = selected_filter(selected_brand_label)
+    selected_device_label = selector_columns[2].selectbox(
+        "Device",
+        selector_options(query_device_names(conn, selected_type, selected_brand)),
+        key=f"device_name_selector_{selected_type_label}_{selected_brand_label}",
+    )
+    selected_device_name = selected_filter(selected_device_label)
+    selected_model_label = selector_columns[3].selectbox(
+        "Model",
+        selector_options(
+            query_device_models(
+                conn, selected_type, selected_brand, selected_device_name
+            )
+        ),
+        key=(
+            "device_model_selector_"
+            f"{selected_type_label}_{selected_brand_label}_{selected_device_label}"
+        ),
+    )
+    selected_model = selected_filter(selected_model_label)
 
-    if submitted:
-        st.session_state["device_search_query"] = search_value
-
-    search_query = st.session_state.get("device_search_query", "").strip()
-
-    if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
-        st.info(
-            f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search devices."
-        )
-        return
-
-    matching_devices = filter_device_options(devices, search_query)
+    filters = DeviceFilters(
+        selected_type, selected_brand, selected_device_name, selected_model
+    )
+    matching_devices = query_devices(conn, filters)
+    total_matches = count_devices(conn, filters)
     if not matching_devices:
         st.warning("No devices match that search.")
         return
 
-    visible_matches = matching_devices[:DIRECT_SEARCH_RESULT_LIMIT]
-    if len(matching_devices) > DIRECT_SEARCH_RESULT_LIMIT:
+    if total_matches > DIRECT_SEARCH_RESULT_LIMIT:
         st.caption(
             f"Showing the first {DIRECT_SEARCH_RESULT_LIMIT} of "
-            f"{len(matching_devices)} matches. Refine the search to narrow results."
+            f"{total_matches} matches. Refine the selectors to narrow results."
         )
 
-    search_options = {device_label(row): row["device_id"] for row in visible_matches}
+    device_options = {device_label(row): row for row in matching_devices}
     selected_label = st.selectbox(
         "Matching devices",
-        list(search_options.keys()),
-        key=f"matching_device_{search_query}",
+        list(device_options.keys()),
+        key=(
+            "matching_device_"
+            f"{selected_type_label}_{selected_brand_label}_"
+            f"{selected_device_label}_{selected_model_label}"
+        ),
     )
 
     show_selected_device_roms(
-        devices, roms, compatibility, search_options[selected_label]
+        conn,
+        device_options[selected_label]["device_id"],
+        device_options[selected_label],
     )
 
 
-def device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
+def device_lookup(conn: Database) -> None:
     st.subheader("Find compatible ROMs")
-    direct_device_lookup(devices, roms, compatibility)
+    direct_device_lookup(conn)
 
 
-def rom_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
+def rom_lookup(conn: Database) -> None:
     st.subheader("Find compatible devices")
-
-    with st.form("rom_search_form", border=False):
-        search_value = st.text_input(
-            "Search ROMs",
-            placeholder="Example: LineageOS, Android 16, recovery",
-            key="rom_search_input",
-        ).strip()
-        submitted = st.form_submit_button("Search ROMs")
-
-    if submitted:
-        st.session_state["rom_search_query"] = search_value
-
-    search_query = st.session_state.get("rom_search_query", "").strip()
-
-    if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
-        st.info(f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search ROMs.")
-        return
-
-    matching_roms = filter_rom_options(roms, search_query)
-    if not matching_roms:
-        st.warning("No ROMs match that search.")
-        return
 
     status_filter = st.segmented_control(
         "ROM activity status",
         ROM_STATUS_FILTER_OPTIONS,
         default="All",
-        key=f"rom_search_status_{search_query}",
+        key="rom_selector_status",
     )
-    matching_roms = filter_roms_by_status(matching_roms, status_filter or "All")
-    if not matching_roms:
+    selected_status = status_filter or "All"
+    rom_names = query_rom_names(
+        conn, "" if selected_status == "All" else selected_status
+    )
+    if not rom_names:
         st.warning("No ROMs match that activity status.")
         return
 
-    visible_roms = matching_roms[:ROM_SEARCH_RESULT_LIMIT]
-    if len(matching_roms) > ROM_SEARCH_RESULT_LIMIT:
-        st.caption(
-            f"Showing the first {ROM_SEARCH_RESULT_LIMIT} of "
-            f"{len(matching_roms)} matches. Refine the search to narrow results."
-        )
+    selected_name = st.selectbox("ROM OS name", rom_names, key="rom_name_selector")
+    selected_rom = query_rom_by_name(conn, selected_name)
+    if selected_rom is None:
+        st.warning("Select a ROM to view compatible devices.")
+        return
 
-    rom_options = {rom_label(row): row["rom_id"] for row in visible_roms}
-    selected_label = st.selectbox(
-        "ROM",
-        list(rom_options.keys()),
-        key=f"rom_{search_query}",
-    )
+    st.caption(f"Selected: {rom_label(selected_rom)}")
 
-    selected_rom_id = rom_options[selected_label]
-    results = build_rom_device_results(devices, compatibility, selected_rom_id)
+    results = query_rom_device_results(conn, selected_rom["rom_id"])
     show_device_results(results)
 
 
@@ -524,6 +824,8 @@ def main() -> None:
     metric_columns[1].metric("Devices", len({row["device_id"] for row in devices}))
     metric_columns[2].metric("ROMs", len({row["rom_id"] for row in roms}))
 
+    lookup_db = get_lookup_database()
+
     st.caption(
         "Device type icons: "
         + " | ".join(
@@ -538,9 +840,9 @@ def main() -> None:
         default="Device to ROMs",
     )
     if lookup_mode == "Device to ROMs":
-        device_lookup(devices, roms, compatibility)
+        device_lookup(lookup_db)
     elif lookup_mode == "ROM to devices":
-        rom_lookup(devices, roms, compatibility)
+        rom_lookup(lookup_db)
 
 
 if __name__ == "__main__":

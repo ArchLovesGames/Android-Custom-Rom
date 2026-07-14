@@ -10,15 +10,26 @@ from app import (
     ROM_COLUMNS,
     ROMS_FILE,
     ROMS_FORMAT_FILE,
+    DeviceFilters,
     build_catalog,
     build_device_rom_results,
     build_rom_device_results,
+    create_lookup_database,
     device_type_label,
     filter_device_options,
     filter_rom_options,
     filter_roms_by_status,
     has_dataset_rows,
     load_data,
+    query_device_brands,
+    query_device_models,
+    query_device_names,
+    query_device_rom_results,
+    query_device_types,
+    query_devices,
+    query_rom_by_name,
+    query_rom_device_results,
+    query_rom_names,
     validate_data,
 )
 
@@ -218,6 +229,46 @@ def test_filter_roms_by_status_returns_selected_activity_status():
     assert all_roms == roms
 
 
+def test_sqlite_device_selector_queries_are_cascading():
+    devices, roms, compatibility = sample_frames()
+    conn = create_lookup_database(devices, roms, compatibility)
+
+    assert query_device_types(conn) == ["Phone"]
+    assert query_device_brands(conn, "Phone") == ["Google", "Nothing", "Xiaomi"]
+    assert query_device_names(conn, "Phone", "Xiaomi") == ["POCO F3"]
+    assert query_device_models(conn, "Phone", "Xiaomi", "POCO F3") == ["M2012K11AG"]
+
+    matches = query_devices(
+        conn, DeviceFilters("Phone", "Xiaomi", "POCO F3", "M2012K11AG")
+    )
+
+    assert [row["device_id"] for row in matches] == ["poco_f3"]
+
+
+def test_sqlite_rom_selector_queries_filter_by_activity_status():
+    devices, roms, compatibility = sample_frames()
+    conn = create_lookup_database(devices, roms, compatibility)
+
+    assert query_rom_names(conn, "active") == ["LineageOS"]
+    assert query_rom_names(conn, "inactive") == ["GrapheneOS"]
+
+    selected_rom = query_rom_by_name(conn, "LineageOS")
+
+    assert selected_rom is not None
+    assert selected_rom["rom_id"] == "lineageos_21"
+
+
+def test_sqlite_join_queries_return_compatibility_results():
+    devices, roms, compatibility = sample_frames()
+    conn = create_lookup_database(devices, roms, compatibility)
+
+    active_device_roms = query_device_rom_results(conn, "pixel_7", "Active")
+    rom_devices = query_rom_device_results(conn, "lineageos_21")
+
+    assert [row["rom_id"] for row in active_device_roms] == ["lineageos_21"]
+    assert [row["device_id"] for row in rom_devices] == ["pixel_7", "poco_f3"]
+
+
 def test_filter_device_options_treats_search_as_literal_text():
     devices, _, _ = sample_frames()
 
@@ -260,20 +311,23 @@ def test_validate_data_reports_unknown_compatibility_references():
     ]
 
 
-def test_app_handles_format_only_dataset_without_crashing():
+def test_app_renders_database_selector_flow_without_crashing():
     app = AppTest.from_file("app.py")
 
     app.run()
 
     assert not app.exception
-    assert app.info
+    selectbox_labels = {selectbox.label for selectbox in app.selectbox}
+    assert {"Type", "Brand", "Device", "Model", "Matching devices"}.issubset(
+        selectbox_labels
+    )
 
 
-def test_direct_lookup_search_does_not_render_all_devices_by_default():
+def test_direct_lookup_uses_selectors_instead_of_text_search_by_default():
     app = AppTest.from_file("app.py")
 
     app.run()
 
     assert not app.exception
-    assert all(selectbox.label != "Matching devices" for selectbox in app.selectbox)
+    assert not app.text_input
     assert all(selectbox.label != "ROM" for selectbox in app.selectbox)
