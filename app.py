@@ -38,6 +38,8 @@ COMPATIBILITY_COLUMNS = {
 DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
+RESULT_DISPLAY_LIMIT = 100
+NOTE_PREVIEW_CHARS = 180
 
 
 @st.cache_data
@@ -163,6 +165,10 @@ def rom_label(row: pd.Series) -> str:
     return f"{row['name']} {row['version']} - Android {row['android_version']}"
 
 
+def truncate_text(value: str, limit: int = NOTE_PREVIEW_CHARS) -> str:
+    return value if len(value) <= limit else value[: limit - 1].rstrip() + "..."
+
+
 def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
     if not query:
         return devices.iloc[0:0]
@@ -183,6 +189,15 @@ def filter_rom_options(roms: pd.DataFrame, query: str) -> pd.DataFrame:
     return roms[
         searchable.str.contains(query, case=False, na=False, regex=False)
     ].sort_values(["name", "version"])
+
+
+def show_limited_dataframe(display: pd.DataFrame, total_rows: int) -> None:
+    if total_rows > RESULT_DISPLAY_LIMIT:
+        st.caption(
+            f"Showing the first {RESULT_DISPLAY_LIMIT} of {total_rows} rows. "
+            "Use a more specific search to narrow results."
+        )
+    st.dataframe(display.head(RESULT_DISPLAY_LIMIT), width="stretch", hide_index=True)
 
 
 def show_rom_results(results: pd.DataFrame) -> None:
@@ -215,7 +230,8 @@ def show_rom_results(results: pd.DataFrame) -> None:
             "website": "Website",
         }
     )
-    st.dataframe(display, width="stretch", hide_index=True)
+    display["Notes"] = display["Notes"].map(truncate_text)
+    show_limited_dataframe(display, len(results))
 
 
 def show_device_results(results: pd.DataFrame) -> None:
@@ -244,7 +260,8 @@ def show_device_results(results: pd.DataFrame) -> None:
             "last_verified": "Last verified",
         }
     )
-    st.dataframe(display, width="stretch", hide_index=True)
+    display["Notes"] = display["Notes"].map(truncate_text)
+    show_limited_dataframe(display, len(results))
 
 
 def show_selected_device_roms(
@@ -270,11 +287,18 @@ def show_selected_device_roms(
 def direct_device_lookup(
     devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
 ) -> None:
-    search_query = st.text_input(
-        "Search by type, brand, device, or model",
-        placeholder="Example: Phone, Pixel 7, OnePlus",
-        key="device_search_query",
-    ).strip()
+    with st.form("device_search_form", border=False):
+        search_value = st.text_input(
+            "Search by type, brand, device, or model",
+            placeholder="Example: Phone, Pixel 7, OnePlus",
+            key="device_search_input",
+        ).strip()
+        submitted = st.form_submit_button("Search devices")
+
+    if submitted:
+        st.session_state["device_search_query"] = search_value
+
+    search_query = st.session_state.get("device_search_query", "").strip()
 
     if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
         st.info(f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search devices.")
@@ -316,11 +340,18 @@ def rom_lookup(
 ) -> None:
     st.subheader("Find compatible devices")
 
-    search_query = st.text_input(
-        "Search ROMs",
-        placeholder="Example: LineageOS, Android 16, recovery",
-        key="rom_search_query",
-    ).strip()
+    with st.form("rom_search_form", border=False):
+        search_value = st.text_input(
+            "Search ROMs",
+            placeholder="Example: LineageOS, Android 16, recovery",
+            key="rom_search_input",
+        ).strip()
+        submitted = st.form_submit_button("Search ROMs")
+
+    if submitted:
+        st.session_state["rom_search_query"] = search_value
+
+    search_query = st.session_state.get("rom_search_query", "").strip()
 
     if len(search_query) < DIRECT_SEARCH_MIN_CHARS:
         st.info(f"Enter at least {DIRECT_SEARCH_MIN_CHARS} characters to search ROMs.")
@@ -383,12 +414,14 @@ def main() -> None:
     metric_columns[1].metric("Devices", devices["device_id"].nunique())
     metric_columns[2].metric("ROMs", roms["rom_id"].nunique())
 
-    device_tab, rom_tab = st.tabs(["Device to ROMs", "ROM to devices"])
-
-    with device_tab:
+    lookup_mode = st.segmented_control(
+        "Lookup mode",
+        ["Device to ROMs", "ROM to devices"],
+        default="Device to ROMs",
+    )
+    if lookup_mode == "Device to ROMs":
         device_lookup(devices, roms, compatibility)
-
-    with rom_tab:
+    elif lookup_mode == "ROM to devices":
         rom_lookup(devices, roms, compatibility)
 
 
