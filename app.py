@@ -38,7 +38,7 @@ COMPATIBILITY_COLUMNS = {
 DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
-RESULT_DISPLAY_LIMIT = 100
+RESULT_DISPLAY_LIMIT = 50
 NOTE_PREVIEW_CHARS = 180
 
 
@@ -191,13 +191,23 @@ def filter_rom_options(roms: pd.DataFrame, query: str) -> pd.DataFrame:
     ].sort_values(["name", "version"])
 
 
-def show_limited_dataframe(display: pd.DataFrame, total_rows: int) -> None:
+def show_limited_results(display: pd.DataFrame, total_rows: int) -> None:
     if total_rows > RESULT_DISPLAY_LIMIT:
         st.caption(
             f"Showing the first {RESULT_DISPLAY_LIMIT} of {total_rows} rows. "
             "Use a more specific search to narrow results."
         )
-    st.dataframe(display.head(RESULT_DISPLAY_LIMIT), width="stretch", hide_index=True)
+
+    for row in display.head(RESULT_DISPLAY_LIMIT).to_dict("records"):
+        title_label, title_value = next(iter(row.items()))
+        with st.container(border=True):
+            st.markdown(f"**{title_label}:** {title_value}")
+            for label, value in row.items():
+                if label == title_label or label == "Notes":
+                    continue
+                st.caption(f"{label}: {value}")
+            if row.get("Notes"):
+                st.write(row["Notes"])
 
 
 def show_rom_results(results: pd.DataFrame) -> None:
@@ -231,7 +241,7 @@ def show_rom_results(results: pd.DataFrame) -> None:
         }
     )
     display["Notes"] = display["Notes"].map(truncate_text)
-    show_limited_dataframe(display, len(results))
+    show_limited_results(display, len(results))
 
 
 def show_device_results(results: pd.DataFrame) -> None:
@@ -261,7 +271,7 @@ def show_device_results(results: pd.DataFrame) -> None:
         }
     )
     display["Notes"] = display["Notes"].map(truncate_text)
-    show_limited_dataframe(display, len(results))
+    show_limited_results(display, len(results))
 
 
 def show_selected_device_roms(
