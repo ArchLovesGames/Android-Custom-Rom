@@ -2,18 +2,17 @@ from streamlit.testing.v1 import AppTest
 
 from app import (
     COMPATIBILITY_COLUMNS,
-    COMPATIBILITY_FORMAT_FILE,
     COMPATIBILITY_FILE,
+    COMPATIBILITY_FORMAT_FILE,
     DEVICE_COLUMNS,
-    DEVICES_FORMAT_FILE,
     DEVICES_FILE,
+    DEVICES_FORMAT_FILE,
     ROM_COLUMNS,
-    ROMS_FORMAT_FILE,
     ROMS_FILE,
+    ROMS_FORMAT_FILE,
     build_catalog,
     build_device_rom_results,
     build_rom_device_results,
-    device_label,
     filter_device_options,
     filter_rom_options,
     filter_roms_by_status,
@@ -134,7 +133,11 @@ def test_refined_datasets_drop_sparse_and_unverified_fields():
 def test_validate_data_reports_missing_columns():
     devices, roms, compatibility = sample_frames()
     invalid_devices = [
-        {key: value for key, value in row.items() if key not in {"device_type", "model"}}
+        {
+            key: value
+            for key, value in row.items()
+            if key not in {"device_type", "model"}
+        }
         for row in devices
     ]
 

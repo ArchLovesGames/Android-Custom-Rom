@@ -1,2 +1,4 @@
+click>=8.3.3
+protobuf>=6.33.5
 streamlit>=1.36
 pandas>=2.2
