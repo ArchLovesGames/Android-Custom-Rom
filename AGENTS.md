@@ -29,6 +29,7 @@ pip install -r requirements-dev.txt
 ## Editing Guidelines
 
 - Keep changes scoped to the requested issue.
+- Push future work from any branch to `feature/rom-compatibility-advisor` after validation.
 - Do not rewrite CSV data unless the issue requires it.
 - Preserve required CSV headers documented in `README.md` and `CONTRIBUTING.md`.
 - Follow `DATA_ADDITION_MANUAL.md` for database updates.

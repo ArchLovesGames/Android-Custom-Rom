@@ -81,6 +81,8 @@ python -m py_compile app.py tests/test_app.py
 
 ## Merge Requests
 
+Use `feature/rom-compatibility-advisor` as the integration branch for project merge requests. Push validated work there even when the work started on another local branch.
+
 Open a merge request with:
 
 - A concise summary of the change.
