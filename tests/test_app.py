@@ -134,8 +134,9 @@ def test_refined_datasets_drop_sparse_and_unverified_fields():
 
     assert {"android_version", "chipset"}.isdisjoint(devices.columns)
     assert "unverified_device_scope" not in set(compatibility["device_id"])
-    assert "Unverified" not in set(compatibility["support_level"])
-    assert "Discontinued" not in set(compatibility["support_level"])
+    support_levels = {value.lower() for value in compatibility["support_level"]}
+    assert "unverified" not in support_levels
+    assert "discontinued" not in support_levels
     assert not (compatibility == "not found").any().any()
 
 
