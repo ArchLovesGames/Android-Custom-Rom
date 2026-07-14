@@ -39,7 +39,7 @@ repos:
 
       - id: pip-audit
         name: dependency audit
-        entry: .venv/bin/pip-audit --local
+        entry: scripts/dependency_audit.sh
         language: system
         pass_filenames: false
 

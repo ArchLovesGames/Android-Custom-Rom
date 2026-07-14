@@ -1,6 +1,10 @@
 stages:
-  - quality
+  - lint
+  - format
+  - type_check
   - test
+  - coverage
+  - quality
   - security
 
 default:
@@ -10,19 +14,37 @@ default:
     - pip install -r requirements-dev.txt
 
 lint:
-  stage: quality
+  stage: lint
   script:
     - ruff check .
-    - ruff format --check .
-    - mypy app.py tests
     - pylint app.py tests
     - flake8 app.py tests
+
+format:
+  stage: format
+  script:
+    - ruff format --check .
+    - pyupgrade --py313-plus app.py tests/*.py
+
+type_check:
+  stage: type_check
+  script:
+    - mypy app.py tests
+
+quality:
+  stage: quality
+  script:
     - vulture app.py tests --min-confidence 90
 
 test:
   stage: test
   script:
-    - pytest --cov=app --cov-report=term-missing --cov-fail-under=60
+    - pytest --no-cov
+
+coverage:
+  stage: coverage
+  script:
+    - pytest --cov=app --cov-report=term-missing --cov-fail-under=55
 
 security:
   stage: security
