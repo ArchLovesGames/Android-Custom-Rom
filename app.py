@@ -1,6 +1,7 @@
+import csv
 from pathlib import Path
+from typing import Iterable
 
-import pandas as pd
 import streamlit as st
 
 
@@ -41,58 +42,71 @@ ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
 NOTE_PREVIEW_CHARS = 180
 
+Row = dict[str, str]
+Rows = list[Row]
+
+
+def sort_rows(rows: Iterable[Row], columns: list[str]) -> Rows:
+    return sorted(rows, key=lambda row: tuple(row.get(column, "") for column in columns))
+
 
 @st.cache_data
-def load_csv(path: Path, mtime_ns: int) -> pd.DataFrame:
+def load_csv(path: Path, mtime_ns: int) -> tuple[str, ...]:
     del mtime_ns
-    frame = pd.read_csv(path, dtype=str).fillna("")
-    frame.columns = frame.columns.str.strip()
+    with path.open(newline="", encoding="utf-8-sig") as file:
+        return tuple(file.read().splitlines())
 
-    for column in frame.columns:
-        frame[column] = frame[column].str.strip()
 
-    return frame
+def parse_csv_lines(lines: tuple[str, ...]) -> Rows:
+    if not lines:
+        return []
+
+    reader = csv.DictReader(lines)
+    rows: Rows = []
+    for row in reader:
+        rows.append({key.strip(): (value or "").strip() for key, value in row.items()})
+    if rows:
+        return rows
+    return [{field.strip(): "" for field in reader.fieldnames or []}]
+
+
+def load_table(path: Path) -> Rows:
+    return parse_csv_lines(load_csv(path, path.stat().st_mtime_ns))
+
+
+def columns_for(rows: Rows) -> set[str]:
+    return set(rows[0]) if rows else set()
 
 
 def find_missing_columns(
-    frame: pd.DataFrame, required_columns: set[str], file_name: str
+    rows: Rows, required_columns: set[str], file_name: str
 ) -> list[str]:
-    missing_columns = sorted(required_columns - set(frame.columns))
+    missing_columns = sorted(required_columns - columns_for(rows))
     return [f"{file_name}: {', '.join(missing_columns)}"] if missing_columns else []
 
 
 @st.cache_data
-def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def load_data() -> tuple[Rows, Rows, Rows]:
     devices_path = DEVICES_FILE if DEVICES_FILE.exists() else DEVICES_FORMAT_FILE
     roms_path = ROMS_FILE if ROMS_FILE.exists() else ROMS_FORMAT_FILE
     compatibility_path = (
         COMPATIBILITY_FILE if COMPATIBILITY_FILE.exists() else COMPATIBILITY_FORMAT_FILE
     )
-    devices = load_csv(devices_path, devices_path.stat().st_mtime_ns)
-    roms = load_csv(roms_path, roms_path.stat().st_mtime_ns)
-    compatibility = load_csv(
-        compatibility_path, compatibility_path.stat().st_mtime_ns
-    )
-
-    return devices, roms, compatibility
+    return load_table(devices_path), load_table(roms_path), load_table(compatibility_path)
 
 
-def validate_data(
-    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
-) -> list[str]:
+def validate_data(devices: Rows, roms: Rows, compatibility: Rows) -> list[str]:
     errors = []
     errors.extend(find_missing_columns(devices, DEVICE_COLUMNS, DEVICES_FILE.name))
     errors.extend(find_missing_columns(roms, ROM_COLUMNS, ROMS_FILE.name))
     errors.extend(
-        find_missing_columns(
-            compatibility, COMPATIBILITY_COLUMNS, COMPATIBILITY_FILE.name
-        )
+        find_missing_columns(compatibility, COMPATIBILITY_COLUMNS, COMPATIBILITY_FILE.name)
     )
-    if not errors and not devices.empty and not roms.empty and not compatibility.empty:
-        unknown_devices = sorted(
-            set(compatibility["device_id"]) - set(devices["device_id"])
-        )
-        unknown_roms = sorted(set(compatibility["rom_id"]) - set(roms["rom_id"]))
+    if not errors and devices and roms and compatibility:
+        device_ids = {row["device_id"] for row in devices}
+        rom_ids = {row["rom_id"] for row in roms}
+        unknown_devices = sorted({row["device_id"] for row in compatibility} - device_ids)
+        unknown_roms = sorted({row["rom_id"] for row in compatibility} - rom_ids)
 
         if unknown_devices:
             errors.append(
@@ -106,62 +120,48 @@ def validate_data(
     return errors
 
 
-def has_dataset_rows(
-    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
-) -> bool:
-    return not devices.empty and not roms.empty and not compatibility.empty
-
-
-def build_catalog(
-    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
-) -> pd.DataFrame:
-    catalog = compatibility.merge(devices, on="device_id", how="left").merge(
-        roms,
-        on="rom_id",
-        how="left",
-        suffixes=("_device", "_rom"),
-    )
-    return catalog.sort_values(
-        ["device_type", "brand", "device", "model", "name"]
-    ).reset_index(drop=True)
-
-
-def build_device_rom_results(
-    roms: pd.DataFrame, compatibility: pd.DataFrame, selected_device_id: str
-) -> pd.DataFrame:
-    device_rows = compatibility[compatibility["device_id"] == selected_device_id]
-    if device_rows.empty:
-        return pd.DataFrame()
-
-    return (
-        device_rows.merge(roms, on="rom_id", how="left")
-        .sort_values(["support_level", "name"])
-        .reset_index(drop=True)
+def has_dataset_rows(devices: Rows, roms: Rows, compatibility: Rows) -> bool:
+    return all(
+        any(any(value for value in row.values()) for row in rows)
+        for rows in (devices, roms, compatibility)
     )
 
 
-def build_rom_device_results(
-    devices: pd.DataFrame, compatibility: pd.DataFrame, selected_rom_id: str
-) -> pd.DataFrame:
-    rom_rows = compatibility[compatibility["rom_id"] == selected_rom_id]
-    if rom_rows.empty:
-        return pd.DataFrame()
-
-    return (
-        rom_rows.merge(devices, on="device_id", how="left")
-        .sort_values(["device_type", "brand", "device", "model"])
-        .reset_index(drop=True)
-    )
+def build_catalog(devices: Rows, roms: Rows, compatibility: Rows) -> Rows:
+    device_by_id = {row["device_id"]: row for row in devices}
+    rom_by_id = {row["rom_id"]: row for row in roms}
+    catalog = []
+    for row in compatibility:
+        catalog.append({**row, **device_by_id.get(row["device_id"], {}), **rom_by_id.get(row["rom_id"], {})})
+    return sort_rows(catalog, ["device_type", "brand", "device", "model", "name"])
 
 
-def device_label(row: pd.Series) -> str:
+def build_device_rom_results(roms: Rows, compatibility: Rows, selected_device_id: str) -> Rows:
+    rom_by_id = {row["rom_id"]: row for row in roms}
+    results = []
+    for row in compatibility:
+        if row["device_id"] == selected_device_id:
+            results.append({**row, **rom_by_id.get(row["rom_id"], {})})
+    return sort_rows(results, ["support_level", "name"])
+
+
+def build_rom_device_results(devices: Rows, compatibility: Rows, selected_rom_id: str) -> Rows:
+    device_by_id = {row["device_id"]: row for row in devices}
+    results = []
+    for row in compatibility:
+        if row["rom_id"] == selected_rom_id:
+            results.append({**row, **device_by_id.get(row["device_id"], {})})
+    return sort_rows(results, ["device_type", "brand", "device", "model"])
+
+
+def device_label(row: Row) -> str:
     return (
         f"{row['device_type']} - {row['brand']} {row['device']} "
         f"{row['model']} [{row['device_id']}]"
     )
 
 
-def rom_label(row: pd.Series) -> str:
+def rom_label(row: Row) -> str:
     return f"{row['name']} {row['version']} - Android {row['android_version']}"
 
 
@@ -169,36 +169,52 @@ def truncate_text(value: str, limit: int = NOTE_PREVIEW_CHARS) -> str:
     return value if len(value) <= limit else value[: limit - 1].rstrip() + "..."
 
 
-def filter_device_options(devices: pd.DataFrame, query: str) -> pd.DataFrame:
+def filter_device_options(devices: Rows, query: str) -> Rows:
     if not query:
-        return devices.iloc[0:0]
+        return []
 
-    searchable = devices[["device_type", "brand", "device", "model"]].agg(" ".join, axis=1)
-    return devices[
-        searchable.str.contains(query, case=False, na=False, regex=False)
-    ].sort_values(["device_type", "brand", "device", "model"])
+    query_lower = query.casefold()
+    matches = [
+        row
+        for row in devices
+        if query_lower
+        in " ".join(
+            [row["device_type"], row["brand"], row["device"], row["model"]]
+        ).casefold()
+    ]
+    return sort_rows(matches, ["device_type", "brand", "device", "model"])
 
 
-def filter_rom_options(roms: pd.DataFrame, query: str) -> pd.DataFrame:
+def filter_rom_options(roms: Rows, query: str) -> Rows:
     if not query:
-        return roms.iloc[0:0]
+        return []
 
-    searchable = roms[
-        ["name", "version", "android_version", "maintainer", "status"]
-    ].agg(" ".join, axis=1)
-    return roms[
-        searchable.str.contains(query, case=False, na=False, regex=False)
-    ].sort_values(["name", "version"])
+    query_lower = query.casefold()
+    matches = [
+        row
+        for row in roms
+        if query_lower
+        in " ".join(
+            [
+                row["name"],
+                row["version"],
+                row["android_version"],
+                row["maintainer"],
+                row["status"],
+            ]
+        ).casefold()
+    ]
+    return sort_rows(matches, ["name", "version"])
 
 
-def show_limited_results(display: pd.DataFrame, total_rows: int) -> None:
+def show_limited_results(display: Rows, total_rows: int) -> None:
     if total_rows > RESULT_DISPLAY_LIMIT:
         st.caption(
             f"Showing the first {RESULT_DISPLAY_LIMIT} of {total_rows} rows. "
             "Use a more specific search to narrow results."
         )
 
-    for row in display.head(RESULT_DISPLAY_LIMIT).to_dict("records"):
+    for row in display[:RESULT_DISPLAY_LIMIT]:
         title_label, title_value = next(iter(row.items()))
         with st.container(border=True):
             st.markdown(f"**{title_label}:** {title_value}")
@@ -210,81 +226,61 @@ def show_limited_results(display: pd.DataFrame, total_rows: int) -> None:
                 st.write(row["Notes"])
 
 
-def show_rom_results(results: pd.DataFrame) -> None:
-    if results.empty:
+def show_rom_results(results: Rows) -> None:
+    if not results:
         st.warning("No compatible ROMs were found for the selected device.")
         return
 
-    display = results[
-        [
-            "name",
-            "version",
-            "android_version",
-            "status",
-            "maintainer",
-            "support_level",
-            "notes",
-            "last_verified",
-            "website",
-        ]
-    ].rename(
-        columns={
-            "name": "ROM",
-            "version": "Version",
-            "android_version": "Android",
-            "status": "Status",
-            "maintainer": "Maintainer",
-            "support_level": "Support",
-            "notes": "Notes",
-            "last_verified": "Last verified",
-            "website": "Website",
-        }
-    )
-    display["Notes"] = display["Notes"].map(truncate_text)
+    display = []
+    for row in results:
+        display.append(
+            {
+                "ROM": row["name"],
+                "Version": row["version"],
+                "Android": row["android_version"],
+                "Status": row["status"],
+                "Maintainer": row["maintainer"],
+                "Support": row["support_level"],
+                "Notes": truncate_text(row["notes"]),
+                "Last verified": row["last_verified"],
+                "Website": row["website"],
+            }
+        )
     show_limited_results(display, len(results))
 
 
-def show_device_results(results: pd.DataFrame) -> None:
-    if results.empty:
+def show_device_results(results: Rows) -> None:
+    if not results:
         st.warning("No compatible devices were found for the selected ROM.")
         return
 
-    display = results[
-        [
-            "brand",
-            "device_type",
-            "device",
-            "model",
-            "support_level",
-            "notes",
-            "last_verified",
-        ]
-    ].rename(
-        columns={
-            "brand": "Brand",
-            "device_type": "Type",
-            "device": "Device",
-            "model": "Model",
-            "support_level": "Support",
-            "notes": "Notes",
-            "last_verified": "Last verified",
-        }
-    )
-    display["Notes"] = display["Notes"].map(truncate_text)
+    display = []
+    for row in results:
+        display.append(
+            {
+                "Brand": row["brand"],
+                "Type": row["device_type"],
+                "Device": row["device"],
+                "Model": row["model"],
+                "Support": row["support_level"],
+                "Notes": truncate_text(row["notes"]),
+                "Last verified": row["last_verified"],
+            }
+        )
     show_limited_results(display, len(results))
 
 
 def show_selected_device_roms(
-    devices: pd.DataFrame,
-    roms: pd.DataFrame,
-    compatibility: pd.DataFrame,
+    devices: Rows,
+    roms: Rows,
+    compatibility: Rows,
     selected_device_id: str,
 ) -> None:
     if not selected_device_id:
         st.info("Select a device to view compatible ROMs.")
         return
 
-    selected = devices[devices["device_id"] == selected_device_id].iloc[0]
+    selected = next(row for row in devices if row["device_id"] == selected_device_id)
     st.caption(
         f"Selected: {selected['device_type']} - {selected['brand']} "
         f"{selected['device']} {selected['model']}"
@@ -294,9 +290,7 @@ def show_selected_device_roms(
     show_rom_results(results)
 
 
-def direct_device_lookup(
-    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
-) -> None:
+def direct_device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
     with st.form("device_search_form", border=False):
         search_value = st.text_input(
             "Search by type, brand, device, or model",
@@ -315,20 +309,18 @@ def direct_device_lookup(
         return
 
     matching_devices = filter_device_options(devices, search_query)
-    if matching_devices.empty:
+    if not matching_devices:
         st.warning("No devices match that search.")
         return
 
-    visible_matches = matching_devices.head(DIRECT_SEARCH_RESULT_LIMIT)
+    visible_matches = matching_devices[:DIRECT_SEARCH_RESULT_LIMIT]
     if len(matching_devices) > DIRECT_SEARCH_RESULT_LIMIT:
         st.caption(
             f"Showing the first {DIRECT_SEARCH_RESULT_LIMIT} of "
             f"{len(matching_devices)} matches. Refine the search to narrow results."
         )
 
-    search_options = {
-        device_label(row): row["device_id"] for _, row in visible_matches.iterrows()
-    }
+    search_options = {device_label(row): row["device_id"] for row in visible_matches}
     selected_label = st.selectbox(
         "Matching devices",
         list(search_options.keys()),
@@ -338,16 +330,12 @@ def direct_device_lookup(
     show_selected_device_roms(devices, roms, compatibility, search_options[selected_label])
 
 
-def device_lookup(
-    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
-) -> None:
+def device_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
     st.subheader("Find compatible ROMs")
     direct_device_lookup(devices, roms, compatibility)
 
 
-def rom_lookup(
-    devices: pd.DataFrame, roms: pd.DataFrame, compatibility: pd.DataFrame
-) -> None:
+def rom_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
     st.subheader("Find compatible devices")
 
     with st.form("rom_search_form", border=False):
@@ -368,20 +356,18 @@ def rom_lookup(
         return
 
     matching_roms = filter_rom_options(roms, search_query)
-    if matching_roms.empty:
+    if not matching_roms:
         st.warning("No ROMs match that search.")
         return
 
-    visible_roms = matching_roms.head(ROM_SEARCH_RESULT_LIMIT)
+    visible_roms = matching_roms[:ROM_SEARCH_RESULT_LIMIT]
     if len(matching_roms) > ROM_SEARCH_RESULT_LIMIT:
         st.caption(
             f"Showing the first {ROM_SEARCH_RESULT_LIMIT} of "
             f"{len(matching_roms)} matches. Refine the search to narrow results."
         )
 
-    rom_options = {
-        rom_label(row): row["rom_id"] for _, row in visible_roms.iterrows()
-    }
+    rom_options = {rom_label(row): row["rom_id"] for row in visible_roms}
     selected_label = st.selectbox(
         "ROM",
         list(rom_options.keys()),
@@ -399,9 +385,7 @@ def main() -> None:
         layout="wide",
     )
     st.title("Android Custom ROM Finder")
-    st.write(
-        "Search compatibility data by device or ROM from the curated CSV datasets."
-    )
+    st.write("Search compatibility data by device or ROM from the curated CSV datasets.")
 
     devices, roms, compatibility = load_data()
     data_errors = validate_data(devices, roms, compatibility)
@@ -420,9 +404,9 @@ def main() -> None:
         return
 
     metric_columns = st.columns(3)
-    metric_columns[0].metric("Device types", devices["device_type"].nunique())
-    metric_columns[1].metric("Devices", devices["device_id"].nunique())
-    metric_columns[2].metric("ROMs", roms["rom_id"].nunique())
+    metric_columns[0].metric("Device types", len({row["device_type"] for row in devices}))
+    metric_columns[1].metric("Devices", len({row["device_id"] for row in devices}))
+    metric_columns[2].metric("ROMs", len({row["rom_id"] for row in roms}))
 
     lookup_mode = st.segmented_control(
         "Lookup mode",
