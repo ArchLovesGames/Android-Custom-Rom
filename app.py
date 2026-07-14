@@ -33,14 +33,12 @@ COMPATIBILITY_COLUMNS = {
     "device_id",
     "rom_id",
     "support_level",
-    "notes",
     "last_verified",
 }
 DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
-NOTE_PREVIEW_CHARS = 180
 
 Row = dict[str, str]
 Rows = list[Row]
@@ -165,10 +163,6 @@ def rom_label(row: Row) -> str:
     return f"{row['name']} {row['version']} - Android {row['android_version']}"
 
 
-def truncate_text(value: str, limit: int = NOTE_PREVIEW_CHARS) -> str:
-    return value if len(value) <= limit else value[: limit - 1].rstrip() + "..."
-
-
 def filter_device_options(devices: Rows, query: str) -> Rows:
     if not query:
         return []
@@ -219,11 +213,9 @@ def show_limited_results(display: Rows, total_rows: int) -> None:
         with st.container(border=True):
             st.markdown(f"**{title_label}:** {title_value}")
             for label, value in row.items():
-                if label == title_label or label == "Notes":
+                if label == title_label:
                     continue
                 st.caption(f"{label}: {value}")
-            if row.get("Notes"):
-                st.write(row["Notes"])
 
 
 def show_rom_results(results: Rows) -> None:
@@ -241,7 +233,6 @@ def show_rom_results(results: Rows) -> None:
                 "Status": row["status"],
                 "Maintainer": row["maintainer"],
                 "Support": row["support_level"],
-                "Notes": truncate_text(row["notes"]),
                 "Last verified": row["last_verified"],
                 "Website": row["website"],
             }
@@ -263,7 +254,6 @@ def show_device_results(results: Rows) -> None:
                 "Device": row["device"],
                 "Model": row["model"],
                 "Support": row["support_level"],
-                "Notes": truncate_text(row["notes"]),
                 "Last verified": row["last_verified"],
             }
         )
