@@ -64,8 +64,16 @@ DEVICE_TYPE_ICONS = {
     "tv": "📺",
 }
 STATUS_BADGE_STYLES = {
-    "active": ("#166534", "#dcfce7", "#86efac"),
-    "inactive": ("#991b1b", "#fee2e2", "#fca5a5"),
+    "light": {
+        "active": ("#166534", "#dcfce7", "#86efac"),
+        "inactive": ("#991b1b", "#fee2e2", "#fca5a5"),
+        "default": ("#374151", "#f3f4f6", "#d1d5db"),
+    },
+    "dark": {
+        "active": ("#bbf7d0", "#14532d", "#22c55e"),
+        "inactive": ("#fecaca", "#7f1d1d", "#ef4444"),
+        "default": ("#f3f4f6", "#1f2937", "#4b5563"),
+    },
 }
 STATUS_DISPLAY_LABELS = {
     "inactive": "Stale",
@@ -531,8 +539,10 @@ def query_rom_device_results(conn: Database, selected_rom_id: str) -> Rows:
 
 def status_badge_html(status: str) -> str:
     normalized_status = status.casefold()
-    color, background, border = STATUS_BADGE_STYLES.get(
-        normalized_status, ("#374151", "#f3f4f6", "#d1d5db")
+    theme_type = getattr(st.context.theme, "type", "light") or "light"
+    theme_styles = STATUS_BADGE_STYLES.get(theme_type, STATUS_BADGE_STYLES["light"])
+    color, background, border = theme_styles.get(
+        normalized_status, theme_styles["default"]
     )
     display_status = STATUS_DISPLAY_LABELS.get(normalized_status, status.title())
     return (
