@@ -10,12 +10,13 @@ The project is for Android enthusiasts, contributors, and maintainers who need a
 
 ## Features
 
-- Search custom ROMs by Android device using guided selection or direct search
+- Search custom ROMs by Android device using direct device search
 - Search compatible devices by custom ROM
-- Guided device selection by device type, brand, device, and model
-- Dataset-driven results
+- Filter ROM results by activity status
+- Color-coded ROM activity badges: green for active, red for inactive
+- Dataset-driven compatibility results
 - Streamlit-based web interface
-- Simple filtering workflow for ROM and device compatibility
+- Guardrails for large datasets, including minimum search length and result limits
 
 ## Tech Stack
 
@@ -72,7 +73,7 @@ pip install -r requirements-dev.txt
 Run tests:
 
 ```bash
-pytest
+.venv/bin/pytest
 ```
 
 Run pre-commit checks manually:
@@ -118,6 +119,8 @@ Expected columns:
 
 The checked-in `*_format.csv` files mirror the production CSV headers. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
 
+ROM `status` values currently used by the dataset are `active`, `inactive`, and `unverified`; `not found` is reserved for unavailable source fields. The app exposes `active` and `inactive` as filter options because those are the user-facing activity states. Unknown or unverified status values remain searchable but are not included in the activity filter choices.
+
 The ROM dataset is populated in `data/roms.csv`. It combines available ROM metadata from:
 
 - `devadigax/awesome-android-custom-rom`
@@ -125,6 +128,8 @@ The ROM dataset is populated in `data/roms.csv`. It combines available ROM metad
 - The requested Reddit discussion where ROM names were visible
 
 Fields that were unavailable in the sources are set to `not found`.
+
+Compatibility rows should only reference `device_id` values from `data/devices.csv` and `rom_id` values from `data/roms.csv`. The app validates these relationships at startup and reports unknown references before rendering lookup results.
 
 ## Environment Variables
 
@@ -143,13 +148,13 @@ Project documentation should include:
 
 ## Roadmap
 
-- Add the production ROM compatibility dataset
 - Add screenshots of the app
-- Add filtering improvements for ROM name and Android version
+- Add documented data-refresh workflow for ROM and compatibility sources
+- Add more validation for dataset normalization and source attribution
 
 ## Screenshots
 
-Screenshots will be added after the Streamlit UI is available.
+Screenshots will be added after the current Streamlit lookup flow is finalized.
 
 ## FAQ
 
@@ -164,6 +169,10 @@ Select or search for a ROM in the app. The app will display devices marked as co
 ### Can I add a new device or ROM?
 
 Yes. Contributions should update the compatibility dataset and include enough detail for maintainers to verify the entry.
+
+### Why does activity filtering only show active and inactive?
+
+The dataset also preserves unverified status values for transparency, but the activity filter is intentionally limited to confirmed active and inactive ROMs.
 
 ## Contributing
 
