@@ -324,9 +324,8 @@ def test_app_renders_database_selector_flow_without_crashing():
 
     assert not app.exception
     selectbox_labels = {selectbox.label for selectbox in app.selectbox}
-    assert {"Type", "Brand", "Device", "Model", "Matching devices"}.issubset(
-        selectbox_labels
-    )
+    assert {"Type", "Brand", "Device", "Matching devices"}.issubset(selectbox_labels)
+    assert "Model" not in selectbox_labels
 
 
 def test_direct_lookup_uses_selectors_instead_of_text_search_by_default():

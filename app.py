@@ -709,7 +709,7 @@ def show_selected_device_roms(
 
 
 def direct_device_lookup(conn: Database) -> None:
-    selector_columns = st.columns(4)
+    selector_columns = st.columns(3)
     selected_type_label = selector_columns[0].selectbox(
         "Type",
         selector_options(query_device_types(conn)),
@@ -728,19 +728,12 @@ def direct_device_lookup(conn: Database) -> None:
         key=f"device_name_selector_{selected_type_label}_{selected_brand_label}",
     )
     selected_device_name = selected_filter(selected_device_label)
-    selected_model_label = selector_columns[3].selectbox(
-        "Model",
-        selector_options(
-            query_device_models(
-                conn, selected_type, selected_brand, selected_device_name
-            )
-        ),
-        key=(
-            "device_model_selector_"
-            f"{selected_type_label}_{selected_brand_label}_{selected_device_label}"
-        ),
+    matching_models = query_device_models(
+        conn, selected_type, selected_brand, selected_device_name
     )
-    selected_model = selected_filter(selected_model_label)
+    selected_model = (
+        matching_models[0] if selected_device_name and matching_models else ""
+    )
 
     filters = DeviceFilters(
         selected_type, selected_brand, selected_device_name, selected_model
@@ -764,7 +757,7 @@ def direct_device_lookup(conn: Database) -> None:
         key=(
             "matching_device_"
             f"{selected_type_label}_{selected_brand_label}_"
-            f"{selected_device_label}_{selected_model_label}"
+            f"{selected_device_label}_{selected_model or ALL_SELECTOR_OPTION}"
         ),
     )
 
