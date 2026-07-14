@@ -103,6 +103,39 @@ Current Streamlit deployment settings:
 - Branch: `main`
 - Main file path: `app.py`
 
+### Coolify
+
+The repository is ready to deploy on Coolify as a Dockerfile-based application.
+
+Recommended Coolify settings:
+
+- Build pack: `Dockerfile`
+- Dockerfile location: `Dockerfile`
+- Port: `8501`
+- Health check path: `/_stcore/health`
+- Environment variables: none required
+
+The container also supports Coolify's dynamic `PORT` environment variable. If
+Coolify sets `PORT`, `scripts/start-streamlit.sh` starts Streamlit on that port.
+If `PORT` is not set, the app defaults to `8501`.
+
+Optional runtime environment variables:
+
+- `PORT`: external platform port for Streamlit
+- `STREAMLIT_SERVER_PORT`: fallback Streamlit port when `PORT` is unset
+- `STREAMLIT_SERVER_ADDRESS`: defaults to `0.0.0.0`
+- `STREAMLIT_SERVER_HEADLESS`: defaults to `true`
+- `STREAMLIT_SERVER_ENABLE_CORS`: defaults to `false` for reverse proxy use
+- `STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION`: defaults to `false` for reverse proxy use
+- `STREAMLIT_BROWSER_GATHER_USAGE_STATS`: defaults to `false`
+
+Local Docker smoke test:
+
+```bash
+docker build -t android-custom-rom-finder .
+docker run --rm -p 8501:8501 android-custom-rom-finder
+```
+
 ## Dataset
 
 The app uses a dataset containing Android devices, custom ROMs, and compatibility relationships. Keep the dataset structured and versioned with the project so the filters can reliably map:

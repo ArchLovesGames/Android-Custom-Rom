@@ -10,6 +10,21 @@ The deployed Streamlit app tracks GitHub `main` from:
 
 https://github.com/ArchLovesGames/Android-Custom-Rom
 
+## Container Deployment
+
+The app can run on Coolify through the checked-in `Dockerfile`.
+
+Container runtime details:
+
+- Startup script: `scripts/start-streamlit.sh`
+- Default port: `8501`
+- Dynamic port support: `PORT`
+- Bind address: `0.0.0.0`
+- Health endpoint: `/_stcore/health`
+
+Use Coolify's Dockerfile build pack and set the exposed application port to
+`8501`, unless the environment injects a different `PORT` value.
+
 ## Assets
 
 - `assets/swecha-logo.png`: sidebar branding image
