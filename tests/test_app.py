@@ -16,6 +16,7 @@ from app import (
     device_label,
     filter_device_options,
     filter_rom_options,
+    filter_roms_by_status,
     has_dataset_rows,
     load_data,
     validate_data,
@@ -53,7 +54,7 @@ def sample_frames():
             "version": "21",
             "android_version": "14",
             "maintainer": "LineageOS Team",
-            "status": "Official",
+            "status": "active",
             "website": "https://lineageos.org/",
         },
         {
@@ -62,7 +63,7 @@ def sample_frames():
             "version": "2024",
             "android_version": "14",
             "maintainer": "GrapheneOS Team",
-            "status": "Official",
+            "status": "inactive",
             "website": "https://grapheneos.org/",
         },
     ]
@@ -189,11 +190,23 @@ def test_filter_rom_options_searches_multiple_fields_case_insensitively():
 
     by_name = filter_rom_options(roms, "graphene")
     by_version = filter_rom_options(roms, "21")
-    by_status = filter_rom_options(roms, "official")
+    by_status = filter_rom_options(roms, "inactive")
 
     assert [row["rom_id"] for row in by_name] == ["grapheneos_2024"]
     assert [row["rom_id"] for row in by_version] == ["lineageos_21"]
-    assert len(by_status) == len(roms)
+    assert [row["rom_id"] for row in by_status] == ["grapheneos_2024"]
+
+
+def test_filter_roms_by_status_returns_selected_activity_status():
+    _, roms, _ = sample_frames()
+
+    active_roms = filter_roms_by_status(roms, "Active")
+    inactive_roms = filter_roms_by_status(roms, "Inactive")
+    all_roms = filter_roms_by_status(roms, "All")
+
+    assert [row["rom_id"] for row in active_roms] == ["lineageos_21"]
+    assert [row["rom_id"] for row in inactive_roms] == ["grapheneos_2024"]
+    assert all_roms == roms
 
 
 def test_filter_device_options_treats_search_as_literal_text():

@@ -1,4 +1,5 @@
 import csv
+import html
 from pathlib import Path
 from typing import Iterable
 
@@ -39,6 +40,11 @@ DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
 RESULT_DISPLAY_LIMIT = 50
+ROM_STATUS_FILTER_OPTIONS = ["All", "Active", "Inactive"]
+STATUS_BADGE_STYLES = {
+    "active": ("#166534", "#dcfce7", "#86efac"),
+    "inactive": ("#991b1b", "#fee2e2", "#fca5a5"),
+}
 
 Row = dict[str, str]
 Rows = list[Row]
@@ -163,6 +169,35 @@ def rom_label(row: Row) -> str:
     return f"{row['name']} {row['version']} - Android {row['android_version']}"
 
 
+def filter_roms_by_status(roms: Rows, selected_status: str) -> Rows:
+    if selected_status == "All":
+        return roms
+    status = selected_status.casefold()
+    return [row for row in roms if row["status"].casefold() == status]
+
+
+def status_badge_html(status: str) -> str:
+    normalized_status = status.casefold()
+    color, background, border = STATUS_BADGE_STYLES.get(
+        normalized_status, ("#374151", "#f3f4f6", "#d1d5db")
+    )
+    return (
+        "<span style=\""
+        "display:inline-block;"
+        "padding:0.125rem 0.5rem;"
+        "border-radius:0.25rem;"
+        f"border:1px solid {border};"
+        f"background:{background};"
+        f"color:{color};"
+        "font-size:0.875rem;"
+        "font-weight:600;"
+        "line-height:1.25rem;"
+        "\">"
+        f"{html.escape(status.title())}"
+        "</span>"
+    )
+
+
 def filter_device_options(devices: Rows, query: str) -> Rows:
     if not query:
         return []
@@ -214,6 +249,12 @@ def show_limited_results(display: Rows, total_rows: int) -> None:
             st.markdown(f"**{title_label}:** {title_value}")
             for label, value in row.items():
                 if label == title_label:
+                    continue
+                if label == "Status":
+                    st.markdown(
+                        f"<div>Status: {status_badge_html(value)}</div>",
+                        unsafe_allow_html=True,
+                    )
                     continue
                 st.caption(f"{label}: {value}")
 
@@ -277,6 +318,13 @@ def show_selected_device_roms(
     )
 
     results = build_device_rom_results(roms, compatibility, selected_device_id)
+    status_filter = st.segmented_control(
+        "ROM activity status",
+        ROM_STATUS_FILTER_OPTIONS,
+        default="All",
+        key=f"device_rom_status_{selected_device_id}",
+    )
+    results = filter_roms_by_status(results, status_filter)
     show_rom_results(results)
 
 
@@ -348,6 +396,17 @@ def rom_lookup(devices: Rows, roms: Rows, compatibility: Rows) -> None:
     matching_roms = filter_rom_options(roms, search_query)
     if not matching_roms:
         st.warning("No ROMs match that search.")
+        return
+
+    status_filter = st.segmented_control(
+        "ROM activity status",
+        ROM_STATUS_FILTER_OPTIONS,
+        default="All",
+        key=f"rom_search_status_{search_query}",
+    )
+    matching_roms = filter_roms_by_status(matching_roms, status_filter)
+    if not matching_roms:
+        st.warning("No ROMs match that activity status.")
         return
 
     visible_roms = matching_roms[:ROM_SEARCH_RESULT_LIMIT]
