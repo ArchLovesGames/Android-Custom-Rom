@@ -366,7 +366,7 @@ def test_validate_data_reports_unknown_compatibility_references():
 def test_app_renders_database_selector_flow_without_crashing():
     app = AppTest.from_file("app.py")
 
-    app.run()
+    app.run(timeout=10)
 
     assert not app.exception
     selectbox_labels = {selectbox.label for selectbox in app.selectbox}
@@ -377,7 +377,7 @@ def test_app_renders_database_selector_flow_without_crashing():
 def test_direct_lookup_uses_selectors_instead_of_text_search_by_default():
     app = AppTest.from_file("app.py")
 
-    app.run()
+    app.run(timeout=10)
 
     assert not app.exception
     assert not app.text_input
