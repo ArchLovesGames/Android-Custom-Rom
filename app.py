@@ -3,9 +3,15 @@ import html
 import sqlite3
 from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, NamedTuple
+from typing import NamedTuple
 
 import streamlit as st
+
+from local_device_detection import (
+    LocalDeviceInfo,
+    detect_local_android_device,
+    match_local_device,
+)
 
 DATA_DIR = Path(__file__).parent / "data"
 ASSETS_DIR = Path(__file__).parent / "assets"
@@ -50,6 +56,9 @@ ROM_STATUS_FILTER_VALUES = {
     "Stale": "Inactive",
 }
 ALL_SELECTOR_OPTION = "All"
+LOCAL_DETECTED_DEVICE_KEY = "local_detected_device_id"
+LOCAL_DETECTION_MESSAGE_KEY = "local_detection_message"
+LOCAL_DETECTION_INFO_KEY = "local_detection_info"
 ISSUES_URL = "https://code.swecha.org/mobile-freedom/custom-rom/-/issues"
 LIVE_APP_URL = "https://custom-rom-android-finder.streamlit.app/"
 DATA_ADDITION_MANUAL_URL = (
@@ -83,7 +92,6 @@ Row = dict[str, str]
 Rows = list[Row]
 Database = sqlite3.Connection
 DataFileSignature = tuple[str, int]
-Metadata = dict[str, Any]
 
 
 class DeviceFilters(NamedTuple):
@@ -99,63 +107,6 @@ def sort_rows(rows: Iterable[Row], columns: list[str]) -> Rows:
     return sorted(
         rows, key=lambda row: tuple(row.get(column, "") for column in columns)
     )
-
-
-def safe_context_value(name: str) -> Any:
-    try:
-        return getattr(st.context, name)
-    except RuntimeError:
-        return None
-
-
-def context_mapping(name: str) -> dict[str, str]:
-    value = safe_context_value(name)
-    if not value:
-        return {}
-    return {str(key): str(item) for key, item in dict(value).items()}
-
-
-def collect_request_metadata() -> Metadata:
-    headers = context_mapping("headers")
-    cookies = context_mapping("cookies")
-    theme = safe_context_value("theme")
-    return {
-        "url": safe_context_value("url"),
-        "ip_address": safe_context_value("ip_address"),
-        "locale": safe_context_value("locale"),
-        "timezone": safe_context_value("timezone"),
-        "timezone_offset": safe_context_value("timezone_offset"),
-        "is_embedded": safe_context_value("is_embedded"),
-        "theme": {
-            "type": getattr(theme, "type", None),
-            "primary_color": getattr(theme, "primaryColor", None),
-            "background_color": getattr(theme, "backgroundColor", None),
-            "secondary_background_color": getattr(
-                theme, "secondaryBackgroundColor", None
-            ),
-            "text_color": getattr(theme, "textColor", None),
-        },
-        "headers": headers,
-        "cookies": cookies,
-        "selected_header_fields": {
-            "user-agent": headers.get("user-agent", ""),
-            "host": headers.get("host", ""),
-            "origin": headers.get("origin", ""),
-            "referer": headers.get("referer", ""),
-            "x-forwarded-for": headers.get("x-forwarded-for", ""),
-            "x-forwarded-host": headers.get("x-forwarded-host", ""),
-            "x-forwarded-proto": headers.get("x-forwarded-proto", ""),
-        },
-    }
-
-
-def show_request_metadata_diagnostics() -> None:
-    with st.sidebar.expander("Request metadata", expanded=False):
-        st.caption(
-            "Open this on Streamlit Cloud and locally to compare what the app "
-            "receives from each environment."
-        )
-        st.json(collect_request_metadata())
 
 
 @st.cache_data
@@ -624,11 +575,18 @@ def selected_status_value(selected_status: str) -> str:
     return ROM_STATUS_FILTER_VALUES.get(selected_status, selected_status)
 
 
+def show_local_detection_sidebar_note() -> None:
+    st.sidebar.caption(
+        "Device detection is local only. Hosted web apps cannot inspect visitor "
+        "hardware; run this app locally with ADB to detect a connected Android device."
+    )
+
+
 def show_data_contribution_wiki() -> None:
     if SWECHA_LOGO_FILE.exists():
         st.sidebar.image(str(SWECHA_LOGO_FILE), width=150)
 
-    show_request_metadata_diagnostics()
+    show_local_detection_sidebar_note()
 
     with st.sidebar.expander("Contribute data", expanded=False):
         st.markdown(
@@ -778,6 +736,69 @@ def show_selected_device_roms(
     show_rom_results(results)
 
 
+def stored_local_device_info() -> LocalDeviceInfo:
+    stored = st.session_state.get(LOCAL_DETECTION_INFO_KEY, {})
+    return LocalDeviceInfo(**stored) if isinstance(stored, dict) else LocalDeviceInfo()
+
+
+def selected_local_device(devices: Rows) -> Row | None:
+    selected_device_id = st.session_state.get(LOCAL_DETECTED_DEVICE_KEY, "")
+    return next(
+        (row for row in devices if row["device_id"] == selected_device_id),
+        None,
+    )
+
+
+def show_local_device_detection(conn: Database, devices: Rows) -> None:
+    with st.container(border=True):
+        st.markdown("**Local device detection**")
+        st.caption(
+            "Works only when this Streamlit app runs on your computer with ADB "
+            "installed and an authorized Android device connected."
+        )
+        if st.button("Detect connected Android device", key="detect_local_device"):
+            result = detect_local_android_device()
+            st.session_state[LOCAL_DETECTION_MESSAGE_KEY] = result.message
+            if result.ok:
+                st.session_state[LOCAL_DETECTION_INFO_KEY] = result.info._asdict()
+                matched_device = match_local_device(devices, result.info)
+                if matched_device:
+                    st.session_state[LOCAL_DETECTED_DEVICE_KEY] = matched_device[
+                        "device_id"
+                    ]
+                else:
+                    st.session_state.pop(LOCAL_DETECTED_DEVICE_KEY, None)
+            else:
+                st.session_state.pop(LOCAL_DETECTION_INFO_KEY, None)
+                st.session_state.pop(LOCAL_DETECTED_DEVICE_KEY, None)
+
+        message = st.session_state.get(LOCAL_DETECTION_MESSAGE_KEY, "")
+        if message:
+            st.caption(str(message))
+
+        info = stored_local_device_info()
+        if any(info):
+            st.caption(
+                "Detected properties: "
+                f"{info.manufacturer} {info.model} "
+                f"({info.device}, Android {info.android_version})"
+            )
+
+        matched_device = selected_local_device(devices)
+        if matched_device:
+            st.success(
+                "Matched local device: "
+                f"{matched_device['brand']} {matched_device['device']} "
+                f"{matched_device['model']}"
+            )
+            show_selected_device_roms(conn, matched_device["device_id"], matched_device)
+        elif info.model:
+            st.info(
+                "No exact dataset match was found for the connected device. "
+                "Use the selectors below."
+            )
+
+
 def direct_device_lookup(conn: Database) -> None:
     selector_columns = st.columns(3)
     selected_type_label = selector_columns[0].selectbox(
@@ -838,8 +859,9 @@ def direct_device_lookup(conn: Database) -> None:
     )
 
 
-def device_lookup(conn: Database) -> None:
+def device_lookup(conn: Database, devices: Rows) -> None:
     st.subheader("Find compatible ROMs")
+    show_local_device_detection(conn, devices)
     direct_device_lookup(conn)
 
 
@@ -928,7 +950,7 @@ def main() -> None:
         default="Device to ROMs",
     )
     if lookup_mode == "Device to ROMs":
-        device_lookup(lookup_db)
+        device_lookup(lookup_db, devices)
     elif lookup_mode == "ROM to devices":
         rom_lookup(lookup_db)
 

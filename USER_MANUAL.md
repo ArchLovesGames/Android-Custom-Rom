@@ -21,15 +21,16 @@ The sidebar includes a **Contribute data** section with a link to the database c
 ## Find ROMs for a Device
 
 1. Select `Device to ROMs` in the lookup mode control.
-2. Enter at least two characters in the device search box.
-3. Choose a matching device from the results.
-4. Review compatible ROMs.
-5. Use the ROM activity status filter to show all ROMs, active ROMs, or inactive ROMs.
+2. If running locally with ADB, click **Detect connected Android device**.
+3. If a local device match is found, review compatible ROMs shown below.
+4. If no local match is found, adjust the type, brand, or device selectors.
+5. Choose a matching device from the results.
+6. Use the ROM activity status filter to show all ROMs, active ROMs, or stale ROMs.
 
 ROM activity is shown with colored badges:
 
 - Green: active
-- Red: inactive
+- Red: stale, meaning no recent updates or announcements
 - Gray: any other status preserved in the dataset
 
 ## Find Devices for a ROM
@@ -42,9 +43,14 @@ ROM activity is shown with colored badges:
 
 ## Search Behavior
 
-Search is case-insensitive. Device search checks type, brand, device name, and model. ROM search checks ROM name, version, Android version, maintainer, and status.
+Hosted web apps cannot inspect a visitor's exact device hardware. Device
+detection only works when the app is run locally on a computer with ADB
+installed and an authorized Android device connected. Manual selectors remain
+available.
 
-The app limits very large result sets. Refine the search text when only the first set of matches is shown.
+Selector filtering is case-insensitive at the dataset level. The app limits very
+large result sets. Refine the selectors when only the first set of matches is
+shown.
 
 ## Dataset Validation
 

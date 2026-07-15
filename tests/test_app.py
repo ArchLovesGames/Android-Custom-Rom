@@ -14,7 +14,6 @@ from app import (
     build_catalog,
     build_device_rom_results,
     build_rom_device_results,
-    collect_request_metadata,
     create_lookup_database,
     device_type_label,
     filter_device_options,
@@ -33,6 +32,11 @@ from app import (
     query_rom_names,
     status_badge_html,
     validate_data,
+)
+from local_device_detection import (
+    LocalDeviceInfo,
+    match_local_device,
+    parse_adb_devices,
 )
 
 
@@ -236,14 +240,31 @@ def test_status_badge_shows_inactive_roms_as_stale_in_the_app():
     assert "Inactive" not in status_badge_html("inactive")
 
 
-def test_request_metadata_contains_comparison_fields():
-    metadata = collect_request_metadata()
+def test_parse_adb_devices_returns_only_authorized_devices():
+    output = """List of devices attached
+R58N123456	device
+emulator-5554	offline
+ZY223J	unauthorized
+"""
 
-    assert "headers" in metadata
-    assert "cookies" in metadata
-    assert "selected_header_fields" in metadata
-    assert "user-agent" in metadata["selected_header_fields"]
-    assert "x-forwarded-for" in metadata["selected_header_fields"]
+    assert parse_adb_devices(output) == ["R58N123456"]
+
+
+def test_match_local_device_uses_android_getprop_values():
+    devices, _, _ = sample_frames()
+    info = LocalDeviceInfo(
+        manufacturer="Xiaomi",
+        brand="POCO",
+        model="POCO F3",
+        device="M2012K11AG",
+        product="alioth",
+        android_version="14",
+    )
+
+    matched = match_local_device(devices, info)
+
+    assert matched is not None
+    assert matched["device_id"] == "poco_f3"
 
 
 def test_sqlite_device_selector_queries_are_cascading():

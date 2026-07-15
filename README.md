@@ -12,6 +12,7 @@ Live app: https://custom-rom-android-finder.streamlit.app/
 
 ## Features
 
+- Local Android device detection through ADB when running the app locally
 - Search custom ROMs by Android device using direct device search
 - Search compatible devices by custom ROM
 - Filter ROM results by activity status
@@ -20,6 +21,16 @@ Live app: https://custom-rom-android-finder.streamlit.app/
 - Dataset-driven compatibility results
 - Streamlit-based web interface
 - Guardrails for large datasets, including minimum search length and result limits
+
+## Local Device Detection
+
+The hosted web app cannot inspect a visitor's hardware. Device detection works
+only when the Streamlit app is run locally on a computer with ADB installed and
+an authorized Android device connected.
+
+Local detection reads Android `getprop` values and matches them against
+`data/devices.csv`. If there is no exact dataset match, use the manual
+selectors. See `docs/LOCAL_DEVICE_DETECTION.md`.
 
 ## Tech Stack
 

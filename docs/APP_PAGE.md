@@ -57,6 +57,17 @@ The app uses a segmented control with two modes:
 - `Device to ROMs`: calls `device_lookup()`
 - `ROM to devices`: calls `rom_lookup()`
 
+## Local Device Detection
+
+Device detection is local-only. The hosted web app cannot inspect a visitor's
+hardware. When the app runs locally, the **Detect connected Android device**
+button uses ADB on the host machine to read Android `getprop` values from an
+authorized connected device.
+
+If the detected properties match `data/devices.csv`, the app renders compatible
+ROMs for that device. Otherwise, users should continue with the manual selector
+flow.
+
 ## Validation
 
 Startup validation checks:
