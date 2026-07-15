@@ -23,11 +23,9 @@ The sidebar includes a **Contribute data** section with a link to the database c
 1. Select `Device to ROMs` in the lookup mode control.
 2. Review the browser device detection panel. If the browser exposes a confident
    model hint, compatible ROMs appear automatically.
-3. If running locally with ADB, click **Detect connected Android device** for
-   exact Android `getprop` based detection.
-4. If no automatic match is found, adjust the type, brand, or device selectors.
-5. Choose a matching device from the results.
-6. Use the ROM activity status filter to show all ROMs, active ROMs, or stale ROMs.
+3. If no automatic match is found, adjust the type, brand, or device selectors.
+4. Choose a matching device from the results.
+5. Use the ROM activity status filter to show all ROMs, active ROMs, or stale ROMs.
 
 ROM activity is shown with colored badges:
 
@@ -50,9 +48,8 @@ user-agent client hints, screen details, approximate memory, CPU thread count,
 and network class. Browsers may hide the exact Android model, so the app only
 auto-selects a device when the match is confident.
 
-Exact Android model detection works when the app is run locally on a computer
-with ADB installed and an authorized Android device connected. Manual selectors
-remain available.
+Manual selectors remain available when browser detection cannot confidently
+identify a device.
 
 Selector filtering is case-insensitive at the dataset level. The app limits very
 large result sets. Refine the selectors when only the first set of matches is

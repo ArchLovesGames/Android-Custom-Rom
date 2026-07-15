@@ -39,12 +39,10 @@ Use this mode to find ROMs for a device.
 1. Select `Device to ROMs`.
 2. Review browser device detection. If the browser exposes a confident model
    hint, the app shows matching ROMs automatically.
-3. If running locally with ADB, use local device detection for exact Android
-   properties.
-4. If automatic detection does not match, search by type, brand, or device.
-5. Select a matching device.
-6. Filter ROM results by activity status if needed.
-7. Review ROM metadata, support level, verification date, and website.
+3. If automatic detection does not match, search by type, brand, or device.
+4. Select a matching device.
+5. Filter ROM results by activity status if needed.
+6. Review ROM metadata, support level, verification date, and website.
 
 ## ROM to Devices
 

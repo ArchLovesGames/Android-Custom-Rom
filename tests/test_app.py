@@ -34,11 +34,6 @@ from app import (
     validate_data,
 )
 from browser_device_detection import match_browser_device
-from local_device_detection import (
-    LocalDeviceInfo,
-    match_local_device,
-    parse_adb_devices,
-)
 
 
 def sample_frames():
@@ -239,33 +234,6 @@ def test_filter_roms_by_status_returns_selected_activity_status():
 def test_status_badge_shows_inactive_roms_as_stale_in_the_app():
     assert "Stale" in status_badge_html("inactive")
     assert "Inactive" not in status_badge_html("inactive")
-
-
-def test_parse_adb_devices_returns_only_authorized_devices():
-    output = """List of devices attached
-R58N123456	device
-emulator-5554	offline
-ZY223J	unauthorized
-"""
-
-    assert parse_adb_devices(output) == ["R58N123456"]
-
-
-def test_match_local_device_uses_android_getprop_values():
-    devices, _, _ = sample_frames()
-    info = LocalDeviceInfo(
-        manufacturer="Xiaomi",
-        brand="POCO",
-        model="POCO F3",
-        device="M2012K11AG",
-        product="alioth",
-        android_version="14",
-    )
-
-    matched = match_local_device(devices, info)
-
-    assert matched is not None
-    assert matched["device_id"] == "poco_f3"
 
 
 def test_match_browser_device_uses_exact_client_hint_model():

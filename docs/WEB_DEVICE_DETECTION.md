@@ -25,15 +25,14 @@ the dataset. Broad hints such as `Android`, `Samsung`, or `Mobile` are not enoug
 to choose a device.
 
 If the browser does not expose the exact model, the app shows the collected
-signals and asks the user to continue with local ADB detection or the manual
-selectors.
+signals and asks the user to continue with the manual selectors.
 
 ## Limitations
 
 Modern browsers intentionally restrict unique hardware identifiers. Many mobile
 browsers do not expose exact Android model names through Web APIs. This protects
 privacy but means browser detection cannot be treated as a complete replacement
-for local Android detection.
+for manual device selection.
 
-For exact local detection, run the app locally with ADB installed and connect an
-authorized Android device. See `docs/LOCAL_DEVICE_DETECTION.md`.
+Use the manual selectors when browser APIs do not expose enough information for
+a confident match.

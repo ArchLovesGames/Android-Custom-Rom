@@ -70,16 +70,6 @@ strong model, device, or codename match before selecting a dataset device.
 
 See `docs/WEB_DEVICE_DETECTION.md` for the detailed API list and limitations.
 
-## Local Device Detection
-
-Exact Android model detection is local-only. When the app runs locally, the
-**Detect connected Android device** button uses ADB on the host machine to read
-Android `getprop` values from an authorized connected device.
-
-If the detected properties match `data/devices.csv`, the app renders compatible
-ROMs for that device. Otherwise, users should continue with the manual selector
-flow.
-
 ## Validation
 
 Startup validation checks:

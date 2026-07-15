@@ -14,11 +14,6 @@ from browser_device_detection import (
     browser_profile_summary,
     match_browser_device,
 )
-from local_device_detection import (
-    LocalDeviceInfo,
-    detect_local_android_device,
-    match_local_device,
-)
 
 DATA_DIR = Path(__file__).parent / "data"
 ASSETS_DIR = Path(__file__).parent / "assets"
@@ -52,9 +47,6 @@ ROM_STATUS_FILTER_VALUES = {
     "Stale": "Inactive",
 }
 ALL_SELECTOR_OPTION = "All"
-LOCAL_DETECTED_DEVICE_KEY = "local_detected_device_id"
-LOCAL_DETECTION_MESSAGE_KEY = "local_detection_message"
-LOCAL_DETECTION_INFO_KEY = "local_detection_info"
 ISSUES_URL = "https://code.swecha.org/mobile-freedom/custom-rom/-/issues"
 LIVE_APP_URL = "https://custom-rom-android-finder.streamlit.app/"
 DATA_ADDITION_MANUAL_URL = (
@@ -577,10 +569,10 @@ def selected_status_value(selected_status: str) -> str:
     return ROM_STATUS_FILTER_VALUES.get(selected_status, selected_status)
 
 
-def show_local_detection_sidebar_note() -> None:
+def show_browser_detection_sidebar_note() -> None:
     st.sidebar.caption(
-        "Browser detection uses privacy-limited Web APIs. Exact Android model "
-        "detection is local-only with ADB."
+        "Browser detection uses privacy-limited Web APIs. Use the selectors when "
+        "the browser does not expose a confident device model."
     )
 
 
@@ -588,7 +580,7 @@ def show_data_contribution_wiki() -> None:
     if SWECHA_LOGO_FILE.exists():
         st.sidebar.image(str(SWECHA_LOGO_FILE), width=150)
 
-    show_local_detection_sidebar_note()
+    show_browser_detection_sidebar_note()
 
     with st.sidebar.expander("Contribute data", expanded=False):
         st.markdown(
@@ -738,19 +730,6 @@ def show_selected_device_roms(
     show_rom_results(results)
 
 
-def stored_local_device_info() -> LocalDeviceInfo:
-    stored = st.session_state.get(LOCAL_DETECTION_INFO_KEY, {})
-    return LocalDeviceInfo(**stored) if isinstance(stored, dict) else LocalDeviceInfo()
-
-
-def selected_local_device(devices: Rows) -> Row | None:
-    selected_device_id = st.session_state.get(LOCAL_DETECTED_DEVICE_KEY, "")
-    return next(
-        (row for row in devices if row["device_id"] == selected_device_id),
-        None,
-    )
-
-
 def show_browser_device_detection(conn: Database, devices: Rows) -> None:
     with st.container(border=True):
         st.markdown("**Browser device detection**")
@@ -780,62 +759,12 @@ def show_browser_device_detection(conn: Database, devices: Rows) -> None:
             show_selected_device_roms(conn, matched_device["device_id"], matched_device)
         else:
             st.info(
-                "No confident browser-side model match was found. Use local "
-                "ADB detection or the selectors below."
+                "No confident browser-side model match was found. Use the "
+                "selectors below."
             )
 
         with st.expander("Browser API signals", expanded=False):
             st.json(profile)
-
-
-def show_local_device_detection(conn: Database, devices: Rows) -> None:
-    with st.container(border=True):
-        st.markdown("**Local device detection**")
-        st.caption(
-            "Works only when this Streamlit app runs on your computer with ADB "
-            "installed and an authorized Android device connected."
-        )
-        if st.button("Detect connected Android device", key="detect_local_device"):
-            result = detect_local_android_device()
-            st.session_state[LOCAL_DETECTION_MESSAGE_KEY] = result.message
-            if result.ok:
-                st.session_state[LOCAL_DETECTION_INFO_KEY] = result.info._asdict()
-                matched_device = match_local_device(devices, result.info)
-                if matched_device:
-                    st.session_state[LOCAL_DETECTED_DEVICE_KEY] = matched_device[
-                        "device_id"
-                    ]
-                else:
-                    st.session_state.pop(LOCAL_DETECTED_DEVICE_KEY, None)
-            else:
-                st.session_state.pop(LOCAL_DETECTION_INFO_KEY, None)
-                st.session_state.pop(LOCAL_DETECTED_DEVICE_KEY, None)
-
-        message = st.session_state.get(LOCAL_DETECTION_MESSAGE_KEY, "")
-        if message:
-            st.caption(str(message))
-
-        info = stored_local_device_info()
-        if any(info):
-            st.caption(
-                "Detected properties: "
-                f"{info.manufacturer} {info.model} "
-                f"({info.device}, Android {info.android_version})"
-            )
-
-        matched_device = selected_local_device(devices)
-        if matched_device:
-            st.success(
-                "Matched local device: "
-                f"{matched_device['brand']} {matched_device['device']} "
-                f"{matched_device['model']}"
-            )
-            show_selected_device_roms(conn, matched_device["device_id"], matched_device)
-        elif info.model:
-            st.info(
-                "No exact dataset match was found for the connected device. "
-                "Use the selectors below."
-            )
 
 
 def direct_device_lookup(conn: Database) -> None:
@@ -901,7 +830,6 @@ def direct_device_lookup(conn: Database) -> None:
 def device_lookup(conn: Database, devices: Rows) -> None:
     st.subheader("Find compatible ROMs")
     show_browser_device_detection(conn, devices)
-    show_local_device_detection(conn, devices)
     direct_device_lookup(conn)
 
 

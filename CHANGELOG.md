@@ -15,6 +15,10 @@ This project uses app versions to track user-facing Streamlit application change
 
 - Documented the live Streamlit deployment URL and GitHub `main` deployment source.
 
+### Removed
+
+- Removed local ADB device detection from the app, tests, and documentation.
+
 ## [v1.0.0] - 2026-07-14
 
 ### Added
