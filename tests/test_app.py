@@ -14,6 +14,7 @@ from app import (
     build_catalog,
     build_device_rom_results,
     build_rom_device_results,
+    collect_request_metadata,
     create_lookup_database,
     device_type_label,
     filter_device_options,
@@ -233,6 +234,16 @@ def test_filter_roms_by_status_returns_selected_activity_status():
 def test_status_badge_shows_inactive_roms_as_stale_in_the_app():
     assert "Stale" in status_badge_html("inactive")
     assert "Inactive" not in status_badge_html("inactive")
+
+
+def test_request_metadata_contains_comparison_fields():
+    metadata = collect_request_metadata()
+
+    assert "headers" in metadata
+    assert "cookies" in metadata
+    assert "selected_header_fields" in metadata
+    assert "user-agent" in metadata["selected_header_fields"]
+    assert "x-forwarded-for" in metadata["selected_header_fields"]
 
 
 def test_sqlite_device_selector_queries_are_cascading():

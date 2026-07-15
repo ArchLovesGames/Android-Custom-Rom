@@ -3,7 +3,7 @@ import html
 import sqlite3
 from collections.abc import Iterable
 from pathlib import Path
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 import streamlit as st
 
@@ -83,6 +83,7 @@ Row = dict[str, str]
 Rows = list[Row]
 Database = sqlite3.Connection
 DataFileSignature = tuple[str, int]
+Metadata = dict[str, Any]
 
 
 class DeviceFilters(NamedTuple):
@@ -98,6 +99,63 @@ def sort_rows(rows: Iterable[Row], columns: list[str]) -> Rows:
     return sorted(
         rows, key=lambda row: tuple(row.get(column, "") for column in columns)
     )
+
+
+def safe_context_value(name: str) -> Any:
+    try:
+        return getattr(st.context, name)
+    except RuntimeError:
+        return None
+
+
+def context_mapping(name: str) -> dict[str, str]:
+    value = safe_context_value(name)
+    if not value:
+        return {}
+    return {str(key): str(item) for key, item in dict(value).items()}
+
+
+def collect_request_metadata() -> Metadata:
+    headers = context_mapping("headers")
+    cookies = context_mapping("cookies")
+    theme = safe_context_value("theme")
+    return {
+        "url": safe_context_value("url"),
+        "ip_address": safe_context_value("ip_address"),
+        "locale": safe_context_value("locale"),
+        "timezone": safe_context_value("timezone"),
+        "timezone_offset": safe_context_value("timezone_offset"),
+        "is_embedded": safe_context_value("is_embedded"),
+        "theme": {
+            "type": getattr(theme, "type", None),
+            "primary_color": getattr(theme, "primaryColor", None),
+            "background_color": getattr(theme, "backgroundColor", None),
+            "secondary_background_color": getattr(
+                theme, "secondaryBackgroundColor", None
+            ),
+            "text_color": getattr(theme, "textColor", None),
+        },
+        "headers": headers,
+        "cookies": cookies,
+        "selected_header_fields": {
+            "user-agent": headers.get("user-agent", ""),
+            "host": headers.get("host", ""),
+            "origin": headers.get("origin", ""),
+            "referer": headers.get("referer", ""),
+            "x-forwarded-for": headers.get("x-forwarded-for", ""),
+            "x-forwarded-host": headers.get("x-forwarded-host", ""),
+            "x-forwarded-proto": headers.get("x-forwarded-proto", ""),
+        },
+    }
+
+
+def show_request_metadata_diagnostics() -> None:
+    with st.sidebar.expander("Request metadata", expanded=False):
+        st.caption(
+            "Open this on Streamlit Cloud and locally to compare what the app "
+            "receives from each environment."
+        )
+        st.json(collect_request_metadata())
 
 
 @st.cache_data
@@ -569,6 +627,8 @@ def selected_status_value(selected_status: str) -> str:
 def show_data_contribution_wiki() -> None:
     if SWECHA_LOGO_FILE.exists():
         st.sidebar.image(str(SWECHA_LOGO_FILE), width=150)
+
+    show_request_metadata_diagnostics()
 
     with st.sidebar.expander("Contribute data", expanded=False):
         st.markdown(
