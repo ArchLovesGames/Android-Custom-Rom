@@ -33,6 +33,7 @@ from app import (
     status_badge_html,
     validate_data,
 )
+from browser_device_detection import match_browser_device
 from local_device_detection import (
     LocalDeviceInfo,
     match_local_device,
@@ -265,6 +266,51 @@ def test_match_local_device_uses_android_getprop_values():
 
     assert matched is not None
     assert matched["device_id"] == "poco_f3"
+
+
+def test_match_browser_device_uses_exact_client_hint_model():
+    devices, _, _ = sample_frames()
+    profile = {
+        "userAgentData": {"mobile": True, "platform": "Android", "brands": []},
+        "highEntropy": {"platform": "Android", "model": "GVU6C"},
+        "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7)",
+    }
+
+    matched = match_browser_device(devices, profile)
+
+    assert matched is not None
+    assert matched["device_id"] == "pixel_7"
+
+
+def test_match_browser_device_does_not_guess_from_broad_brand_hints():
+    devices, _, _ = sample_frames()
+    devices.append(
+        {
+            "device_id": "htc_u11",
+            "device_type": "Phone",
+            "brand": "HTC",
+            "device": "U11",
+            "model": "2PZC100",
+        }
+    )
+    profile = {
+        "userAgentData": {"mobile": True, "platform": "Android", "brands": []},
+        "highEntropy": {"platform": "Android", "model": "SM-A356E"},
+        "userAgent": "Mozilla/5.0 (Linux; Android 14; SAMSUNG SM-A356E)",
+    }
+
+    assert match_browser_device(devices, profile) is None
+
+
+def test_match_browser_device_returns_none_without_model_or_device_signal():
+    devices, _, _ = sample_frames()
+    profile = {
+        "userAgentData": {"mobile": True, "platform": "Android", "brands": []},
+        "highEntropy": {"platform": "Android", "model": ""},
+        "userAgent": "Mozilla/5.0 (Linux; Android 14)",
+    }
+
+    assert match_browser_device(devices, profile) is None
 
 
 def test_sqlite_device_selector_queries_are_cascading():

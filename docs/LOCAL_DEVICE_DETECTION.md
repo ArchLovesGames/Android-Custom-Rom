@@ -1,10 +1,11 @@
 # Local Device Detection
 
-Device detection is local-only.
+Exact Android model detection is local-only.
 
-The hosted Streamlit web app cannot inspect a visitor's Android hardware. A
-browser does not expose reliable ROM, build fingerprint, device codename, or
-exact model details to the server.
+The hosted Streamlit web app can collect privacy-limited browser hints, but it
+cannot inspect a visitor's Android hardware directly. A browser does not expose
+reliable ROM, build fingerprint, device codename, serial number, or exact model
+details to the server in a consistent way.
 
 When the app is run locally, it can detect an Android device connected to the
 same computer through ADB.

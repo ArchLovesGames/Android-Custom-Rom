@@ -6,6 +6,11 @@ This project uses app versions to track user-facing Streamlit application change
 
 ## [Unreleased]
 
+### Added
+
+- Added browser Web API device detection with conservative dataset matching.
+- Added documentation for browser-side device detection signals and limits.
+
 ### Changed
 
 - Documented the live Streamlit deployment URL and GitHub `main` deployment source.

@@ -7,6 +7,13 @@ from typing import NamedTuple
 
 import streamlit as st
 
+from browser_device_detection import (
+    BROWSER_DEVICE_PROFILE_HTML,
+    BROWSER_DEVICE_PROFILE_JS,
+    browser_device_profile_component,
+    browser_profile_summary,
+    match_browser_device,
+)
 from local_device_detection import (
     LocalDeviceInfo,
     detect_local_android_device,
@@ -23,13 +30,7 @@ DEVICES_FORMAT_FILE = DATA_DIR / "devices_format.csv"
 ROMS_FORMAT_FILE = DATA_DIR / "roms_format.csv"
 COMPATIBILITY_FORMAT_FILE = DATA_DIR / "compatibility_format.csv"
 
-DEVICE_COLUMNS = {
-    "device_id",
-    "device_type",
-    "brand",
-    "device",
-    "model",
-}
+DEVICE_COLUMNS = {"device_id", "device_type", "brand", "device", "model"}
 ROM_COLUMNS = {
     "rom_id",
     "name",
@@ -39,12 +40,7 @@ ROM_COLUMNS = {
     "status",
     "website",
 }
-COMPATIBILITY_COLUMNS = {
-    "device_id",
-    "rom_id",
-    "support_level",
-    "last_verified",
-}
+COMPATIBILITY_COLUMNS = {"device_id", "rom_id", "support_level", "last_verified"}
 DIRECT_SEARCH_MIN_CHARS = 2
 DIRECT_SEARCH_RESULT_LIMIT = 100
 ROM_SEARCH_RESULT_LIMIT = 100
@@ -93,9 +89,15 @@ Rows = list[Row]
 Database = sqlite3.Connection
 DataFileSignature = tuple[str, int]
 
+browser_device_profile_renderer = st.components.v2.component(
+    "browser_device_profile",
+    html=BROWSER_DEVICE_PROFILE_HTML,
+    js=BROWSER_DEVICE_PROFILE_JS,
+)
+
 
 class DeviceFilters(NamedTuple):
-    """Selected device selector values for SQLite lookup queries."""
+    """Selected device filters."""
 
     device_type: str = ""
     brand: str = ""
@@ -577,8 +579,8 @@ def selected_status_value(selected_status: str) -> str:
 
 def show_local_detection_sidebar_note() -> None:
     st.sidebar.caption(
-        "Device detection is local only. Hosted web apps cannot inspect visitor "
-        "hardware; run this app locally with ADB to detect a connected Android device."
+        "Browser detection uses privacy-limited Web APIs. Exact Android model "
+        "detection is local-only with ADB."
     )
 
 
@@ -749,6 +751,43 @@ def selected_local_device(devices: Rows) -> Row | None:
     )
 
 
+def show_browser_device_detection(conn: Database, devices: Rows) -> None:
+    with st.container(border=True):
+        st.markdown("**Browser device detection**")
+        st.caption(
+            "Uses browser Web APIs such as user-agent client hints, screen, "
+            "memory, CPU, and network hints. Browsers may hide the exact model, "
+            "so this only auto-selects a device when the match is confident."
+        )
+        profile = browser_device_profile_component(
+            browser_device_profile_renderer, st.session_state
+        )
+        if not profile:
+            st.info("Waiting for browser device signals.")
+            return
+
+        summary = browser_profile_summary(profile)
+        if summary:
+            st.caption(" | ".join(summary))
+
+        matched_device = match_browser_device(devices, profile)
+        if matched_device:
+            st.success(
+                "Matched browser device: "
+                f"{matched_device['brand']} {matched_device['device']} "
+                f"{matched_device['model']}"
+            )
+            show_selected_device_roms(conn, matched_device["device_id"], matched_device)
+        else:
+            st.info(
+                "No confident browser-side model match was found. Use local "
+                "ADB detection or the selectors below."
+            )
+
+        with st.expander("Browser API signals", expanded=False):
+            st.json(profile)
+
+
 def show_local_device_detection(conn: Database, devices: Rows) -> None:
     with st.container(border=True):
         st.markdown("**Local device detection**")
@@ -861,6 +900,7 @@ def direct_device_lookup(conn: Database) -> None:
 
 def device_lookup(conn: Database, devices: Rows) -> None:
     st.subheader("Find compatible ROMs")
+    show_browser_device_detection(conn, devices)
     show_local_device_detection(conn, devices)
     direct_device_lookup(conn)
 

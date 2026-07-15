@@ -57,12 +57,24 @@ The app uses a segmented control with two modes:
 - `Device to ROMs`: calls `device_lookup()`
 - `ROM to devices`: calls `rom_lookup()`
 
+## Browser Device Detection
+
+The `Device to ROMs` mode first renders a browser-side detection panel. It uses
+an inline Streamlit Custom Component v2 bridge to collect Web API signals from
+the visitor's browser and pass them back to Python.
+
+Collected signals include user-agent client hints, legacy user-agent text,
+screen dimensions, approximate memory, logical CPU threads, and network class
+when the browser supports them. The matcher is conservative: it requires a
+strong model, device, or codename match before selecting a dataset device.
+
+See `docs/WEB_DEVICE_DETECTION.md` for the detailed API list and limitations.
+
 ## Local Device Detection
 
-Device detection is local-only. The hosted web app cannot inspect a visitor's
-hardware. When the app runs locally, the **Detect connected Android device**
-button uses ADB on the host machine to read Android `getprop` values from an
-authorized connected device.
+Exact Android model detection is local-only. When the app runs locally, the
+**Detect connected Android device** button uses ADB on the host machine to read
+Android `getprop` values from an authorized connected device.
 
 If the detected properties match `data/devices.csv`, the app renders compatible
 ROMs for that device. Otherwise, users should continue with the manual selector
