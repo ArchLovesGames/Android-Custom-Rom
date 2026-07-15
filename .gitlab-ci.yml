@@ -13,6 +13,7 @@ default:
   tags:
     - custom-rom-macos
   before_script:
+    - export PATH="/opt/homebrew/bin:$PATH"
     - python3 -m venv .ci-venv
     - .ci-venv/bin/python -m pip install --upgrade pip
     - .ci-venv/bin/pip install -r requirements-dev.txt
