@@ -1,93 +1,271 @@
-# Android Custom Rom 
+# Android Custom ROM
 
+[![Built with Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Status](https://img.shields.io/badge/status-in%20development-blue)](https://code.swecha.org/mobile-freedom/custom-rom)
 
+Android Custom ROM is a Streamlit web app that helps users discover custom Android ROMs for their devices. Users can either select a device to view compatible ROMs or select a ROM to find supported devices.
 
-## Getting started
+The project is for Android enthusiasts, contributors, and maintainers who need a simple way to explore ROM compatibility from a structured dataset.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Live app: https://custom-rom-android-finder.streamlit.app/
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Features
 
-## Add your files
+- Browser-side device detection using privacy-limited Web APIs
+- Search custom ROMs by Android device using direct device search
+- Search compatible devices by custom ROM
+- Filter ROM results by activity status
+- Color-coded ROM activity badges: green for active, red for inactive
+- In-app data contribution wiki for database updates
+- Dataset-driven compatibility results
+- Streamlit-based web interface
+- Guardrails for large datasets, including minimum search length and result limits
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## Device Detection
 
-```
-cd existing_repo
-git remote add origin https://code.swecha.org/mobile-freedom/custom-rom.git
-git branch -M main
-git push -uf origin main
-```
+The hosted web app can collect browser-provided device hints through Web APIs,
+including user-agent client hints, screen details, approximate memory, CPU thread
+count, and network class. It only auto-selects a device when those hints expose a
+strong model or codename match in `data/devices.csv`.
 
-## Integrate with your tools
+Browsers intentionally restrict unique hardware identifiers. If the browser does
+not expose an exact model, use the manual selectors.
 
-* [Set up project integrations](https://code.swecha.org/mobile-freedom/custom-rom/-/settings/integrations)
+See:
 
-## Collaborate with your team
+- `docs/WEB_DEVICE_DETECTION.md`
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## Tech Stack
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- Python
+- Streamlit
+- Dataset-backed ROM compatibility data
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Create a virtual environment and install the project dependencies:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Run Locally
+
+Clone the project:
+
+```bash
+git clone https://code.swecha.org/mobile-freedom/custom-rom.git
+cd custom-rom
+```
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the Streamlit app:
+
+```bash
+streamlit run app.py
+```
+
+## Testing
+
+Install development dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Run tests:
+
+```bash
+.venv/bin/pytest
+```
+
+Run pre-commit checks manually:
+
+```bash
+pre-commit run --all-files
+```
+
+Install the Git hook:
+
+```bash
+pre-commit install
+```
+
+## Deployment
+
+The app is deployed on Streamlit Community Cloud:
+
+https://custom-rom-android-finder.streamlit.app/
+
+Current Streamlit deployment settings:
+
+- Repository: `https://github.com/ArchLovesGames/Android-Custom-Rom`
+- Branch: `main`
+- Main file path: `app.py`
+
+### Coolify
+
+The repository is ready to deploy on Coolify as a Dockerfile-based application.
+
+Recommended Coolify settings:
+
+- Build pack: `Dockerfile`
+- Dockerfile location: `Dockerfile`
+- Port: `8501`
+- Health check path: `/_stcore/health`
+- Environment variables: none required
+
+The container also supports Coolify's dynamic `PORT` environment variable. If
+Coolify sets `PORT`, `scripts/start-streamlit.sh` starts Streamlit on that port.
+If `PORT` is not set, the app defaults to `8501`.
+
+Optional runtime environment variables:
+
+- `PORT`: external platform port for Streamlit
+- `STREAMLIT_SERVER_PORT`: fallback Streamlit port when `PORT` is unset
+- `STREAMLIT_SERVER_ADDRESS`: defaults to `0.0.0.0`
+- `STREAMLIT_SERVER_HEADLESS`: defaults to `true`
+- `STREAMLIT_SERVER_ENABLE_CORS`: defaults to `false` for reverse proxy use
+- `STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION`: defaults to `false` for reverse proxy use
+- `STREAMLIT_BROWSER_GATHER_USAGE_STATS`: defaults to `false`
+
+Local Docker smoke test:
+
+```bash
+docker build -t android-custom-rom-finder .
+docker run --rm -p 8501:8501 android-custom-rom-finder
+```
+
+## Dataset
+
+The app uses a dataset containing Android devices, custom ROMs, and compatibility relationships. Keep the dataset structured and versioned with the project so the filters can reliably map:
+
+- Device to compatible ROMs
+- ROM to compatible devices
+
+CSV format templates live in:
+
+- `data/devices_format.csv`
+- `data/roms_format.csv`
+- `data/compatibility_format.csv`
+
+Expected columns:
+
+- `devices.csv`: `device_id`, `device_type`, `brand`, `device`, `model`
+- `roms.csv`: `rom_id`, `name`, `version`, `android_version`, `maintainer`, `status`, `website`
+- `compatibility.csv`: `device_id`, `rom_id`, `support_level`, `last_verified`
+
+The checked-in `*_format.csv` files mirror the production CSV headers. The app trims whitespace from CSV column names and values when loading data. Direct device search requires at least two characters and limits visible results to avoid rendering very large dropdowns.
+
+ROM `status` values currently used by the dataset are `active`, `inactive`, and `unverified`; `not found` is reserved for unavailable source fields. The app exposes `active` and `inactive` as filter options because those are the user-facing activity states. Unknown or unverified status values remain searchable but are not included in the activity filter choices.
+
+The ROM dataset is populated in `data/roms.csv`. It combines available ROM metadata from:
+
+- `devadigax/awesome-android-custom-rom`
+- Wikipedia's list of custom Android distributions
+- The requested Reddit discussion where ROM names were visible
+
+Fields that were unavailable in the sources are set to `not found`.
+
+Compatibility rows should only reference `device_id` values from `data/devices.csv` and `rom_id` values from `data/roms.csv`. The app validates these relationships at startup and reports unknown references before rendering lookup results.
+
+For detailed data contribution steps, see `DATA_ADDITION_MANUAL.md`. The app also links this guide from the sidebar under **Contribute data**.
+
+## Environment Variables
+
+No environment variables are currently required.
+
+If future dataset sources, APIs, or private configuration are added, document the required variables here and keep secrets out of Git.
+
+## Documentation
+
+Project documentation should include:
+
+- Dataset format and required columns
+- Steps to update ROM/device compatibility data
+- Streamlit deployment notes
+- Contribution workflow
+
+Available project guides:
+
+- `CONTRIBUTING.md`: contributor workflow
+- `DATA_ADDITION_MANUAL.md`: database update workflow
+- `WIKI.md`: user-facing app page wiki
+- `docs/APP_PAGE.md`: maintainer documentation for the Streamlit page
+- `docs/WEB_DEVICE_DETECTION.md`: browser Web API detection behavior
+- `USER_MANUAL.md`: app usage guide
+- `SECURITY.md`: vulnerability reporting
+
+## FAQ
+
+### How do I find ROMs for my device?
+
+Select or search for your device in the app. The app will display ROMs marked as compatible with that device in the dataset.
+
+### How do I find devices supported by a ROM?
+
+Select or search for a ROM in the app. The app will display devices marked as compatible with that ROM in the dataset.
+
+### Can I add a new device or ROM?
+
+Yes. Contributions should update the compatibility dataset and include enough detail for maintainers to verify the entry.
+
+### How do I contribute compatibility data?
+
+Use the **Contribute data** section in the app sidebar or read `DATA_ADDITION_MANUAL.md`.
+
+### Why does activity filtering only show active and inactive?
+
+The dataset also preserves unverified status values for transparency, but the activity filter is intentionally limited to confirmed active and inactive ROMs.
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Contributions are welcome.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+To get started:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Test the Streamlit app locally.
+5. Open a merge request with a clear description of the change.
+
+Please keep dataset updates accurate and verifiable. Follow `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` for the full contribution process and community expectations.
+
+## Authors
+
+- [@archishasingh](https://code.swecha.org/archishasingh)
+
+## Acknowledgements
+
+- [Streamlit](https://streamlit.io/)
+- [Swecha](https://swecha.org/) for the project ecosystem and logo source reference
+- [Shields.io](https://shields.io/)
+- [Awesome README](https://github.com/matiassingers/awesome-readme)
+- [Awesome README Templates](https://github.com/Louis3797/awesome-readme-template)
+- [How to Write a Good README](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/)
+
+## Support and Feedback
+
+For bugs, feature requests, or feedback, open an issue in this repository:
+
+https://code.swecha.org/mobile-freedom/custom-rom/-/issues
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is licensed under the GNU Affero General Public License v3.0. See `LICENSE` for details.

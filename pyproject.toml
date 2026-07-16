@@ -1,0 +1,49 @@
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = false
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+addopts = "--cov=app --cov-report=term-missing --cov-fail-under=55"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["app"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+
+[tool.pylint.main]
+py-version = "3.13"
+ignore = [".venv"]
+persistent = false
+
+[tool.pylint.messages_control]
+disable = [
+  "missing-module-docstring",
+  "missing-function-docstring",
+  "import-error",
+  "use-implicit-booleaness-not-comparison",
+]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203"]
+
+[tool.vulture]
+min_confidence = 90
+paths = ["app.py", "tests"]

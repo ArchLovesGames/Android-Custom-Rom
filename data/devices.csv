@@ -1,0 +1,707 @@
+device_id,device_type,brand,device,model
+10_or_g,phone,10.or,G,G
+ark_peach,phone,ARK,Benefit A3,peach
+asus_i001d,phone,ASUS,ROG Phone 2 (ZS660KL),I001D
+asus_obiwan,phone,ASUS,ROG Phone 3,obiwan
+asus_z00a,phone,ASUS,Zenfone 2 (1080p),Z00A
+asus_z008,phone,ASUS,Zenfone 2 (720p),Z008
+asus_z00d,phone,ASUS,Zenfone 2 (ZE500CL),Z00D
+asus_z00l,phone,ASUS,Zenfone 2 Laser (720p),Z00L
+asus_z00t,phone,ASUS,Zenfone 2 Laser / Selfie (1080p),Z00T
+asus_zenfone3,phone,ASUS,Zenfone 3,zenfone3
+asus_x00qd,phone,ASUS,Zenfone 5,X00QD
+asus_z01r,phone,ASUS,Zenfone 5Z (ZS620KL),Z01R
+asus_i01wd,phone,ASUS,Zenfone 6 (ZS630KL),I01WD
+asus_sake,phone,ASUS,ZenFone 8,sake
+asus_x00p,phone,ASUS,Zenfone Max M1,X00P
+asus_x01ad,phone,ASUS,Zenfone Max M2,X01AD
+asus_x00td,phone,ASUS,Zenfone Max Pro M1,X00TD
+asus_x01bd,phone,ASUS,Zenfone Max Pro M2,X01BD
+asus_p024,tablet,ASUS,ZenPad 8.0 (Z380KL),P024
+banana_pi_m5,sbc,Banana Pi,M5,m5
+bq_vegetalte,phone,BQ,Aquaris E5 4G / Aquaris E5s,vegetalte
+bq_piccolo,phone,BQ,Aquaris M5,piccolo
+bq_chaozu,phone,BQ,Aquaris U,chaozu
+bq_tenshi,phone,BQ,Aquaris U Plus,tenshi
+bq_bardock,phone,BQ,Aquaris X,bardock
+bq_bardockpro,phone,BQ,Aquaris X Pro,bardockpro
+bq_zangya,phone,BQ,Aquaris X2,zangya
+bq_zangyapro,phone,BQ,Aquaris X2 Pro,zangyapro
+bq_paella,phone,BQ,Aquaris X5,paella
+bq_gohan,phone,BQ,Aquaris X5 Plus,gohan
+dynalink_wade,tv,Dynalink,TV Box (4K),wade
+essential_mata,phone,Essential,PH-1,mata
+f_x_tec_pro1,phone,F(x)tec,Pro¹,pro1
+f_x_tec_pro1x,phone,F(x)tec,Pro¹ X,pro1x
+fairphone_fp2,phone,Fairphone,2,FP2
+fairphone_fp3,phone,Fairphone,3,FP3
+fairphone_fp4,phone,Fairphone,4,FP4
+generic_raveos_mining_rig,computer,Generic,GPU mining rig supported by RaveOS,x86_64-mining-rig
+gm_gm8_sprout,phone,GM,8,GM8_sprout
+google_deadpool,tv,Google,ADT-3,deadpool
+google_seed,phone,Google,Android One 2nd Gen,seed
+google_maguro,phone,Google,Galaxy Nexus GSM,maguro
+google_toroplus,phone,Google,Galaxy Nexus LTE (Sprint),toroplus
+google_toro,phone,Google,Galaxy Nexus LTE (Verizon),toro
+google_manta,tablet,Google,Nexus 10,manta
+google_mako,phone,Google,Nexus 4,mako
+google_hammerhead,phone,Google,Nexus 5,hammerhead
+google_bullhead,phone,Google,Nexus 5X,bullhead
+google_shamu,phone,Google,Nexus 6,shamu
+google_angler,phone,Google,Nexus 6P,angler
+google_deb,tablet,Google,"Nexus 7 (LTE, 2013 version)",deb
+google_flo,tablet,Google,"Nexus 7 (Wi-Fi, 2013 version)",flo
+google_debx,tablet,Google,"Nexus 7 2013 (LTE, Repartitioned)",debx
+google_flox,tablet,Google,"Nexus 7 2013 (Wi-Fi, Repartitioned)",flox
+google_flounder_lte,tablet,Google,Nexus 9 (LTE),flounder_lte
+google_flounder,tablet,Google,Nexus 9 (Wi-Fi),flounder
+google_fugu,phone,Google,Nexus Player,fugu
+google_sailfish,phone,Google,Pixel,sailfish
+google_walleye,phone,Google,Pixel 2,walleye
+google_taimen,phone,Google,Pixel 2 XL,taimen
+google_blueline,phone,Google,Pixel 3,blueline
+google_crosshatch,phone,Google,Pixel 3 XL,crosshatch
+google_sargo,phone,Google,Pixel 3a,sargo
+google_bonito,phone,Google,Pixel 3a XL,bonito
+google_flame,phone,Google,Pixel 4,flame
+google_coral,phone,Google,Pixel 4 XL,coral
+google_sunfish,phone,Google,Pixel 4a,sunfish
+google_bramble,phone,Google,Pixel 4a 5G,bramble
+google_redfin,phone,Google,Pixel 5,redfin
+google_barbet,phone,Google,Pixel 5a,barbet
+google_oriole,phone,Google,Pixel 6,oriole
+google_raven,phone,Google,Pixel 6 Pro,raven
+google_bluejay,phone,Google,Pixel 6a,bluejay
+google_panther,phone,Google,Pixel 7,panther
+google_cheetah,phone,Google,Pixel 7 Pro,cheetah
+google_lynx,phone,Google,Pixel 7a,lynx
+google_akita,phone,Google,Pixel 8a,akita
+google_dragon,tablet,Google,Pixel C,dragon
+google_tangorpro,tablet,Google,Pixel Tablet,tangorpro
+google_marlin,phone,Google,Pixel XL,marlin
+hardkernel_odroidc4,sbc,HardKernel,ODROID-C4,odroidc4
+htc_pme,phone,HTC,10,pme
+htc_m7,phone,HTC,One (GSM),m7
+htc_m8,phone,HTC,One (M8),m8
+htc_m8d,phone,HTC,One (M8) Dual SIM,m8d
+htc_m7vzw,phone,HTC,One (Verizon),m7vzw
+htc_hiae,phone,HTC,One A9,hiae
+htc_hima,phone,HTC,One M9,hima
+htc_himaul,phone,HTC,One M9 (GSM),himaul
+htc_himawl,phone,HTC,One M9 (Verizon),himawl
+htc_t6,phone,HTC,One Max (GSM),t6
+htc_t6vzw,phone,HTC,One Max (Verizon),t6vzw
+huawei_mt2,phone,Huawei,Ascend Mate 2 4G,mt2
+huawei_cherry,phone,Huawei,Honor 4 / 4X,cherry
+huawei_che10,phone,Huawei,Honor 4x (China Telecom),che10
+huawei_kiwi,phone,Huawei,Honor 5X,kiwi
+huawei_berkeley,phone,Huawei,Honor View 10,berkeley
+huawei_figo,phone,Huawei,P Smart,figo
+huawei_anne,phone,Huawei,P20 Lite,anne
+huawei_charlotte,phone,Huawei,P20 Pro,charlotte
+jingling_jingpad_a1,tablet,Jingling,JingPad A1,jingpad_a1
+leeco_s2,phone,LeEco,Le 2,s2
+leeco_x2,phone,LeEco,Le Max2,x2
+leeco_zl1,phone,LeEco,Le Pro3 / Le Pro3 Elite,zl1
+lenovo_kunlun2_row,phone,Lenovo,K10 Note,kunlun2_row
+lenovo_kuntao,phone,Lenovo,P2,kuntao
+lenovo_a6020,phone,Lenovo,Vibe K5 / K5 Plus,A6020
+lenovo_kingdom,phone,Lenovo,Vibe Z2 Pro,kingdom
+lenovo_ytx703l,tablet,Lenovo,Yoga Tab 3 Plus LTE,YTX703L
+lenovo_ytx703f,tablet,Lenovo,Yoga Tab 3 Plus Wi-Fi,YTX703F
+lenovo_heart,phone,Lenovo,Z5 Pro GT,heart
+lenovo_jd2019,phone,Lenovo,Z5s,jd2019
+lenovo_kunlun2,phone,Lenovo,Z6 Lite,kunlun2
+lenovo_zippo,phone,Lenovo,Z6 Pro,zippo
+lg_v410,tablet,LG,G Pad 7.0 (LTE),v410
+lg_v400,tablet,LG,G Pad 7.0 WiFi,v400
+lg_v480,tablet,LG,G Pad 8.0 (Wi-Fi),v480
+lg_v500,tablet,LG,G Pad 8.3,v500
+lg_v521,tablet,LG,G Pad X (T-Mobile),v521
+lg_d800,phone,LG,G2 (AT&T),d800
+lg_d803,phone,LG,G2 (Canadian),d803
+lg_d802,phone,LG,G2 (International),d802
+lg_d801,phone,LG,G2 (T-Mobile),d801
+lg_g2m,phone,LG,G2 Mini,g2m
+lg_d850,phone,LG,G3 (AT&T),d850
+lg_d852,phone,LG,G3 (Canada),d852
+lg_g3ds,phone,LG,G3 (dualsim),g3ds
+lg_d855,phone,LG,G3 (International),d855
+lg_f400,phone,LG,G3 (Korea),f400
+lg_ls990,phone,LG,G3 (Sprint),ls990
+lg_d851,phone,LG,G3 (T-Mobile),d851
+lg_vs985,phone,LG,G3 (Verizon),vs985
+lg_jagnm,phone,LG,G3 Beat,jagnm
+lg_jag3gds,phone,LG,G3 S,jag3gds
+lg_h815,phone,LG,G4 (International),h815
+lg_h811,phone,LG,G4 (T-Mobile),h811
+lg_h850,phone,LG,G5 (International),h850
+lg_h830,phone,LG,G5 (T-Mobile),h830
+lg_rs988,phone,LG,G5 (US Unlocked),rs988
+lg_h870,phone,LG,G6 (EU Unlocked),h870
+lg_h872,phone,LG,G6 (T-Mobile),h872
+lg_us997,phone,LG,G6 (US Unlocked),us997
+lg_m216,phone,LG,K10,m216
+lg_w7,phone,LG,L90,w7
+lg_w5,phone,LG,Optimus L70,w5
+lg_h910,phone,LG,V20 (AT&T),h910
+lg_h990,phone,LG,V20 (Global),h990
+lg_us996d,phone,LG,V20 (GSM Unlocked - DirtySanta),us996d
+lg_ls997,phone,LG,V20 (Sprint),ls997
+lg_h918,phone,LG,V20 (T-Mobile),h918
+lg_us996,phone,LG,V20 (US Unlocked),us996
+lg_vs995,phone,LG,V20 (Verizon),vs995
+lg_h932,phone,LG,V30 (T-Mobile),h932
+lg_joan,phone,LG,V30 (Unlocked),joan
+meizu_m1882,phone,Meizu,16th,m1882
+meizu_m1872,phone,Meizu,16X,m1872
+meizu_m1852,phone,Meizu,X8,m1852
+micromax_yogurt,phone,Micromax,IN Note 1 / IN1,yogurt
+motorola_maserati,phone,Motorola,DROID 4,maserati
+motorola_targa,phone,Motorola,DROID BIONIC,targa
+motorola_umts_spyder,phone,Motorola,DROID RAZR / RAZR MAXX (GSM),umts_spyder
+motorola_spyder,phone,Motorola,DROID RAZR/RAZR MAXX (CDMA),spyder
+motorola_racer,phone,Motorola,edge,racer
+motorola_berlin,phone,Motorola,edge 20,berlin
+motorola_pstar,phone,Motorola,edge 20 pro,pstar
+motorola_berlna,phone,Motorola,edge 2021,berlna
+motorola_dubai,phone,Motorola,edge 30,dubai
+motorola_tundra,phone,Motorola,Edge 30 Fusion,tundra
+motorola_nio,phone,Motorola,edge s / moto g100,nio
+motorola_condor,phone,Motorola,moto e,condor
+motorola_otus,phone,Motorola,moto e (2015),otus
+motorola_surnia,phone,Motorola,moto e LTE (2015),surnia
+motorola_rhannah,phone,Motorola,moto e5 plus (XT1924-1/2/4/5),rhannah
+motorola_ahannah,phone,Motorola,moto e5 plus (XT1924-3/9),ahannah
+motorola_hannah,phone,Motorola,moto e5 plus (XT1924-6/7/8),hannah
+motorola_falcon,phone,Motorola,moto g,falcon
+motorola_titan,phone,Motorola,moto g (2014),titan
+motorola_osprey,phone,Motorola,moto g (2015),osprey
+motorola_peregrine,phone,Motorola,moto g 4G,peregrine
+motorola_kiev,phone,Motorola,moto g 5G / one 5G ace,kiev
+motorola_nairo,phone,Motorola,moto g 5G plus / one 5G,nairo
+motorola_thea,phone,Motorola,moto g LTE (2014),thea
+motorola_sofiap,phone,Motorola,moto g Stylus,sofiap
+motorola_minsk,phone,Motorola,moto g Stylus (2021),minsk
+motorola_milan,phone,Motorola,moto g Stylus (2022),milan
+motorola_denver,phone,Motorola,moto g Stylus 5G,denver
+motorola_milanf,phone,Motorola,moto g Stylus 5G (2022),milanf
+motorola_genevn,phone,Motorola,moto g Stylus 5G (2023),genevn
+motorola_capri,phone,Motorola,moto g10,capri
+motorola_java,phone,Motorola,moto g20,java
+motorola_hawaii,phone,Motorola,moto g22,hawaii
+motorola_merlin,phone,Motorola,moto g3 turbo,merlin
+motorola_caprip,phone,Motorola,moto g30,caprip
+motorola_cofud,phone,Motorola,moto g31,cofud
+motorola_devon,phone,Motorola,moto g32,devon
+motorola_athene,phone,Motorola,moto g4,athene
+motorola_harpia,phone,Motorola,moto g4 play,harpia
+motorola_hanoip,phone,Motorola,moto g40 Fusion,hanoip
+motorola_corfu,phone,Motorola,moto g41,corfu
+motorola_hawao,phone,Motorola,moto g42,hawao
+motorola_cedric,phone,Motorola,moto g5,cedric
+motorola_potter,phone,Motorola,moto g5 plus,potter
+motorola_ibiza,phone,Motorola,moto g50,ibiza
+motorola_saipan,phone,Motorola,moto g50 5G,saipan
+motorola_cypfq,phone,Motorola,moto g51 5G,cypfq
+motorola_rhode,phone,Motorola,moto g52,rhode
+motorola_montana,phone,Motorola,moto g5s,montana
+motorola_sanders,phone,Motorola,moto g5s plus,sanders
+motorola_ali,phone,Motorola,Moto G6,ali
+motorola_evert,phone,Motorola,moto g6 plus,evert
+motorola_lisbon,phone,Motorola,moto g60S,lisbon
+motorola_rhodec,phone,Motorola,moto g62 5G,rhodec
+motorola_river,phone,Motorola,moto g7,river
+motorola_channel,phone,Motorola,moto g7 play,channel
+motorola_lake,phone,Motorola,moto g7 plus,lake
+motorola_ocean,phone,Motorola,moto g7 power,ocean
+motorola_corfur,phone,Motorola,moto g71 5G,corfur
+motorola_vicky,phone,Motorola,moto g72,vicky
+motorola_rhodep,phone,Motorola,moto g82,rhodep
+motorola_liber,phone,Motorola,Moto One Fusion +,liber
+motorola_parker,phone,Motorola,Moto One Zoom,parker
+motorola_ghost,phone,Motorola,moto x,ghost
+motorola_victara,phone,Motorola,moto x (2014),victara
+motorola_lux,phone,Motorola,moto x play,lux
+motorola_clark,phone,Motorola,moto x pure edition / style (2015),clark
+motorola_payton,phone,Motorola,moto x4,payton
+motorola_griffin,phone,Motorola,moto z,griffin
+motorola_addison,phone,Motorola,moto z play,addison
+motorola_nash,phone,Motorola,moto z2 force,nash
+motorola_albus,phone,Motorola,moto z2 play,albus
+motorola_messi,phone,Motorola,moto z3,messi
+motorola_beckham,phone,Motorola,moto z3 play,beckham
+motorola_deen,phone,Motorola,One,deen
+motorola_troika,phone,Motorola,one action,troika
+motorola_chef,phone,Motorola,one power,chef
+motorola_kane,phone,Motorola,one vision / p50,kane
+motorola_xt897,phone,Motorola,PHOTON Q 4G LTE,xt897
+nextbit_ether,phone,Nextbit,Robin,ether
+nokia_pl2,phone,Nokia,6.1 (2018),PL2
+nokia_drg,phone,Nokia,6.1 Plus,DRG
+nokia_nb1,phone,Nokia,8,NB1
+nokia_pnx_sprout,phone,Nokia,8.1,PNX_sprout
+nothing_spacewar,phone,Nothing,Phone (1),Spacewar
+nubia_tp1803,phone,Nubia,Mini 5G,TP1803
+nubia_nx651j,phone,Nubia,Play 5G,nx651j
+nubia_nx609j,phone,Nubia,Red Magic,nx609j
+nubia_nx659j,phone,Nubia,Red Magic 5G / Red Magic 5S,nx659j
+nubia_nx619j,phone,Nubia,Red Magic Mars,nx619j
+nubia_nx563j,phone,Nubia,Z17,nx563j
+nubia_nx606j,phone,Nubia,Z18,nx606j
+nubia_nx611j,phone,Nubia,Z18 Mini,nx611j
+nubia_nx512j,phone,Nubia,Z9 Max,nx512j
+nvidia_porg,tv,NVIDIA,Jetson (Nano / Nano 2GB) [Android TV],porg
+nvidia_porg_tab,tablet,NVIDIA,Jetson (Nano / Nano 2GB) [Tablet],porg_tab
+nvidia_quill,tv,NVIDIA,Jetson (TX2 / TX2 NX) [Android TV],quill
+nvidia_quill_tab,tablet,NVIDIA,Jetson (TX2 / TX2 NX) [Tablet],quill_tab
+nvidia_roth,phone,NVIDIA,Shield Portable,roth
+nvidia_shieldtablet,tablet,NVIDIA,Shield Tablet,shieldtablet
+nvidia_foster,tv,NVIDIA,Shield TV (2015 / 2015 Pro / 2017 / 2019 Pro) / Jetson TX1 [Android TV],foster
+nvidia_foster_tab,tv,NVIDIA,Shield TV (2015 / 2015 Pro / 2017 / 2019 Pro) / Jetson TX1 [Tablet],foster_tab
+nvidia_mdarcy,tv,NVIDIA,Shield TV 2019 Pro [Android TV],mdarcy
+nvidia_mdarcy_tab,tv,NVIDIA,Shield TV 2019 Pro [Tablet],mdarcy_tab
+oneplus_salami,phone,OnePlus,11 5G,salami
+oneplus_oneplus2,phone,OnePlus,2,oneplus2
+oneplus_oneplus3,phone,OnePlus,3 / 3T,oneplus3
+oneplus_cheeseburger,phone,OnePlus,5,cheeseburger
+oneplus_dumpling,phone,OnePlus,5T,dumpling
+oneplus_enchilada,phone,OnePlus,6,enchilada
+oneplus_fajita,phone,OnePlus,6T,fajita
+oneplus_guacamoleb,phone,OnePlus,7,guacamoleb
+oneplus_guacamole,phone,OnePlus,7 Pro,guacamole
+oneplus_hotdogb,phone,OnePlus,7T,hotdogb
+oneplus_hotdog,phone,OnePlus,7T Pro,hotdog
+oneplus_hotdogg,phone,OnePlus,7T Pro 5G Mclaren,hotdogg
+oneplus_instantnoodle,phone,OnePlus,8,instantnoodle
+oneplus_instantnoodlep,phone,OnePlus,8 Pro,instantnoodlep
+oneplus_kebab,phone,OnePlus,8T,kebab
+oneplus_lemonade,phone,OnePlus,9,lemonade
+oneplus_lemonadep,phone,OnePlus,9 Pro,lemonadep
+oneplus_lemonades,phone,OnePlus,9R,lemonades
+oneplus_martini,phone,OnePlus,9RT,martini
+oneplus_avicii,phone,OnePlus,Nord,avicii
+oneplus_denniz,phone,OnePlus,Nord 2 5G,denniz
+oneplus_dre,phone,OnePlus,Nord N200,dre
+oneplus_bacon,phone,OnePlus,One,bacon
+oneplus_onyx,phone,OnePlus,X,onyx
+oppo_f1f,phone,OPPO,F1 (International),f1f
+oppo_find7,phone,OPPO,Find 7a/s,find7
+oppo_n3,phone,OPPO,N3,n3
+oppo_r5,phone,OPPO,R5/R5s (International),r5
+oppo_r7plus,phone,OPPO,R7 Plus (International),r7plus
+oppo_r7sf,phone,OPPO,R7s (International),r7sf
+oppo_op4a89,phone,OPPO,Reno Ace,OP4A89
+pine64_dontbeevil,sbc,PINE64,Don't be evil (devkit),dontbeevil
+pine64_pinebook,sbc,PINE64,Pinebook,pinebook
+pine64_pinebookpro,sbc,PINE64,Pinebook Pro,pinebookpro
+pine64_pinenote,sbc,PINE64,PineNote,pinenote
+pine64_pinephone,sbc,PINE64,PinePhone,pinephone
+pine64_pinephonepro,sbc,PINE64,PinePhone Pro,pinephonepro
+pine64_pinetab,tablet,PINE64,PineTab,pinetab
+pine64_pinetab2,tablet,PINE64,PineTab 2,pinetab2
+pine64_quartz64a,sbc,PINE64,Quartz64 A,quartz64a
+pine64_quartz64b,sbc,PINE64,Quartz64 B,quartz64b
+pine64_rock64,sbc,PINE64,Rock64,rock64
+radxa_radxa0,sbc,Radxa,Zero,radxa0
+raspberry_pi,phone,Raspberry,Pi 1 & 2,pi
+raspberry_pi3,phone,Raspberry,Pi 3,pi3
+raspberry_pi4,phone,Raspberry,Pi 4,pi4
+raspberry_pi0,phone,Raspberry,Zero,pi0
+razer_cheryl,phone,Razer,Phone,cheryl
+razer_aura,phone,Razer,Phone 2,aura
+realme_cph1859,phone,Realme,1,CPH1859
+realme_r2p,phone,Realme,2 Pro,r2p
+realme_rmx1801,phone,Realme,2 Pro,RMX1801
+realme_rmx1851,phone,Realme,3 Pro,RMX1851
+realme_rmx1971,phone,Realme,5 Pro,RMX1971
+realme_rmx2061,phone,Realme,6 Pro,RMX2061
+realme_rm6785,phone,Realme,6/7,RM6785
+realme_rmx2170,phone,Realme,7 Pro,RMX2170
+realme_nashc,phone,Realme,8,nashc
+realme_spaced,phone,Realme,8i/Narzo 50,spaced
+realme_rmx3461,phone,Realme,9 SE 5G,RMX3461
+realme_rmx1941,phone,Realme,C2,RMX1941
+realme_rmx2020,phone,Realme,C3,RMX2020
+realme_porsche,phone,Realme,GT 2,porsche
+realme_lunaa,phone,Realme,GT Master Editon,lunaa
+realme_bitra,phone,Realme,GT NEO 2,bitra
+realme_rmx3371,phone,Realme,GT NEO 3T,RMX3371
+realme_rmp6768,tablet,Realme,Pad,RMP6768
+realme_rmx1831,phone,Realme,U1,RMX1831
+realme_rmx1901,phone,Realme,X,RMX1901
+realme_x2,phone,Realme,X2,x2
+realme_rmx1931,phone,Realme,X2 Pro,RMX1931
+realme_rmx2081,phone,Realme,X3,RMX2081
+realme_x3,phone,Realme,X3,x3
+realme_bladerunner,phone,Realme,X50 Pro 5G,bladerunner
+realme_bladerunner_48m,phone,Realme,X50 Pro 5G Play,bladerunner_48m
+realme_r5x,phone,Realme,X5x,r5x
+realme_rmx3031,phone,Realme,X7 Max 5G,RMX3031
+realme_rmx1921,phone,Realme,XT,RMX1921
+samsung_a10,phone,Samsung,Galaxy A10,a10
+samsung_a11q,phone,Samsung,Galaxy A11,a11q
+samsung_a12nseea,phone,Samsung,Galaxy A12,a12nseea
+samsung_a20,phone,Samsung,Galaxy A20,a20
+samsung_a20e,phone,Samsung,Galaxy A20e,a20e
+samsung_a20s,phone,Samsung,Galaxy A20s,a20s
+samsung_a21s,phone,Samsung,Galaxy A21s,a21s
+samsung_a22,phone,Samsung,Galaxy A22 4G,a22
+samsung_a22x,phone,Samsung,Galaxy A22 5G,a22x
+samsung_a3xelte,phone,Samsung,Galaxy A3 (2016),a3xelte
+samsung_a3y17lte,phone,Samsung,Galaxy A3 (2017),a3y17lte
+samsung_a30,phone,Samsung,Galaxy A30,a30
+samsung_a30s,phone,Samsung,Galaxy A30s,a30s
+samsung_a31,phone,Samsung,Galaxy A31,a31
+samsung_a32,phone,Samsung,Galaxy A32 4G,a32
+samsung_a32x,phone,Samsung,Galaxy A32 5G,a32x
+samsung_a33x,phone,Samsung,Galaxy A33 5G,a33x
+samsung_a40,phone,Samsung,Galaxy A40,a40
+samsung_a42xq,phone,Samsung,Galaxy A42 5G,a42xq
+samsung_a5xelte,phone,Samsung,Galaxy A5 (2016),a5xelte
+samsung_a5y17lte,phone,Samsung,Galaxy A5 (2017),a5y17lte
+samsung_a505f,phone,Samsung,Galaxy A50,a505f
+samsung_a51,phone,Samsung,Galaxy A51,a51
+samsung_a52q,phone,Samsung,Galaxy A52 4G,a52q
+samsung_a52sxq,phone,Samsung,Galaxy A52s 5G,a52sxq
+samsung_a53x,phone,Samsung,Galaxy A53 5G,a53x
+samsung_a54x,phone,Samsung,Galaxy A54 5G,a54x
+samsung_a60q,phone,Samsung,Galaxy A60,a60q
+samsung_a7xelte,phone,Samsung,Galaxy A7 (2016),a7xelte
+samsung_a7y17lte,phone,Samsung,Galaxy A7 (2017),a7y17lte
+samsung_a70q,phone,Samsung,Galaxy A70,a70q
+samsung_a70s,phone,Samsung,Galaxy A70s,a70s
+samsung_a71,phone,Samsung,Galaxy A71,a71
+samsung_a72q,phone,Samsung,Galaxy A72,a72q
+samsung_a73xq,phone,Samsung,Galaxy A73 5G,a73xq
+samsung_jackpotlte,phone,Samsung,Galaxy A8 2018,jackpotlte
+samsung_jackpot2lte,phone,Samsung,Galaxy A8+ 2018,jackpot2lte
+samsung_r1q,phone,Samsung,Galaxy A80,r1q
+samsung_r3q,phone,Samsung,Galaxy A90 5G,r3q
+samsung_f62,phone,Samsung,Galaxy F62/M62,f62
+samsung_ms013g,phone,Samsung,Galaxy Grand 2 Duos,ms013g
+samsung_j7elte,phone,Samsung,Galaxy J7 (2015),j7elte
+samsung_j7xelte,phone,Samsung,Galaxy J7 (2016),j7xelte
+samsung_m10lte,phone,Samsung,Galaxy M10,m10lte
+samsung_m20lte,phone,Samsung,Galaxy M20,m20lte
+samsung_m21,phone,Samsung,Galaxy M21,m21
+samsung_m30lte,phone,Samsung,Galaxy M30,m30lte
+samsung_m30s,phone,Samsung,Galaxy M30s,m30s
+samsung_m31,phone,Samsung,Galaxy M31,m31
+samsung_m31s,phone,Samsung,Galaxy M31s,m31s
+samsung_m32,phone,Samsung,Galaxy M32,m32
+samsung_m40dd,phone,Samsung,Galaxy M40,m40dd
+samsung_m51,phone,Samsung,Galaxy M51,m51
+samsung_m52xq,phone,Samsung,Galaxy M52 5G,m52xq
+samsung_d1q,phone,Samsung,Galaxy Note 10 (Snapdragon),d1q
+samsung_d2q,phone,Samsung,Galaxy Note 10+ (Snapdragon),d2q
+samsung_lt03lte,phone,Samsung,Galaxy Note 10.1 2014 (LTE),lt03lte
+samsung_n1awifi,phone,Samsung,Galaxy Note 10.1 Wi-Fi (2014),n1awifi
+samsung_t0lte,phone,Samsung,Galaxy Note 2 (LTE),t0lte
+samsung_ha3g,phone,Samsung,Galaxy Note 3 (International 3G),ha3g
+samsung_hlte,phone,Samsung,Galaxy Note 3 LTE (N9005/P),hlte
+samsung_hltechn,phone,Samsung,Galaxy Note 3 LTE (N9008V),hltechn
+samsung_hltekor,phone,Samsung,Galaxy Note 3 LTE (N900K/L/S),hltekor
+samsung_hltetmo,phone,Samsung,Galaxy Note 3 LTE (N900T/V/W8),hltetmo
+samsung_greatlte,phone,Samsung,Galaxy Note 8 (Exynos),greatlte
+samsung_n5100,phone,Samsung,Galaxy Note 8.0 (GSM),n5100
+samsung_n5120,phone,Samsung,Galaxy Note 8.0 (LTE),n5120
+samsung_n5110,phone,Samsung,Galaxy Note 8.0 (Wi-Fi),n5110
+samsung_crownlte,phone,Samsung,Galaxy Note 9,crownlte
+samsung_v1awifi,phone,Samsung,Galaxy Note Pro 12.2 Wi-Fi,v1awifi
+samsung_d1,phone,Samsung,Galaxy Note10,d1
+samsung_d2s,phone,Samsung,Galaxy Note10+,d2s
+samsung_d2x,phone,Samsung,Galaxy Note10+ 5G,d2x
+samsung_i9100,phone,Samsung,Galaxy S II,i9100
+samsung_d2att,phone,Samsung,Galaxy S III (AT&T),d2att
+samsung_i9300,phone,Samsung,Galaxy S III (International),i9300
+samsung_i9305,phone,Samsung,Galaxy S III (LTE / International),i9305
+samsung_d2spr,phone,Samsung,Galaxy S III (Sprint),d2spr
+samsung_d2tmo,phone,Samsung,Galaxy S III (T-Mobile),d2tmo
+samsung_d2vzw,phone,Samsung,Galaxy S III (Verizon),d2vzw
+samsung_s3ve3gds,phone,Samsung,Galaxy S III Neo (Dual SIM),s3ve3gds
+samsung_s3ve3gjv,phone,Samsung,Galaxy S III Neo (Samsung Camera),s3ve3gjv
+samsung_s3ve3gxx,phone,Samsung,Galaxy S III Neo (Sony Camera),s3ve3gxx
+samsung_beyond1lte,phone,Samsung,Galaxy S10,beyond1lte
+samsung_beyond1qlte,phone,Samsung,Galaxy S10 (Snapdragon),beyond1qlte
+samsung_beyondx,phone,Samsung,Galaxy S10 5G,beyondx
+samsung_beyond2lte,phone,Samsung,Galaxy S10+,beyond2lte
+samsung_beyond2qlte,phone,Samsung,Galaxy S10+ (Snapdragon),beyond2qlte
+samsung_beyond0lte,phone,Samsung,Galaxy S10e,beyond0lte
+samsung_beyond0qlte,phone,Samsung,Galaxy S10e (Snapdragon),beyond0qlte
+samsung_x1s,phone,Samsung,Galaxy S20 (5G),x1s
+samsung_z3s,phone,Samsung,Galaxy S20 Ultra,z3s
+samsung_y2s,phone,Samsung,Galaxy S20+ (5G),y2s
+samsung_jfltexx,phone,Samsung,"Galaxy S4 (GT-I9505, SGH-I337M, SGH-M919)",jfltexx
+samsung_jfltevzw,phone,Samsung,Galaxy S4 (SCH-I545),jfltevzw
+samsung_jfltespr,phone,Samsung,"Galaxy S4 (SCH-R970, SPH-L720)",jfltespr
+samsung_jflteatt,phone,Samsung,Galaxy S4 (SGH-I337),jflteatt
+samsung_jactivelte,phone,Samsung,Galaxy S4 Active,jactivelte
+samsung_ks01lte,phone,Samsung,Galaxy S4 LTE-A (GT-I9506),ks01lte
+samsung_serrano3gxx,phone,Samsung,Galaxy S4 Mini (International 3G),serrano3gxx
+samsung_serranodsdd,phone,Samsung,Galaxy S4 Mini (International Dual SIM),serranodsdd
+samsung_serranoltexx,phone,Samsung,Galaxy S4 Mini (International LTE),serranoltexx
+samsung_jfvelte,phone,Samsung,Galaxy S4 Value Edition (GT-I9515/L),jfvelte
+samsung_k3gxx,phone,Samsung,Galaxy S5 (International 3G),k3gxx
+samsung_klteactivexx,phone,Samsung,Galaxy S5 Active (G870F),klteactivexx
+samsung_kltechn,phone,Samsung,Galaxy S5 LTE (G9006V/8V),kltechn
+samsung_klteaio,phone,Samsung,Galaxy S5 LTE (G900AZ/S902L),klteaio
+samsung_klte,phone,Samsung,Galaxy S5 LTE (G900F/M/R4/R7/T/V/W8),klte
+samsung_kltedv,phone,Samsung,Galaxy S5 LTE (G900I/P),kltedv
+samsung_kltekor,phone,Samsung,Galaxy S5 LTE (G900K/L/S),kltekor
+samsung_kltekdi,phone,Samsung,Galaxy S5 LTE (SC-04F/SCL23),kltekdi
+samsung_kltechnduo,phone,Samsung,Galaxy S5 LTE Duos (G9006W/8W),kltechnduo
+samsung_klteduos,phone,Samsung,Galaxy S5 LTE Duos (G900FD/MD),klteduos
+samsung_lentislte,phone,Samsung,Galaxy S5 LTE-A,lentislte
+samsung_s5neolte,phone,Samsung,Galaxy S5 Neo,s5neolte
+samsung_kccat6,phone,Samsung,Galaxy S5 Plus,kccat6
+samsung_kltesprsports,phone,Samsung,Galaxy S5 Sport,kltesprsports
+samsung_zerofltexx,phone,Samsung,Galaxy S6,zerofltexx
+samsung_zeroltexx,phone,Samsung,Galaxy S6 Edge,zeroltexx
+samsung_herolte,phone,Samsung,Galaxy S7,herolte
+samsung_hero2lte,phone,Samsung,Galaxy S7 Edge,hero2lte
+samsung_dreamlte,phone,Samsung,Galaxy S8,dreamlte
+samsung_dream2lte,phone,Samsung,Galaxy S8+,dream2lte
+samsung_starlte,phone,Samsung,Galaxy S9,starlte
+samsung_starqltechn,phone,Samsung,Galaxy S9 (Snapdragon),starqltechn
+samsung_star2lte,phone,Samsung,Galaxy S9+,star2lte
+samsung_star2qltechn,phone,Samsung,Galaxy S9+ (Snapdragon),star2qltechn
+samsung_espresso3g,tablet,Samsung,Galaxy Tab 2 7.0 / Tab 2 10.1 (GSM),espresso3g
+samsung_espressowifi,tablet,Samsung,Galaxy Tab 2 7.0 / Tab 2 10.1 (Wi-Fi / Wi-Fi + IR),espressowifi
+samsung_lt02ltespr,tablet,Samsung,Galaxy Tab 3 7.0 LTE,lt02ltespr
+samsung_gtowifi,tablet,Samsung,Galaxy Tab A 8.0 (2019),gtowifi
+samsung_gtesqltespr,tablet,Samsung,Galaxy Tab E 8.0 LTE (Sprint),gtesqltespr
+samsung_gtelwifiue,tablet,Samsung,Galaxy Tab E 9.6 (WiFi),gtelwifiue
+samsung_n2awifi,tablet,Samsung,Galaxy Tab PRO 10.1,n2awifi
+samsung_mondrianwifi,tablet,Samsung,Galaxy Tab Pro 8.4,mondrianwifi
+samsung_chagalllte,tablet,Samsung,Galaxy Tab S 10.5 LTE,chagalllte
+samsung_chagallwifi,tablet,Samsung,Galaxy Tab S 10.5 Wi-Fi,chagallwifi
+samsung_klimtwifi,tablet,Samsung,Galaxy Tab S 8.4 Wi-Fi,klimtwifi
+samsung_gts28vewifi,tablet,Samsung,Galaxy Tab S2 8.0 Wi-Fi (2016),gts28vewifi
+samsung_gts210ltexx,tablet,Samsung,Galaxy Tab S2 9.7 (LTE),gts210ltexx
+samsung_gts210wifi,tablet,Samsung,Galaxy Tab S2 9.7 (Wi-Fi),gts210wifi
+samsung_gts210vewifi,tablet,Samsung,Galaxy Tab S2 9.7 Wi-Fi (2016),gts210vewifi
+samsung_gts4lv,tablet,Samsung,Galaxy Tab S5e (LTE),gts4lv
+samsung_gts4lvwifi,tablet,Samsung,Galaxy Tab S5e (Wi-Fi),gts4lvwifi
+samsung_gta4xl,tablet,Samsung,Galaxy Tab S6 Lite (LTE),gta4xl
+samsung_gta4xlwifi,tablet,Samsung,Galaxy Tab S6 Lite (Wi-Fi),gta4xlwifi
+samsung_gtaxlwifi,tablet,Samsung,Tab A6 (SM-T580),gtaxlwifi
+shift_axolotl,phone,SHIFT,SHIFT6mq,axolotl
+smartron_rimo02a,phone,Smartron,SRT.phone,rimo02a
+sony_pdx203,phone,Sony,Xperia 1 II,pdx203
+sony_pdx215,phone,Sony,Xperia 1 III,pdx215
+sony_kirin,phone,Sony,Xperia 10,kirin
+sony_mermaid,phone,Sony,Xperia 10 Plus,mermaid
+sony_pdx206,phone,Sony,Xperia 5 II,pdx206
+sony_pdx214,phone,Sony,Xperia 5 III,pdx214
+sony_taoshan,phone,Sony,Xperia L,taoshan
+sony_nicki,phone,Sony,Xperia M,nicki
+sony_huashan,phone,Sony,Xperia SP,huashan
+sony_mint,phone,Sony,Xperia T,mint
+sony_pollux,tablet,Sony,Xperia Tablet Z LTE,pollux
+sony_pollux_windy,tablet,Sony,Xperia Tablet Z Wi-Fi,pollux_windy
+sony_castor,tablet,Sony,Xperia Tablet Z2 LTE,castor
+sony_castor_windy,tablet,Sony,Xperia Tablet Z2 Wi-Fi,castor_windy
+sony_hayabusa,phone,Sony,Xperia TX,hayabusa
+sony_tsubasa,phone,Sony,Xperia V,tsubasa
+sony_suzu,phone,Sony,Xperia X,suzu
+sony_kugo,phone,Sony,Xperia X Compact,kugo
+sony_pioneer,phone,Sony,Xperia XA2,pioneer
+sony_voyager,phone,Sony,Xperia XA2 Plus,voyager
+sony_discovery,phone,Sony,Xperia XA2 Ultra,discovery
+sony_maple,phone,Sony,Xperia XZ Premium,maple
+sony_akari,phone,Sony,Xperia XZ2,akari
+sony_xz2c,phone,Sony,Xperia XZ2 Compact,xz2c
+sony_aurora,phone,Sony,Xperia XZ2 Premium,aurora
+sony_akatsuki,phone,Sony,Xperia XZ3,akatsuki
+sony_yuga,phone,Sony,Xperia Z,yuga
+sony_honami,phone,Sony,Xperia Z1,honami
+sony_sirius,phone,Sony,Xperia Z2,sirius
+sony_z3,phone,Sony,Xperia Z3,z3
+sony_z3c,phone,Sony,Xperia Z3 Compact,z3c
+sony_z3dual,phone,Sony,Xperia Z3 Dual,z3dual
+sony_ivy,phone,Sony,Xperia Z3+,ivy
+sony_karin,tablet,Sony,Xperia Z4 Tablet LTE,karin
+sony_karin_windy,tablet,Sony,Xperia Z4 Tablet WiFi,karin_windy
+sony_sumire,phone,Sony,Xperia Z5,sumire
+sony_suzuran,phone,Sony,Xperia Z5 Compact,suzuran
+sony_odin,phone,Sony,Xperia ZL,odin
+sony_dogo,phone,Sony,Xperia ZR,dogo
+teracube_v7101o,phone,Teracube,One,v7101o
+wileyfox_kipper,phone,Wileyfox,Storm,kipper
+wileyfox_crackling,phone,Wileyfox,Swift,crackling
+wileyfox_marmite,phone,Wileyfox,Swift 2/2+/2X,marmite
+wingtech_wt88047,phone,Wingtech,Redmi 2,wt88047
+xiaomi_lisa,phone,Xiaomi,11 Lite NE,lisa
+xiaomi_agate,phone,Xiaomi,11T,agate
+xiaomi_vili,phone,Xiaomi,11T Pro,vili
+xiaomi_cupid,phone,Xiaomi,12,cupid
+xiaomi_taoyao,phone,Xiaomi,12 Lite,taoyao
+xiaomi_zeus,phone,Xiaomi,12 Pro,zeus
+xiaomi_daumier,phone,Xiaomi,12 Pro Dimensity Edition,daumier
+xiaomi_mayfly,phone,Xiaomi,12S,mayfly
+xiaomi_unicorn,phone,Xiaomi,12S Pro,unicorn
+xiaomi_thor,phone,Xiaomi,12S Ultra,thor
+xiaomi_plato,phone,Xiaomi,12T,plato
+xiaomi_diting,phone,Xiaomi,12T Pro/Redmi K50 Ultra,diting
+xiaomi_psyche,phone,Xiaomi,12X,psyche
+xiaomi_fuxi,phone,Xiaomi,13,fuxi
+xiaomi_ziyi,phone,Xiaomi,13 Lite,ziyi
+xiaomi_nuwa,phone,Xiaomi,13 Pro,nuwa
+xiaomi_ishtar,phone,Xiaomi,13 Ultra,ishtar
+xiaomi_corot,phone,Xiaomi,13T Pro / Redmi K60 Ultra,corot
+xiaomi_katyusha,phone,Xiaomi,Black Shark 5,katyusha
+xiaomi_patriot,phone,Xiaomi,Black Shark 5 Pro,patriot
+xiaomi_mona,phone,Xiaomi,Civi,mona
+xiaomi_yuechu,phone,Xiaomi,Civi 3,yuechu
+xiaomi_umi,phone,Xiaomi,Mi 10,umi
+xiaomi_monet,phone,Xiaomi,Mi 10 Lite 5G,monet
+xiaomi_vangogh,phone,Xiaomi,Mi 10 Lite Zoom,vangogh
+xiaomi_cmi,phone,Xiaomi,Mi 10 Pro,cmi
+xiaomi_cas,phone,Xiaomi,Mi 10 Ultra,cas
+xiaomi_thyme,phone,Xiaomi,Mi 10S,thyme
+xiaomi_apollo,phone,Xiaomi,Mi 10T / Mi 10T Pro / Redmi K30S Ultra,apollo
+xiaomi_gauguin,phone,Xiaomi,Mi 10T Lite / Mi 10i / Redmi Note 9 Pro 5G,gauguin
+xiaomi_venus,phone,Xiaomi,Mi 11,venus
+xiaomi_courbet,phone,Xiaomi,Mi 11 Lite 4G,courbet
+xiaomi_renoir,phone,Xiaomi,Mi 11 Lite 5G,renoir
+xiaomi_mars,phone,Xiaomi,Mi 11 Pro,mars
+xiaomi_star,phone,Xiaomi,Mi 11 Ultra,star
+xiaomi_cancro,phone,Xiaomi,Mi 3 / Mi 4,cancro
+xiaomi_libra,phone,Xiaomi,Mi 4c,libra
+xiaomi_gemini,phone,Xiaomi,Mi 5,gemini
+xiaomi_capricorn,phone,Xiaomi,Mi 5s,capricorn
+xiaomi_natrium,phone,Xiaomi,Mi 5s Plus,natrium
+xiaomi_tiffany,phone,Xiaomi,Mi 5X,tiffany
+xiaomi_sagit,phone,Xiaomi,Mi 6,sagit
+xiaomi_wayne,phone,Xiaomi,Mi 6X,wayne
+xiaomi_dipper,phone,Xiaomi,Mi 8,dipper
+xiaomi_ursa,phone,Xiaomi,Mi 8 Explorer Edition,ursa
+xiaomi_platina,phone,Xiaomi,Mi 8 Lite,platina
+xiaomi_equuleus,phone,Xiaomi,Mi 8 Pro,equuleus
+xiaomi_sirius,phone,Xiaomi,Mi 8 SE,sirius
+xiaomi_xmsirius,phone,Xiaomi,Mi 8 SE,xmsirius
+xiaomi_cepheus,phone,Xiaomi,Mi 9,cepheus
+xiaomi_crux,phone,Xiaomi,Mi 9 Pro,crux
+xiaomi_grus,phone,Xiaomi,Mi 9 SE,grus
+xiaomi_tissot,phone,Xiaomi,Mi A1,tissot
+xiaomi_jasmine_sprout,phone,Xiaomi,Mi A2,jasmine_sprout
+xiaomi_daisy,phone,Xiaomi,Mi A2 Lite,daisy
+xiaomi_laurel_sprout,phone,Xiaomi,Mi A3,laurel_sprout
+xiaomi_pyxis,phone,Xiaomi,Mi CC 9 / Mi 9 Lite,pyxis
+xiaomi_laurus,phone,Xiaomi,Mi CC 9e,laurus
+xiaomi_vela,phone,Xiaomi,Mi CC9 Meitu Edition,vela
+xiaomi_hydrogen,phone,Xiaomi,Mi Max,hydrogen
+xiaomi_oxygen,phone,Xiaomi,Mi Max 2,oxygen
+xiaomi_nitrogen,phone,Xiaomi,Mi Max 3,nitrogen
+xiaomi_lithium,phone,Xiaomi,Mi MIX,lithium
+xiaomi_chiron,phone,Xiaomi,Mi MIX 2,chiron
+xiaomi_polaris,phone,Xiaomi,Mi MIX 2S,polaris
+xiaomi_perseus,phone,Xiaomi,Mi Mix 3,perseus
+xiaomi_andromeda,phone,Xiaomi,Mi Mix 3 5G,andromeda
+xiaomi_tucana,phone,Xiaomi,Mi Note 10,tucana
+xiaomi_toco,phone,Xiaomi,Mi Note 10 Lite,toco
+xiaomi_scorpio,phone,Xiaomi,Mi Note 2,scorpio
+xiaomi_jason,phone,Xiaomi,Mi Note 3,jason
+xiaomi_clover,tablet,Xiaomi,Mi Pad 4,clover
+xiaomi_odin,phone,Xiaomi,MIX 4,odin
+xiaomi_babylon,phone,Xiaomi,Mix Fold 3,babylon
+xiaomi_nabu,tablet,Xiaomi,Pad 5,nabu
+xiaomi_elish,tablet,Xiaomi,Pad 5 Pro,elish
+xiaomi_pipa,tablet,Xiaomi,Pad 6,pipa
+xiaomi_yudi,tablet,Xiaomi,Pad 6 Max 14,yudi
+xiaomi_liuqin,tablet,Xiaomi,Pad 6 Pro,liuqin
+xiaomi_earth,phone,Xiaomi,POCO C55 / Redmi 12C,earth
+xiaomi_beryllium,phone,Xiaomi,Poco F1,beryllium
+xiaomi_lmi,phone,Xiaomi,POCO F2 Pro / Redmi K30 Pro / Redmi K30 Pro Zoom Edition,lmi
+xiaomi_alioth,phone,Xiaomi,Poco F3,alioth
+xiaomi_ares,phone,Xiaomi,POCO F3 GT,ares
+xiaomi_munch,phone,Xiaomi,POCO F4,munch
+xiaomi_ingres,phone,Xiaomi,POCO F4 GT/Redmi K50G,ingres
+xiaomi_marble,phone,Xiaomi,POCO F5 / Redmi Note 12 Turbo,marble
+xiaomi_mondrian,phone,Xiaomi,POCO F5 Pro / Redmi K60,mondrian
+xiaomi_gram,phone,Xiaomi,Poco M2 Pro,gram
+xiaomi_miatoll,phone,Xiaomi,POCO M2 Pro / Redmi Note 9S / Redmi Note 9 Pro / Redmi Note 9 Pro Max / Redmi Note 10 Lite,miatoll
+xiaomi_chime,phone,Xiaomi,POCO M3/Redmi 9T/Redmi 9T NFC/Redmi 9 Power,chime
+xiaomi_fleur,phone,Xiaomi,POCO M4 Pro / Redmi Note 11S,fleur
+xiaomi_evergreen,phone,Xiaomi,POCO M4 Pro 5G,evergreen
+xiaomi_stone,phone,Xiaomi,POCO M5 / Redmi 11 Prime,stone
+xiaomi_phoenix,phone,Xiaomi,POCO X2,phoenix
+xiaomi_surya,phone,Xiaomi,POCO X3,surya
+xiaomi_chopin,phone,Xiaomi,POCO X3 GT,chopin
+xiaomi_vayu,phone,Xiaomi,POCO X3 Pro,vayu
+xiaomi_xaga,phone,Xiaomi,POCO X4 GT / Redmi Note 11T Pro / Redmi Note 11T Pro+ / Redmi K50i,xaga
+xiaomi_veux,phone,Xiaomi,POCO X4 Pro 5G / Redmi Note 11 Pro 5G,veux
+xiaomi_moonstone,phone,Xiaomi,POCO X5 5G,moonstone
+xiaomi_redwood,phone,Xiaomi,POCO X5 Pro 5G/Redmi Note 12 Pro Speed,redwood
+xiaomi_fog,phone,Xiaomi,Redmi 10/10C/10 Power,fog
+xiaomi_atom,phone,Xiaomi,Redmi 10X 5G,atom
+xiaomi_bomb,phone,Xiaomi,Redmi 10X Pro,bomb
+xiaomi_fire,phone,Xiaomi,Redmi 12,fire
+xiaomi_armani,phone,Xiaomi,Redmi 1S,armani
+xiaomi_ido,phone,Xiaomi,Redmi 3/Prime,ido
+xiaomi_land,phone,Xiaomi,Redmi 3S / 3X,land
+xiaomi_mi8937,phone,Xiaomi,Redmi 3S / 3X / 4 (India) / 4X / [Note 5A / Y1 - Prime],Mi8937
+xiaomi_santoni,phone,Xiaomi,Redmi 4(X),santoni
+xiaomi_mi8917,phone,Xiaomi,Redmi 4A / 5A / [Note 5A / Y1 - Lite],Mi8917
+xiaomi_rosy,phone,Xiaomi,Redmi 5,rosy
+xiaomi_vince,phone,Xiaomi,Redmi 5 Plus,vince
+xiaomi_certus,phone,Xiaomi,Redmi 6 / Redmi 6a,certus
+xiaomi_sakura,phone,Xiaomi,Redmi 6 Pro,sakura
+xiaomi_onclite,phone,Xiaomi,Redmi 7,onclite
+xiaomi_pine,phone,Xiaomi,Redmi 7A,pine
+xiaomi_mi439,phone,Xiaomi,Redmi 7A / 8 / 8A / 8A Dual,Mi439
+xiaomi_olive,phone,Xiaomi,Redmi 8,olive
+xiaomi_lancelot,phone,Xiaomi,Redmi 9,lancelot
+xiaomi_lava,phone,Xiaomi,Redmi 9 Prime / Poco M2,lava
+xiaomi_dandelion,phone,Xiaomi,Redmi 9A / Redmi 10A / Redmi 10A Sport / Redmi 9AT / Redmi 9i / Redmi 9A Sport,dandelion
+xiaomi_angelica,phone,Xiaomi,Redmi 9C / Redmi 9C NFC,angelica
+xiaomi_juice,phone,Xiaomi,Redmi 9T / Redmi 9 Power / Redmi Note 9 4G and POCO M3,juice
+xiaomi_davinci,phone,Xiaomi,Redmi K20 / Mi 9T,davinci
+xiaomi_raphael,phone,Xiaomi,Redmi K20 Pro,raphael
+xiaomi_picasso,phone,Xiaomi,Redmi K30 5G,picasso
+xiaomi_picasso_48m,phone,Xiaomi,Redmi K30i 5G,picasso_48m
+xiaomi_haydn,phone,Xiaomi,Redmi K40 Pro / Redmi K40 Pro+ / Mi 11X Pro / Mi 11i,haydn
+xiaomi_rubens,phone,Xiaomi,Redmi K50,rubens
+xiaomi_matisse,phone,Xiaomi,Redmi K50 Pro / POCO F4 Pro,matisse
+xiaomi_socrates,phone,Xiaomi,Redmi K60 Pro,socrates
+xiaomi_rembrandt,phone,Xiaomi,Redmi K60E,rembrandt
+xiaomi_mojito,phone,Xiaomi,Redmi Note 10,mojito
+xiaomi_camellia,phone,Xiaomi,Redmi Note 10 5G / Redmi Note 11SE / Redmi Note 10T 5G / POCO M3 Pro 5G,camellia
+xiaomi_sweet,phone,Xiaomi,Redmi Note 10 Pro,sweet
+xiaomi_rosemary,phone,Xiaomi,Redmi Note 10S/11 SE/POCO M5S,rosemary
+xiaomi_spes,phone,Xiaomi,Redmi Note 11,spes
+xiaomi_evergo,phone,Xiaomi,Redmi Note 11 5G / Redmi Note 11T 5G,evergo
+xiaomi_vida,phone,Xiaomi,Redmi Note 11 Pro 4G,vida
+xiaomi_opal,phone,Xiaomi,Redmi Note 11S 5G,opal
+xiaomi_tapas,phone,Xiaomi,Redmi Note 12,tapas
+xiaomi_sunstone,phone,Xiaomi,Redmi Note 12 5G/Note 12R Pro,sunstone
+xiaomi_topaz,phone,Xiaomi,Redmi Note 12 NFC,topaz
+xiaomi_ruby,phone,Xiaomi,Redmi Note 12 Pro,ruby
+xiaomi_sky,phone,Xiaomi,Redmi Note 12R / Redmi 12 5G / POCO M6 Pro 5G,sky
+xiaomi_sea,phone,Xiaomi,Redmi Note 12S,sea
+xiaomi_kenzo,phone,Xiaomi,Redmi Note 3,kenzo
+xiaomi_mido,phone,Xiaomi,Redmi Note 4,mido
+xiaomi_whyred,phone,Xiaomi,Redmi Note 5 Pro,whyred
+xiaomi_ulysse,phone,Xiaomi,Redmi Note 5A,ulysse
+xiaomi_tulip,phone,Xiaomi,Redmi Note 6 Pro,tulip
+xiaomi_lavender,phone,Xiaomi,Redmi Note 7,lavender
+xiaomi_violet,phone,Xiaomi,Redmi Note 7 Pro,violet
+xiaomi_biloba,phone,Xiaomi,Redmi Note 8 (2021),biloba
+xiaomi_ginkgo,phone,Xiaomi,Redmi Note 8 / 8T,ginkgo
+xiaomi_begonia,phone,Xiaomi,Redmi Note 8 Pro,begonia
+xiaomi_merlin,phone,Xiaomi,Redmi Note 9,merlin
+xiaomi_joyeuse,phone,Xiaomi,Redmi Note 9 Pro,joyeuse
+xiaomi_yunluo,tablet,Xiaomi,Redmi Pad,yunluo
+xiaomi_xun,tablet,Xiaomi,Redmi Pad SE,xun
+xiaomi_ysl,phone,Xiaomi,Redmi S2,ysl
+yandex_amber,phone,Yandex,Phone,Amber
+yu_jalebi,phone,YU,Yunique,jalebi
+yu_lettuce,phone,YU,Yuphoria,lettuce
+yu_tomato,phone,YU,Yureka / Yureka Plus,tomato
+zte_jasmine,phone,ZTE,AT&T Trek 2 HD,jasmine
+zte_axon7,phone,ZTE,Axon 7,axon7
+zte_tulip,phone,ZTE,Axon 7 Mini,tulip
+zuk_ham,phone,ZUK,Z1,ham
+zuk_z2_plus,phone,ZUK,Z2 Plus,z2_plus
+zuk_z2_row,phone,ZUK,Z2 Pro,z2_row

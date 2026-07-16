@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+APP_PORT="${PORT:-${STREAMLIT_SERVER_PORT:-8501}}"
+
+export STREAMLIT_SERVER_PORT="$APP_PORT"
+export STREAMLIT_SERVER_ADDRESS="${STREAMLIT_SERVER_ADDRESS:-0.0.0.0}"
+export STREAMLIT_SERVER_HEADLESS="${STREAMLIT_SERVER_HEADLESS:-true}"
+export STREAMLIT_BROWSER_GATHER_USAGE_STATS="${STREAMLIT_BROWSER_GATHER_USAGE_STATS:-false}"
+
+exec streamlit run app.py \
+    --server.address="$STREAMLIT_SERVER_ADDRESS" \
+    --server.port="$STREAMLIT_SERVER_PORT" \
+    --server.headless="$STREAMLIT_SERVER_HEADLESS" \
+    --server.enableCORS="${STREAMLIT_SERVER_ENABLE_CORS:-false}" \
+    --server.enableXsrfProtection="${STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION:-false}" \
+    --browser.gatherUsageStats="$STREAMLIT_BROWSER_GATHER_USAGE_STATS"

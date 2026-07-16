@@ -1,0 +1,108 @@
+stages:
+  - lint
+  - format
+  - type_check
+  - test
+  - coverage
+  - quality
+  - security
+  - mirror
+
+default:
+  image: python:3.13-slim
+  tags:
+    - custom-rom-macos
+  before_script:
+    - export PATH="/opt/homebrew/bin:$PATH"
+    - python3 -m venv .ci-venv
+    - .ci-venv/bin/python -m pip install --upgrade pip
+    - .ci-venv/bin/pip install -r requirements-dev.txt
+    - export PATH="$CI_PROJECT_DIR/.ci-venv/bin:$PATH"
+
+lint:
+  stage: lint
+  script:
+    - ruff check .
+    - pylint app.py tests
+    - flake8 app.py tests
+
+format:
+  stage: format
+  script:
+    - ruff format --check .
+    - pyupgrade --py313-plus app.py tests/*.py
+
+type_check:
+  stage: type_check
+  script:
+    - mypy app.py tests
+
+quality:
+  stage: quality
+  script:
+    - vulture app.py tests --min-confidence 90
+
+test:
+  stage: test
+  script:
+    - pytest --no-cov
+
+coverage:
+  stage: coverage
+  script:
+    - pytest --cov=app --cov-report=term-missing --cov-fail-under=55
+
+security:
+  stage: security
+  script:
+    - bandit -q -r app.py
+    - pip-audit -r requirements.txt
+
+semgrep:
+  stage: security
+  image:
+    name: semgrep/semgrep:latest
+    entrypoint: [""]
+  before_script: []
+  script:
+    - semgrep --config .semgrep.yml --error --metrics off
+
+gitleaks:
+  stage: security
+  image:
+    name: zricethezav/gitleaks:latest
+    entrypoint: [""]
+  before_script: []
+  script:
+    - gitleaks detect --source . --no-git --redact --config .gitleaks.toml
+
+changelog:
+  stage: quality
+  image:
+    name: orhunp/git-cliff:latest
+    entrypoint: [""]
+  before_script: []
+  script:
+    - git-cliff --config cliff.toml --unreleased --strip header
+
+mirror_to_github:
+  stage: mirror
+  variables:
+    GIT_DEPTH: "0"
+    GITHUB_MIRROR_URL: "https://github.com/ArchLovesGames/Android-Custom-Rom.git"
+  before_script:
+    - git --version
+  script:
+    - test -n "$GITHUB_MIRROR_TOKEN"
+    - git remote set-url origin "$CI_REPOSITORY_URL"
+    - git fetch origin '+refs/heads/*:refs/remotes/origin/*' --prune --tags
+    - git remote set-head origin -d || true
+    - GITHUB_AUTH="$(printf 'x-access-token:%s' "$GITHUB_MIRROR_TOKEN" | base64)"
+    - >-
+      git -c http.extraHeader="Authorization: Basic $GITHUB_AUTH" push --prune
+      "$GITHUB_MIRROR_URL" '+refs/remotes/origin/*:refs/heads/*'
+    - >-
+      git -c http.extraHeader="Authorization: Basic $GITHUB_AUTH" push --prune
+      "$GITHUB_MIRROR_URL" '+refs/tags/*:refs/tags/*'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'

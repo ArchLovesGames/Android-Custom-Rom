@@ -1,0 +1,80 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-lint
+        name: ruff lint
+        entry: .venv/bin/ruff check
+        language: system
+        types_or: [python, pyi]
+
+      - id: ruff-format
+        name: ruff format
+        entry: .venv/bin/ruff format --check
+        language: system
+        types_or: [python, pyi]
+
+      - id: pyupgrade
+        name: pyupgrade syntax modernization
+        entry: .venv/bin/pyupgrade --py313-plus
+        language: system
+        types_or: [python, pyi]
+
+      - id: mypy
+        name: mypy type check
+        entry: .venv/bin/mypy app.py tests
+        language: system
+        pass_filenames: false
+
+      - id: bandit
+        name: bandit security scan
+        entry: .venv/bin/bandit -q -r app.py
+        language: system
+        pass_filenames: false
+
+      - id: detect-secrets
+        name: detect-secrets scan
+        entry: scripts/secret_scan.sh
+        language: system
+        pass_filenames: false
+
+      - id: pip-audit
+        name: dependency audit
+        entry: scripts/dependency_audit.sh
+        language: system
+        pass_filenames: false
+
+      - id: pylint
+        name: pylint quality check
+        entry: .venv/bin/pylint app.py tests
+        language: system
+        pass_filenames: false
+
+      - id: flake8
+        name: flake8 lint
+        entry: .venv/bin/flake8 app.py tests
+        language: system
+        pass_filenames: false
+
+      - id: vulture
+        name: vulture dead-code check
+        entry: .venv/bin/vulture app.py tests --min-confidence 90
+        language: system
+        pass_filenames: false
+
+      - id: semgrep
+        name: semgrep static analysis
+        entry: scripts/semgrep_scan.sh
+        language: system
+        pass_filenames: false
+
+      - id: python-syntax
+        name: python syntax check
+        entry: .venv/bin/python -m compileall app.py tests
+        language: system
+        pass_filenames: false
+
+      - id: pytest
+        name: pytest with coverage
+        entry: .venv/bin/python -m pytest
+        language: system
+        pass_filenames: false
